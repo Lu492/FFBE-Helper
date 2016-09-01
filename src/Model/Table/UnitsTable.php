@@ -1,10 +1,10 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Search\Manager;
 
 /**
  * Units Model
@@ -43,6 +43,7 @@ class UnitsTable extends Table
         $this->primaryKey('id');
 
         $this->addBehavior('Timestamp');
+        $this->addBehavior('Search.Search');
 
         $this->belongsTo('Origins', [
             'foreignKey' => 'origin_id',
@@ -142,12 +143,37 @@ class UnitsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        // TODO: These rules should be run in edit, but not in add
-//        $rules->add($rules->existsIn(['origin_id'], 'Origins'));
-//        $rules->add($rules->existsIn(['race_id'], 'Races'));
-//        $rules->add($rules->existsIn(['job_id'], 'Jobs'));
-//        $rules->add($rules->existsIn(['gender_id'], 'Genders'));
+        $rules->addUpdate($rules->existsIn(['origin_id'], 'Origins'));
+        $rules->addUpdate($rules->existsIn(['race_id'], 'Races'));
+        $rules->addUpdate($rules->existsIn(['job_id'], 'Jobs'));
+        $rules->addUpdate($rules->existsIn(['gender_id'], 'Genders'));
 
         return $rules;
     }
+
+    /**
+     * Configure the search parameters
+     *
+     * @return \Search\Manager;
+     */
+    public function searchConfiguration()
+    {
+        $search = new Manager($this);
+
+        $search
+            ->like('name')
+            ->value('game', [
+                'field' => 'origin_id'
+            ])
+            ->value('job', [
+                'field' => 'job_id'
+            ])
+            ->compare('min_rarity', [
+                'field' => 'base_rarity',
+            ])
+            ->compare('max_rarity');
+
+        return $search;
+    }
+
 }
