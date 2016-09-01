@@ -16,6 +16,7 @@ nav {
   margin: 20px 0 0 0; }
 
 footer {
+  margin-top: 15px;
   padding: 10px 0;
   background-color: #333;
   color: #ccc; }
@@ -49,5 +50,8 @@ span.label.role {
 #unitsearchform div.submit {
   float: left;
   margin: 0 15px 0; }
+
+div.alert {
+  margin: 10px; }
 
 /*# sourceMappingURL=common.css.map */
