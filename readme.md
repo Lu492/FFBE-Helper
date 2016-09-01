@@ -7,8 +7,9 @@ http://finalfantasyexvius.com
 This application is far from finished, and still needs work, so use it at your own risk.
 
 ## Todo
-* -Finish data entry-
-* Filter and sorting units
+* ~~Finish data entry~~
+* ~~Filter and sorting units~~
 * Party builder
 * Extra unit information
 * Unit sprites
+* Store which units you have aquired
