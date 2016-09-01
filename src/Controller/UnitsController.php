@@ -31,7 +31,8 @@ class UnitsController extends AppController
                 'Races',
                 'Jobs',
                 'Genders',
-                'Origins'
+                'Origins',
+                'Specialisations'
             ]);
 
         if (empty($this->request->query['sort'])) {
@@ -41,6 +42,7 @@ class UnitsController extends AppController
         $this->set('units', $this->paginate($query, ['limit' => 150]));
         $this->set('origins', $this->Units->Origins->find('list', ['keyField' => 'id', 'valueField' => 'shortname'])->order('shortname'));
         $this->set('jobs', $this->Units->Jobs->find('list')->order('name'));
+        $this->set('specialisations', $this->Units->Specialisations->find('list')->order('name'));
     }
 
 }
