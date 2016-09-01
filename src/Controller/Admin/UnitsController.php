@@ -10,6 +10,15 @@ use App\Controller\AppController;
  */
 class UnitsController extends AppController
 {
+    /**
+     * Initialize the controller
+     */
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('Search.Prg', ['actions' => ['index']]);
+    }
 
     /**
      * Index method
@@ -18,10 +27,10 @@ class UnitsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Origins', 'Races', 'Jobs', 'Genders']
-        ];
-        $units = $this->paginate($this->Units);
+        $query = $this->Units->find('search', ['search' => $this->request->query])
+            ->contain(['Origins', 'Races', 'Jobs', 'Genders']);
+
+        $units = $this->paginate($query);
 
         $this->set(compact('units'));
     }

@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -161,7 +162,10 @@ class UnitsTable extends Table
         $search = new Manager($this);
 
         $search
-            ->like('name')
+            ->like('name', [
+                'before' => true,
+                'after' => true
+            ])
             ->value('game', [
                 'field' => 'origin_id'
             ])
@@ -171,9 +175,33 @@ class UnitsTable extends Table
             ->compare('min_rarity', [
                 'field' => 'base_rarity',
             ])
-            ->compare('max_rarity');
+            ->compare('max_rarity')
+            ->finder('role', [
+                'finder' => 'bySpecialisation'
+            ]);
 
         return $search;
+    }
+
+    /**
+     * Find units based on their specialisation
+     *
+     * @param \Cake\ORM\Query $query
+     * @param array $options
+     * @return \Cake\ORM\Query
+     */
+    public function findBySpecialisation(Query $query, array $options)
+    {
+        if (!empty($options['role'])) {
+            $query->contain(['Specialisations']);
+            $query->matching('Specialisations', function ($q) use ($options) {
+                return $q->where([
+                    'Specialisations.id' => $options['role']
+                ]);
+            });
+        }
+
+        return $query;
     }
 
 }

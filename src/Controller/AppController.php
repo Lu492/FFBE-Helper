@@ -44,4 +44,20 @@ class AppController extends Controller
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
     }
+
+    /**
+     * beforeFilter callback
+     *
+     * @param \Cake\Event\Event $event
+     *
+     * @return void
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        if (!empty($this->request->prefix) && $this->request->prefix === 'admin') {
+            $this->viewBuilder()->layout('admin');
+        }
+    }
 }

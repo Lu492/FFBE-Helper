@@ -224,3 +224,4 @@ if (Configure::read('debug')) {
 
 Plugin::load('Migrations');
 Plugin::load('Search');
+Plugin::load('BootstrapUI');

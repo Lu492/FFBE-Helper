@@ -1,13 +1,3 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Units'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Origins'), ['controller' => 'Origins', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Origin'), ['controller' => 'Origins', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Specialisations'), ['controller' => 'Specialisations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Specialisation'), ['controller' => 'Specialisations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="units form large-9 medium-8 columns content">
     <?= $this->Form->create($unit) ?>
     <fieldset>
@@ -19,14 +9,34 @@
         echo $this->Form->input('base_rarity', ['type' => 'number', 'min' => 1, 'max' => 5]);
         echo $this->Form->input('max_rarity', ['type' => 'number', 'min' => 1, 'max' => 5]);
         echo $this->Form->input('trust_master_reward');
-        echo $this->Form->input('race_id', ['empty' => 'Select race']);
-        echo $this->Form->input('Races.name', ['label' => 'Or add new Race', 'required' => false]);
-        echo $this->Form->input('gender_id', ['empty' => 'Select gender']);
-        echo $this->Form->input('Genders.name', ['label' => 'Or add new Gender', 'required' => false]);
-        echo $this->Form->input('job_id', ['empty' => 'Select job']);
-        echo $this->Form->input('Jobs.name', ['label' => 'Or add new Job', 'required' => false]);
-        echo $this->element('Admin/unit-stats');
+
         ?>
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->Form->input('race_id', ['empty' => 'Select race']);?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->input('Races.name', ['label' => 'Or add new Race', 'required' => false]);?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->Form->input('gender_id', ['empty' => 'Select gender']);?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->input('Genders.name', ['label' => 'Or add new Gender', 'required' => false]);?>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <?= $this->Form->input('job_id', ['empty' => 'Select job']);?>
+            </div>
+            <div class="col-md-6">
+                <?= $this->Form->input('Jobs.name', ['label' => 'Or add new Job', 'required' => false]);?>
+            </div>
+        </div>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

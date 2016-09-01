@@ -1,16 +1,21 @@
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('New Unit'), ['action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Origins'), ['controller' => 'Origins', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Origin'), ['controller' => 'Origins', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Specialisations'), ['controller' => 'Specialisations', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Specialisation'), ['controller' => 'Specialisations', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="units index large-9 medium-8 columns content">
+<div class="units index ">
     <h3><?= __('Units') ?></h3>
-    <table cellpadding="0" cellspacing="0">
+
+    <div class="buttons">
+        <?= $this->Html->link('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;' . __('New Unit'), ['action' => 'add'], ['class' => 'btn btn-info', 'escape' => false]) ?>
+    </div>
+
+    <div class="search">
+        <?php
+        echo $this->Form->create(null);
+        echo $this->Form->input('name');
+        echo $this->Form->submit('Filter', ['class' => 'btn btn-primary']);
+        echo $this->Html->link('Reset', ['action' => 'index'], ['class' => 'btn btn-default']);
+        echo $this->Form->end();
+        ?>
+    </div>
+
+    <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>
                 <th><?= $this->Paginator->sort('id') ?></th>
@@ -66,9 +71,7 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
         </ul>
         <p><?= $this->Paginator->counter() ?></p>
     </div>
