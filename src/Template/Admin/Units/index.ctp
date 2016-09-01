@@ -39,10 +39,10 @@
             <tr>
                 <td><?= $this->Number->format($unit->id) ?></td>
                 <td><?= h($unit->name) ?></td>
-                <td><?= $unit->has('origin') ? $this->Html->link($unit->origin->name, ['controller' => 'Origins', 'action' => 'view', $unit->origin->id]) : '' ?></td>
-                <td><?= $this->Number->format($unit->race_id) ?></td>
-                <td><?= $this->Number->format($unit->job_id) ?></td>
-                <td><?= $this->Number->format($unit->gender_id) ?></td>
+                <td><?= $unit->origin->shortname ?></td>
+                <td><?= $unit->race->name ?></td>
+                <td><?= $unit->job->name ?></td>
+                <td><?= $unit->gender->name ?></td>
                 <td><?= $this->Number->format($unit->base_rarity) ?></td>
                 <td><?= $this->Number->format($unit->max_rarity) ?></td>
                 <td><?= h($unit->trust_master_reward) ?></td>
