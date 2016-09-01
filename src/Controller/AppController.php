@@ -43,6 +43,19 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'fields' => ['username' => 'email', 'password' => 'password']
+                ]
+            ],
+            'authError' => __('You must login to access that page.'),
+            'authorize' => 'Controller',
+            'flash' => ['element' => 'default'],
+            'loginAction' => ['controller' => 'Users', 'action' => 'login', 'prefix' => false],
+            'loginRedirect' => '/',
+            'logoutRedirect' => '/'
+        ]);
     }
 
     /**
@@ -58,6 +71,22 @@ class AppController extends Controller
 
         if (!empty($this->request->prefix) && $this->request->prefix === 'admin') {
             $this->viewBuilder()->layout('admin');
+
+            $this->Auth->deny();
         }
+    }
+
+    /**
+     * Check that users are allowed to do things
+     *
+     * @return false
+     */
+    public function isAuthorized($user = null)
+    {
+        if (!empty($this->request->prefix) && $this->request->prefix === 'admin' && $user !== null) {
+            return true;
+        }
+
+        return false;
     }
 }

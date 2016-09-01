@@ -19,6 +19,10 @@ class UnitsController extends AppController
         parent::initialize();
 
         $this->loadComponent('Search.Prg', ['action' => ['index']]);
+
+        $this->Auth->allow([
+            'index'
+        ]);
     }
 
     /**

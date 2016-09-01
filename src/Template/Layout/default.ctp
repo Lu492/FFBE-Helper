@@ -22,21 +22,8 @@
                 <p>Unit Helper</p>
             </div>
         </header>
-        <nav class="row">
-            <div class="col-md-12">
-                <ul class="nav nav-pills nav-justified">
-                    <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index') ? 'class="active"' : ''?>>
-                        <?= $this->Html->link('Units', ['controller' => 'Units', 'action' => 'units'])?>
-                    </li>
-                    <li <?= ($this->request->controller === 'Units' && $this->request->action === 'party') ? 'class="active"' : ''?>>
-                        <?= $this->Html->link('Build party', ['controller' => 'Units', 'action' => 'party'])?>
-                    </li>
-                    <li <?= ($this->request->controller === 'Users' && $this->request->action === 'login') ? 'class="active"' : ''?>>
-                        <?= $this->Html->link('Login', ['controller' => 'Users', 'action' => 'login'])?>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+
+        <?= $this->element('navigation');?>
 
         <div class="row">
             <div class="col-md-12">
