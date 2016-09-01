@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
+use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -62,5 +63,22 @@ class GendersTable extends Table
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * Don't allow duplicate genders
+     *
+     * @param \Cake\ORM\RulesChecker $rules
+     *
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->addCreate(new IsUnique(['name']), 'uniqueGender', [
+            'errorField' => 'Genders.name',
+            'message' => 'This gender already exists'
+        ]);
+
+        return $rules;
     }
 }
