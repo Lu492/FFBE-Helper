@@ -1,7 +1,7 @@
 {
     "name": "davidyell/ffbe-helper",
     "description": "An application for picking units in Final Fantasy Brave Exvius",
-    "homepage": "",
+    "homepage": "https://github.com/davidyell/FFBE-Helper",
     "type": "project",
     "license": "MIT",
     "require": {

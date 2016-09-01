@@ -21,10 +21,10 @@
         echo $this->Form->input('trust_master_reward');
         echo $this->Form->input('race_id', ['empty' => 'Select race']);
         echo $this->Form->input('Races.name', ['label' => 'Or add new Race', 'required' => false]);
-        echo $this->Form->input('job_id', ['empty' => 'Select job']);
-        echo $this->Form->input('Jobs.name', ['label' => 'Or add new Job', 'required' => false]);
         echo $this->Form->input('gender_id', ['empty' => 'Select gender']);
         echo $this->Form->input('Genders.name', ['label' => 'Or add new Gender', 'required' => false]);
+        echo $this->Form->input('job_id', ['empty' => 'Select job']);
+        echo $this->Form->input('Jobs.name', ['label' => 'Or add new Job', 'required' => false]);
         echo $this->element('Admin/unit-stats');
         ?>
     </fieldset>

@@ -26,8 +26,8 @@
         echo $this->Form->input('max_rarity', ['type' => 'number', 'min' => 1, 'max' => 5]);
         echo $this->Form->input('trust_master_reward');
         echo $this->Form->input('race_id');
-        echo $this->Form->input('job_id');
         echo $this->Form->input('gender_id');
+        echo $this->Form->input('job_id');
         echo $this->element('Admin/unit-stats');
         ?>
     </fieldset>

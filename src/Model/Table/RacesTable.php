@@ -2,6 +2,7 @@
 namespace App\Model\Table;
 
 use Cake\ORM\Query;
+use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
@@ -62,5 +63,22 @@ class RacesTable extends Table
             ->notEmpty('name');
 
         return $validator;
+    }
+
+    /**
+     * Don't allow duplicate races
+     *
+     * @param \Cake\ORM\RulesChecker $rules
+     *
+     * @return \Cake\ORM\RulesChecker
+     */
+    public function buildRules(RulesChecker $rules)
+    {
+        $rules->addCreate(new IsUnique(['name']), 'uniqueRace', [
+            'errorField' => 'Races.name',
+            'message' => 'This race already exists'
+        ]);
+
+        return $rules;
     }
 }
