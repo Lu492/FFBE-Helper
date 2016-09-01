@@ -49,4 +49,9 @@ class UnitsController extends AppController
         $this->set('specialisations', $this->Units->Specialisations->find('list')->order('name'));
     }
 
+    public function acquire()
+    {
+        // TODO: Implement this method to pick units and add them to a users list
+    }
+
 }

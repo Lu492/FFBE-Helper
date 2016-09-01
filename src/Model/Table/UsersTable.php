@@ -40,11 +40,7 @@ class UsersTable extends Table
 
         $this->addBehavior('Timestamp');
 
-        $this->belongsToMany('Units', [
-            'foreignKey' => 'user_id',
-            'targetForeignKey' => 'unit_id',
-            'joinTable' => 'units_users'
-        ]);
+        $this->hasMany('Acquires');
     }
 
     /**

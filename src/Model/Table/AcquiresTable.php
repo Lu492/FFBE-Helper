@@ -7,20 +7,22 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * UnitsUsers Model
+ * Acquires Model
  *
  * @property \Cake\ORM\Association\BelongsTo $Users
  * @property \Cake\ORM\Association\BelongsTo $Units
  *
- * @method \App\Model\Entity\UnitsUser get($primaryKey, $options = [])
- * @method \App\Model\Entity\UnitsUser newEntity($data = null, array $options = [])
- * @method \App\Model\Entity\UnitsUser[] newEntities(array $data, array $options = [])
- * @method \App\Model\Entity\UnitsUser|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
- * @method \App\Model\Entity\UnitsUser patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
- * @method \App\Model\Entity\UnitsUser[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\UnitsUser findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Acquire get($primaryKey, $options = [])
+ * @method \App\Model\Entity\Acquire newEntity($data = null, array $options = [])
+ * @method \App\Model\Entity\Acquire[] newEntities(array $data, array $options = [])
+ * @method \App\Model\Entity\Acquire|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
+ * @method \App\Model\Entity\Acquire patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
+ * @method \App\Model\Entity\Acquire[] patchEntities($entities, array $data, array $options = [])
+ * @method \App\Model\Entity\Acquire findOrCreate($search, callable $callback = null)
+ *
+ * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */
-class UnitsUsersTable extends Table
+class AcquiresTable extends Table
 {
 
     /**
@@ -33,9 +35,11 @@ class UnitsUsersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('units_users');
+        $this->table('acquires');
         $this->displayField('id');
         $this->primaryKey('id');
+
+        $this->addBehavior('Timestamp');
 
         $this->belongsTo('Users', [
             'foreignKey' => 'user_id',
@@ -58,6 +62,15 @@ class UnitsUsersTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create');
+
+        $validator
+            ->integer('level')
+            ->allowEmpty('level');
+
+        $validator
+            ->integer('rarity')
+            ->requirePresence('rarity', 'create')
+            ->notEmpty('rarity');
 
         return $validator;
     }

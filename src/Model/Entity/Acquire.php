@@ -4,16 +4,20 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * UnitsUser Entity
+ * Acquire Entity
  *
  * @property int $id
  * @property int $user_id
  * @property int $unit_id
+ * @property int $level
+ * @property int $rarity
+ * @property \Cake\I18n\Time $created
+ * @property \Cake\I18n\Time $modified
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Unit $unit
  */
-class UnitsUser extends Entity
+class Acquire extends Entity
 {
 
     /**

@@ -63,6 +63,8 @@ class UnitsTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasMany('Acquires');
+
         $this->belongsToMany('Specialisations', [
             'joinTable' => 'practises'
         ]);
