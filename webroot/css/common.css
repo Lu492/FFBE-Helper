@@ -1,0 +1,53 @@
+header {
+  background-color: #007ba4; }
+  header h1, header p {
+    font-family: 'Signika', serif;
+    color: #000;
+    text-align: center;
+    text-shadow: 0 0 4px #d7f5ff; }
+  header h1 {
+    font-size: 40px;
+    margin-bottom: 0; }
+  header p {
+    font-size: 30px;
+    margin-bottom: 15px; }
+
+nav {
+  margin: 20px 0 0 0; }
+
+footer {
+  padding: 10px 0;
+  background-color: #333;
+  color: #ccc; }
+  footer p {
+    text-align: center; }
+  footer a {
+    color: #fff; }
+    footer a:hover {
+      color: #fff; }
+  footer img.baked-with-cake {
+    height: 60px; }
+
+span.label.role {
+  color: #4a4a4a; }
+  span.label.role.tank {
+    background-color: #bcbcbc; }
+  span.label.role.healing {
+    background-color: #f7b8b6; }
+  span.label.role.support {
+    background-color: #cbfbab; }
+  span.label.role.magic-damage {
+    background-color: #e7b6f2; }
+  span.label.role.physical-damage {
+    background-color: #efc1a6; }
+  span.label.role.hybrid-damage {
+    background-color: #abb8ed; }
+
+#unittable thead {
+  background-color: #fff; }
+
+#unitsearchform div.submit {
+  float: left;
+  margin: 0 15px 0; }
+
+/*# sourceMappingURL=common.css.map */
