@@ -19,6 +19,10 @@ class UsersController extends AppController
      */
     public function login()
     {
+        if ($this->Auth->user() !== null) {
+            return $this->redirect('/');
+        }
+
         if ($this->request->is('post')) {
             $user = $this->Auth->identify();
             if ($user) {
@@ -37,6 +41,7 @@ class UsersController extends AppController
      */
     public function logout()
     {
+        $this->request->session()->delete('Auth');
         return $this->redirect($this->Auth->logout());
     }
 }
