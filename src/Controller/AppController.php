@@ -83,7 +83,11 @@ class AppController extends Controller
      */
     public function isAuthorized($user = null)
     {
-        if (!empty($this->request->prefix) && $this->request->prefix === 'admin' && $user !== null) {
+        if (!empty($this->request->params['prefix']) && $this->request->params['prefix'] === 'admin' && isset($user['role']) && $user['role'] === 'admin') {
+            return true;
+        }
+
+        if (empty($this->request->params['prefix'])) {
             return true;
         }
 
