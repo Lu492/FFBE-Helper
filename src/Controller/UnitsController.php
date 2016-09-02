@@ -49,9 +49,28 @@ class UnitsController extends AppController
         $this->set('specialisations', $this->Units->Specialisations->find('list')->order('name'));
     }
 
-    public function acquire()
+    /**
+     * Generate an autocomplete list for jQueryUI autocomplete
+     *
+     * Expects a query param of q with a string to search for, and responds with json
+     *
+     * @return string
+     */
+    public function unitList()
     {
-        // TODO: Implement this method to pick units and add them to a users list
-    }
+        $this->request->allowMethod(['get']);
+        $this->request->accepts('application/json');
 
+        $units = $this->Units->find()
+            ->select(['value' => 'id', 'label' => 'name']);
+
+        if (!empty($this->request->query['q'])) {
+            $units->where(['name LIKE' => '%' . $this->request->query['q'] . '%']);
+        }
+
+        $units->order('name');
+
+        $this->set('units', $units);
+        $this->set('_serialize', ['units']);
+    }
 }
