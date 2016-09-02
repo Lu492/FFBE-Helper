@@ -5,22 +5,22 @@ div.level-bar {
   span.bar {
     display: block;
     padding: 0 3px;
-    background-color: #74B042;
+    background-color: #ccc;
     height: 20px - 2px;
     &.low {
       background-color: #e26460;
     }
     &.medium {
-      background-color: #eaa331;
+      background-color: #efbf61;
     }
     &.high {
-      background-color: #f2e23a;
+      background-color: #f7e669;
     }
     &.vhigh {
-      background-color: #a5dd2c;
+      background-color: #b7dd74;
     }
     &.max {
-      background-color: #35eadb;
+      background-color: #92e2ea;
     }
   }
   span.bar-label {
