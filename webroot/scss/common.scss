@@ -1,3 +1,5 @@
+@import "partials/_levelBar";
+
 header {
   background-color: #007ba4;
   h1, p {
@@ -71,4 +73,24 @@ span.label.role {
 }
 div.alert{
   margin: 10px;
+}
+
+form {
+  div.submit {
+    float: left;
+    margin-right: 10px;
+  }
+}
+
+#ajax-loading {
+  position: absolute;
+  top: 40%;
+  left: 48%;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid darken(#ccc, 20%);
+  background-color: #fff;
+  box-shadow: 1px 1px 3px #333;
+  text-align: center;
+  font-weight: bold;
 }

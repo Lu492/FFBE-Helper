@@ -1,3 +1,29 @@
+div.level-bar {
+  width: 150px;
+  height: 20px;
+  border: 1px solid #333; }
+  div.level-bar span.bar {
+    display: block;
+    padding: 0 3px;
+    background-color: #74B042;
+    height: 18px; }
+    div.level-bar span.bar.low {
+      background-color: #e26460; }
+    div.level-bar span.bar.medium {
+      background-color: #eaa331; }
+    div.level-bar span.bar.high {
+      background-color: #f2e23a; }
+    div.level-bar span.bar.vhigh {
+      background-color: #a5dd2c; }
+    div.level-bar span.bar.max {
+      background-color: #35eadb; }
+  div.level-bar span.bar-label {
+    position: relative;
+    top: -20px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold; }
+
 header {
   background-color: #007ba4; }
   header h1, header p {
@@ -53,5 +79,21 @@ span.label.role {
 
 div.alert {
   margin: 10px; }
+
+form div.submit {
+  float: left;
+  margin-right: 10px; }
+
+#ajax-loading {
+  position: absolute;
+  top: 40%;
+  left: 48%;
+  padding: 15px;
+  border-radius: 6px;
+  border: 1px solid #999999;
+  background-color: #fff;
+  box-shadow: 1px 1px 3px #333;
+  text-align: center;
+  font-weight: bold; }
 
 /*# sourceMappingURL=common.css.map */

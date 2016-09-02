@@ -1,0 +1,33 @@
+div.level-bar {
+  width: 150px;
+  height: 20px;
+  border: 1px solid #333;
+  span.bar {
+    display: block;
+    padding: 0 3px;
+    background-color: #74B042;
+    height: 20px - 2px;
+    &.low {
+      background-color: #e26460;
+    }
+    &.medium {
+      background-color: #eaa331;
+    }
+    &.high {
+      background-color: #f2e23a;
+    }
+    &.vhigh {
+      background-color: #a5dd2c;
+    }
+    &.max {
+      background-color: #35eadb;
+    }
+  }
+  span.bar-label {
+    position: relative;
+    top: -20px;
+    left: 5px;
+    font-size: 12px;
+    font-weight: bold;
+  }
+}

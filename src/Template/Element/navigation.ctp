@@ -6,8 +6,8 @@
             </li>
 
             <?php if (!empty($this->request->session()->read('Auth.User.id'))) { ?>
-                <li <?= ($this->request->controller === 'Units' && $this->request->action === 'acquire') ? 'class="active"' : ''?>>
-                    <?= $this->Html->link('My units', ['controller' => 'Units', 'action' => 'acquire'])?>
+                <li <?= ($this->request->controller === 'Acquires' && $this->request->action === 'units') ? 'class="active"' : ''?>>
+                    <?= $this->Html->link('My units', ['controller' => 'Acquires', 'action' => 'units'])?>
                 </li>
             <?php } ?>
 

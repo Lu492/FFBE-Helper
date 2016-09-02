@@ -6,9 +6,9 @@ $this->assign('title', 'Brave Exvius Units');
     <h2>Units</h2>
     <p>Search and filter available units. Stats are listed for the highest rarity of the unit.</p>
 
-    <div class="search row">
+    <div class="search row well">
         <?php
-        $rarities = [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5];
+        $rarities = \Cake\Core\Configure::read('rarities');
 
         echo $this->Form->create(null, ['id' => 'unitsearchform']);
 
@@ -54,17 +54,7 @@ $this->assign('title', 'Brave Exvius Units');
                 <td><?= $unit->name?></td>
                 <td class="hidden-xs"><?= $unit->origin->shortname?></td>
                 <td class="hidden-xs"><?= $unit->job->name?></td>
-                <td><?php
-                if (!empty($unit->specialisations)) {
-                    $out = '';
-                    foreach ($unit->specialisations as $specialisation) {
-                        $out .= "<span class='label role " . \Cake\Utility\Text::slug(strtolower($specialisation->name)) . "'>" . $specialisation->name . "</span>";
-                        $out .= ' ';
-                    }
-
-                    echo rtrim($out, ' ');
-                }
-                ?></td>
+                <td><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
                 <td><?= $unit->base_rarity . ' ' . $this->Html->image('star.png')?></td>
                 <td><?= $unit->max_rarity . ' ' . $this->Html->image('star.png')?></td>
                 <td><?= $unit->hp?></td>
