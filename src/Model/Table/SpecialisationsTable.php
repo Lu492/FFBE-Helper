@@ -63,4 +63,61 @@ class SpecialisationsTable extends Table
 
         return $validator;
     }
+
+    /**
+     * Convert a role id into a set of stats for ordering units by
+     *
+     * @param int $roleId The role id
+     *
+     * @return array
+     */
+    public function roleToStats($roleId)
+    {
+        switch ($roleId) {
+            case 1: // Healing
+                $stats = [
+                    'spr' => 'desc',
+                    'mag' => 'desc',
+                    'hp' => 'desc'
+                ];
+                break;
+            case 2: // Support
+                $stats = [
+                    'mag' => 'desc',
+                    'def' => 'desc',
+                    'hp' => 'desc'
+                ];
+                break;
+            case 3: // Hybrid dmg
+                $stats = [
+                    'atk' => 'desc',
+                    'mag' => 'desc',
+                    'hp' => 'desc'
+                ];
+                break;
+            case 4: // Magic dmg
+                $stats = [
+                    'mag'  => 'desc',
+                    'spr'  => 'desc',
+                    'mp' => 'desc'
+                ];
+                break;
+            case 5: // Physical dmg
+                $stats = [
+                    'atk' => 'desc',
+                    'def' => 'desc',
+                    'hp' => 'desc'
+                ];
+                break;
+            case 7: // Tank
+                $stats = [
+                    'def' => 'desc',
+                    'spr' => 'desc',
+                    'hp' => 'desc'
+                ];
+                break;
+        }
+
+        return $stats;
+    }
 }

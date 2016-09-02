@@ -1,4 +1,5 @@
 @import "partials/_levelBar";
+@import "partials/_unitcard";
 
 header {
   background-color: #007ba4;
@@ -100,4 +101,14 @@ form {
 }
 .desc:after {
   content: " \2191";
+}
+
+#party-table {
+  width: 100%;
+  border: 1px solid #ccc;
+  tr th {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+  }
 }

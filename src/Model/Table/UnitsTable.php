@@ -206,4 +206,49 @@ class UnitsTable extends Table
         return $query;
     }
 
+    /**
+     * Select a single unit based on either a specialisation or a set of stats
+     *
+     * If no stats are passed, then stats will be pulled from the specialisation
+     *
+     * @param int $userId Currently logged in user id
+     * @param int|null $specialisationId Specialisation id to select a unit for
+     * @param array $stats If selecting units based purely on their stats
+     *
+     * @return mixed
+     */
+    public function selectUnit($userId, $specialisationId = null, array $stats = [])
+    {
+        $query = $this->Acquires->find()
+            ->contain([
+                'Units' => [
+                    'Specialisations'
+                ]
+            ])
+            ->where(['Acquires.user_id' => $userId]);
+
+        if (!empty($specialisationId)) {
+            $roleStats = $this->Specialisations->roleToStats($specialisationId);
+            $query->order($roleStats);
+        } elseif (!empty($stats)) {
+            $roleStats = $stats;
+            $query->order($roleStats);
+        } else {
+            $roleStats = ['hp'];
+        }
+
+        if (!empty($specialisationId)) {
+            $query->matching('Units.Specialisations', function ($q) use ($specialisationId) {
+                return $q->where(['Specialisations.id' => $specialisationId]);
+            });
+        }
+
+        $unit = $query->first();
+
+        if ($unit === null) {
+            return $this->selectUnit($userId, null, $roleStats);
+        }
+
+        return $unit;
+    }
 }

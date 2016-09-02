@@ -24,6 +24,23 @@ div.level-bar {
     font-size: 12px;
     font-weight: bold; }
 
+div.unit-card {
+  text-align: center;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px; }
+  div.unit-card table {
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 4px; }
+    div.unit-card table, div.unit-card table th, div.unit-card table td {
+      border: 1px solid #ccc;
+      padding: 2px; }
+    div.unit-card table th {
+      font-weight: bold;
+      font-size: 12px !important; }
+
 header {
   background-color: #007ba4; }
   header h1, header p {
@@ -101,5 +118,13 @@ form div.submit {
 
 .desc:after {
   content: " \2191"; }
+
+#party-table {
+  width: 100%;
+  border: 1px solid #ccc; }
+  #party-table tr th {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px; }
 
 /*# sourceMappingURL=common.css.map */

@@ -73,4 +73,40 @@ class UnitsController extends AppController
         $this->set('units', $units);
         $this->set('_serialize', ['units']);
     }
+
+    /**
+     * Try and auto-generate a balanced party based on stats and roles
+     */
+    public function partyBalanced()
+    {
+        // Check the user has some units to build a party with
+        $unitCount = $this->Units->Acquires->find()
+            ->where(['Acquires.user_id' => $this->Auth->user('id')])
+            ->count();
+
+        if ($unitCount < 1) {
+            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+            return $this->redirect(['controller' => 'Aquisitions', 'action' => 'units']);
+        }
+
+        $userId = $this->Auth->user('id');
+
+        $this->set('tank', $this->Units->selectUnit($userId, 7));
+        $this->set('tankStats', $this->Units->Specialisations->roleToStats(7));
+
+        $this->set('physicalDps', $this->Units->selectUnit($userId, 5));
+        $this->set('physicalStats', $this->Units->Specialisations->roleToStats(5));
+
+        $this->set('magicalDps', $this->Units->selectUnit($userId, 4));
+        $this->set('magicalStats', $this->Units->Specialisations->roleToStats(4));
+
+        $this->set('healer', $this->Units->selectUnit($userId, 1));
+        $this->set('healerStats', $this->Units->Specialisations->roleToStats(1));
+
+        $this->set('support', $this->Units->selectUnit($userId, 2));
+        $this->set('supportStats', $this->Units->Specialisations->roleToStats(2));
+
+        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
+        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
+    }
 }

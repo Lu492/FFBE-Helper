@@ -11,8 +11,8 @@
                 </li>
             <?php } ?>
 
-            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'party') ? 'class="active"' : ''?>>
-                <?= $this->Html->link('Build party', ['controller' => 'Units', 'action' => 'party'])?>
+            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'partyBalanced') ? 'class="active"' : ''?>>
+                <?= $this->Html->link('Build party', ['controller' => 'Units', 'action' => 'partyBalanced'])?>
             </li>
 
             <?php if (empty($this->request->session()->read('Auth.User.id'))) { ?>
