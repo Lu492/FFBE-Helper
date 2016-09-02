@@ -25,4 +25,4 @@ Thanks to the good folks over at [ExviusWiki.com](http://exviuswiki.com/) as I u
 ## License
 Obviously the game contents are copyrighted to their respective owners, Square Enix and Gumi.
 
-My codebase is licensed with MIT, see []license.md](license.md).
+My codebase is licensed with MIT, see [license.md](license.md).
