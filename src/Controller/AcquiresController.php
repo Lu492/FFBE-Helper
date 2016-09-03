@@ -18,6 +18,14 @@ class AcquiresController extends AppController
      */
     public function units()
     {
+        $this->paginate = [
+           'sortWhitelist' => [
+               'Units.name',
+               'level',
+               'rarity'
+           ]
+        ];
+
         if ($this->request->is('post')) {
             $acquire = $this->Acquires->newEntity($this->request->data);
             $acquire->set('user_id', $this->Auth->user('id'));

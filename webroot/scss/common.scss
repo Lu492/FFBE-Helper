@@ -82,6 +82,11 @@ form {
     margin-right: 10px;
   }
 }
+div.login form {
+  div.submit {
+    float: none;
+  }
+}
 
 #ajax-loading {
   position: absolute;

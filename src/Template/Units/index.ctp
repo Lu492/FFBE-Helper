@@ -51,7 +51,7 @@ $this->assign('title', 'Brave Exvius Units');
             <?php
             foreach ($units as $unit) {
                 ?><tr>
-                <td><?= $unit->name?></td>
+                <td><?= $this->Html->link($unit->name, 'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->name, '_'));?></td>
                 <td class="hidden-xs"><?= $unit->origin->shortname?></td>
                 <td class="hidden-xs"><?= $unit->job->name?></td>
                 <td><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>

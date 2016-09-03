@@ -85,14 +85,14 @@ class SpecialisationsTable extends Table
                 $stats = [
                     'mag' => 'desc',
                     'def' => 'desc',
-                    'hp' => 'desc'
+                    'mp' => 'desc'
                 ];
                 break;
             case 3: // Hybrid dmg
                 $stats = [
                     'atk' => 'desc',
                     'mag' => 'desc',
-                    'hp' => 'desc'
+                    'mp' => 'desc'
                 ];
                 break;
             case 4: // Magic dmg

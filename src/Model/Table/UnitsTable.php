@@ -30,6 +30,13 @@ class UnitsTable extends Table
 {
 
     /**
+     * Store the id's of the units used in the party already to prevent duplicates
+     *
+     * @var array
+     */
+    public $party = [];
+
+    /**
      * Initialize method
      *
      * @param array $config The configuration for the Table.
@@ -227,6 +234,15 @@ class UnitsTable extends Table
             ])
             ->where(['Acquires.user_id' => $userId]);
 
+        // TODO: This needs more work to figure out why it's not excluding the units properly
+        // Not sure if it needs notMatching() and NOT IN, or matching() NOT IN, or even
+        // matching() IN
+        if (!empty($this->party)) {
+            $query->matching('Units', function ($q) {
+                return $q->where(['Units.id NOT IN' => $this->party]);
+            });
+        }
+
         if (!empty($specialisationId)) {
             $roleStats = $this->Specialisations->roleToStats($specialisationId);
             $query->order($roleStats);
@@ -249,6 +265,7 @@ class UnitsTable extends Table
             return $this->selectUnit($userId, null, $roleStats);
         }
 
+        $this->party[] = $unit->get('id');
         return $unit;
     }
 }

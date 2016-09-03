@@ -33,7 +33,7 @@
     <?php if (!empty($units)) { ?>
         <table summary="units" class="table" id="unittable">
             <thead>
-                <th><?= $this->Paginator->sort('name');?></th>
+                <th><?= $this->Paginator->sort('Units.name');?></th>
                 <th>Role</th>
                 <th><?= $this->Paginator->sort('level');?></th>
                 <th><?= $this->Paginator->sort('rarity')?></th>
@@ -42,7 +42,7 @@
             <tbody>
             <?php foreach ($units as $unit) { ?>
                 <tr>
-                    <td><?= $unit->unit->name?></td>
+                    <td><?= $this->Html->link($unit->unit->name, 'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->unit->name, '_'));?></td>
                     <td><?= $this->element('unit-specialisations', ['specialisations' => $unit->unit->specialisations]);?></td>
                     <td><?= $this->LevelBar->progress($unit->level, $unit->rarity)?></td>
                     <td><?= $unit->rarity . ' ' . $this->Html->image('star.png')?></td>

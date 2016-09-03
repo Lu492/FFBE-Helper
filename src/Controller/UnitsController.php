@@ -89,6 +89,7 @@ class UnitsController extends AppController
             return $this->redirect(['controller' => 'Aquisitions', 'action' => 'units']);
         }
 
+        $this->Units->party = [];
         $userId = $this->Auth->user('id');
 
         $this->set('tank', $this->Units->selectUnit($userId, 7));
@@ -106,7 +107,8 @@ class UnitsController extends AppController
         $this->set('support', $this->Units->selectUnit($userId, 2));
         $this->set('supportStats', $this->Units->Specialisations->roleToStats(2));
 
-        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
-        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
+// Community seem to think Hybrid is laughable, so we'll exclude this.
+//        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
+//        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
     }
 }
