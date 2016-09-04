@@ -111,4 +111,47 @@ class UnitsController extends AppController
 //        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
 //        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
     }
+
+    /**
+     * Try and auto-generate a party based on pure stats
+     */
+    public function partyStats()
+    {
+        // Check the user has some units to build a party with
+        $unitCount = $this->Units->Acquires->find()
+            ->where(['Acquires.user_id' => $this->Auth->user('id')])
+            ->count();
+
+        if ($unitCount < 1) {
+            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+            return $this->redirect(['controller' => 'Aquisitions', 'action' => 'units']);
+        }
+
+        $this->Units->party = [];
+        $userId = $this->Auth->user('id');
+
+        $stats = $this->Units->Specialisations->roleToStats(7);
+        $this->set('tank', $this->Units->selectUnit($userId, null, $stats));
+        $this->set('tankStats', $stats);
+
+        $stats = $this->Units->Specialisations->roleToStats(5);
+        $this->set('physicalDps', $this->Units->selectUnit($userId, null, $stats));
+        $this->set('physicalStats', $stats);
+
+        $stats = $this->Units->Specialisations->roleToStats(4);
+        $this->set('magicalDps', $this->Units->selectUnit($userId, null, $stats));
+        $this->set('magicalStats', $stats);
+
+        $stats = $this->Units->Specialisations->roleToStats(1);
+        $this->set('healer', $this->Units->selectUnit($userId, null, $stats));
+        $this->set('healerStats', $stats);
+
+        $stats = $this->Units->Specialisations->roleToStats(2);
+        $this->set('support', $this->Units->selectUnit($userId, null, $stats));
+        $this->set('supportStats', $stats);
+
+// Community seem to think Hybrid is laughable, so we'll exclude this.
+//        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
+//        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
+    }
 }

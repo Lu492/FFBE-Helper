@@ -234,15 +234,6 @@ class UnitsTable extends Table
             ])
             ->where(['Acquires.user_id' => $userId]);
 
-        // TODO: This needs more work to figure out why it's not excluding the units properly
-        // Not sure if it needs notMatching() and NOT IN, or matching() NOT IN, or even
-        // matching() IN
-        if (!empty($this->party)) {
-            $query->matching('Units', function ($q) {
-                return $q->where(['Units.id NOT IN' => $this->party]);
-            });
-        }
-
         if (!empty($specialisationId)) {
             $roleStats = $this->Specialisations->roleToStats($specialisationId);
             $query->order($roleStats);
@@ -257,6 +248,10 @@ class UnitsTable extends Table
             $query->matching('Units.Specialisations', function ($q) use ($specialisationId) {
                 return $q->where(['Specialisations.id' => $specialisationId]);
             });
+        }
+
+        if (!empty($this->party)) {
+            $query->where(['Acquires.id NOT IN' => $this->party]);
         }
 
         $unit = $query->first();
