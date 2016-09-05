@@ -3,7 +3,12 @@
     <?php
     $rarities = \Cake\Core\Configure::read('rarities');
 
-    echo $this->Form->create(null, ['id' => 'unitsearchform']);
+    $url = ['action' => 'index'];
+    if ($this->request->query('type')) {
+        $url = array_merge($url, ['type' => $this->request->query('type')]);
+    }
+
+    echo $this->Form->create(null, ['id' => 'unitsearchform', 'url' => $url]);
 
     ?><div class='col-md-6'><?php
         echo $this->Form->input('name');
