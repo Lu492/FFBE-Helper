@@ -1,13 +1,13 @@
 <nav class="row">
     <div class="col-md-12">
         <ul class="nav nav-pills nav-justified">
-            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index') ? 'class="active"' : ''?>>
+            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->query('type') !== 'acquired') ? 'class="active"' : ''?>>
                 <?= $this->Html->link('Units', ['controller' => 'Units', 'action' => 'index'])?>
             </li>
 
             <?php if (!empty($this->request->session()->read('Auth.User.id'))) { ?>
-                <li <?= ($this->request->controller === 'Acquires' && $this->request->action === 'units') ? 'class="active"' : ''?>>
-                    <?= $this->Html->link('My units', ['controller' => 'Acquires', 'action' => 'units'])?>
+                <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->query('type') === 'acquired') ? 'class="active"' : ''?>>
+                    <?= $this->Html->link('My units', ['controller' => 'Acquires', 'action' => 'index', '?' => ['type' => 'acquired']])?>
                 </li>
             <?php } ?>
 

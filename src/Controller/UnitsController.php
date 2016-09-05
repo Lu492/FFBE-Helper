@@ -26,10 +26,39 @@ class UnitsController extends AppController
     }
 
     /**
-     * Index method
+     * List all the available units
+     *
+     * Can generate different lists of units depending on what is passed
+     *
+     * @return \Cake\Network\Response
      */
     public function index()
     {
+        $this->paginate = [
+            'sortWhitelist' => [
+                'name',
+                'origin_id',
+                'Jobs.name',
+                'base_rarity',
+                'max_rarity',
+                'Acquires.rarity',
+                'hp', 'mp', 'atk', 'def', 'mag', 'spr', 'hits'
+            ]
+        ];
+
+        // Acquire a new unit
+        if ($this->request->is('post')) {
+            $acquire = $this->Units->Acquires->newEntity($this->request->data);
+            $acquire->set('user_id', $this->Auth->user('id'));
+
+            if ($this->Units->Acquires->save($acquire)) {
+                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['name'] . '.');
+                return $this->redirect(['action' => 'index', '?' => ['type' => 'acquired']]);
+            } else {
+                $this->Flash->error(__("Could not acquire ") . $this->request->data['name'] . __('. Please try again.'));
+            }
+        }
+
         $query = $this->Units->find('search', ['search' => $this->request->query])
             ->contain([
                 'Races',
@@ -41,6 +70,21 @@ class UnitsController extends AppController
 
         if (empty($this->request->query['sort'])) {
             $query->order(['Units.name']);
+        }
+
+        // Don't try and filter units if the user isn't logged in
+        if (empty($this->Auth->user('id')) && !empty($this->request->query('type'))) {
+            return $this->redirect(['action' => 'index']);
+        }
+
+        if ($this->request->query('type') === 'acquired') {
+            $query->matching('Acquires', function ($q) {
+                return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
+            });
+        } elseif ($this->request->query('type') === 'available') {
+            $query->notMatching('Acquires', function ($q) {
+                return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
+            });
         }
 
         $this->set('units', $this->paginate($query, ['limit' => 150]));
@@ -106,10 +150,6 @@ class UnitsController extends AppController
 
         $this->set('support', $this->Units->selectUnit($userId, 2));
         $this->set('supportStats', $this->Units->Specialisations->roleToStats(2));
-
-// Community seem to think Hybrid is laughable, so we'll exclude this.
-//        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
-//        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
     }
 
     /**
@@ -149,9 +189,5 @@ class UnitsController extends AppController
         $stats = $this->Units->Specialisations->roleToStats(2);
         $this->set('support', $this->Units->selectUnit($userId, null, $stats));
         $this->set('supportStats', $stats);
-
-// Community seem to think Hybrid is laughable, so we'll exclude this.
-//        $this->set('hybridDps', $this->Units->selectUnit($userId, 3));
-//        $this->set('hybridStats', $this->Units->Specialisations->roleToStats(3));
     }
 }

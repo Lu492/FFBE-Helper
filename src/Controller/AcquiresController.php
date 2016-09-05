@@ -11,56 +11,11 @@ namespace App\Controller;
 
 class AcquiresController extends AppController
 {
-    /**
-     * Add units to a users collection
-     *
-     * @return \Cake\Network\Response|null
-     */
-    public function units()
-    {
-        $this->paginate = [
-           'sortWhitelist' => [
-               'Units.name',
-               'level',
-               'rarity'
-           ]
-        ];
-
-        if ($this->request->is('post')) {
-            $acquire = $this->Acquires->newEntity($this->request->data);
-            $acquire->set('user_id', $this->Auth->user('id'));
-
-            if ($this->Acquires->save($acquire)) {
-                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['name'] . '.');
-                return $this->redirect(['action' => 'units']);
-            } else {
-                $this->Flash->error(__("Could not acquire ") . $this->request->data['name'] . __('. Please try again.'));
-            }
-        }
-
-        $query = $this->Acquires->find()
-            ->contain([
-                'Units' => [
-                    'Specialisations'
-                ]
-            ])
-            ->where(['user_id' => $this->Auth->user('id')]);
-
-        if (empty($this->request->query['sort'])) {
-            $query->order([
-                'rarity' => 'desc',
-                'level' => 'desc',
-                'name' => 'asc'
-            ]);
-        }
-
-        $this->set('units', $this->paginate($query, ['limit' => 150]));
-    }
 
     /**
      * Edit a units acquired status
      *
-     * @param int $id Primarykey value
+     * @param int $id Primary key value
      *
      * @return \Cake\Network\Response|null
      */
