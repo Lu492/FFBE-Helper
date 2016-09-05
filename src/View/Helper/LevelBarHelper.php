@@ -39,7 +39,7 @@ class LevelBarHelper extends Helper
         $percent = $this->percentComplete($level, $maxLevel);
 
         if ($level === $maxLevel) {
-            $barLabel = 'MAX';
+            $barLabel = 'MAX (' . $maxLevel . ')';
         } else {
             $barLabel = $level . '/' . $maxLevel . ' (' . number_format($percent, 0) . '%)';
         }
