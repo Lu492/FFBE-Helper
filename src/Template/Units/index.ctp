@@ -56,7 +56,7 @@ $this->assign('title', 'Brave Exvius Units');
                     <th><?= $this->Paginator->sort('max_rarity');?></th>
                 <?php } else { ?>
                     <th><?= $this->Paginator->sort('Acquires.rarity', 'Rarity', ['direction' => 'desc']);?></th>
-                    <th>Level</th>
+                    <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
                 <?php  } ?>
                 <th><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
                 <th><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
@@ -103,7 +103,7 @@ $this->assign('title', 'Brave Exvius Units');
                 <td class="hidden-xs"><?= $unit->hits?></td>
 
                 <?php if ($this->request->query('type') === 'acquired') {
-                    echo "<td>";
+                    echo "<td class='actions'>";
                     echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default btn-xs']);
                     echo $this->Html->link(
                         '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
