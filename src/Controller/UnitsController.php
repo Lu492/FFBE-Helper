@@ -9,6 +9,8 @@
 
 namespace App\Controller;
 
+use Cake\Event\Event;
+
 class UnitsController extends AppController
 {
     /**
@@ -18,11 +20,22 @@ class UnitsController extends AppController
     {
         parent::initialize();
 
-        $this->loadComponent('Search.Prg', ['action' => ['index']]);
-
         $this->Auth->allow([
             'index'
         ]);
+    }
+
+    /**
+     * beforeFilter method
+     *
+     * @param \Cake\Event\Event $event
+     */
+    public function beforeFilter(Event $event)
+    {
+        // Only load the Search.Prg component if the form submission is from the search form
+        if ($this->request->is('post') && !empty($this->request->data['search'])) {
+            $this->loadComponent('Search.Prg', ['action' => ['index']]);
+        }
     }
 
     /**
@@ -34,6 +47,10 @@ class UnitsController extends AppController
      */
     public function index()
     {
+        if (empty($this->request->params['type'])) {
+            return $this->redirect(['action' => 'index', 'type' => 'all']);
+        }
+
         $this->paginate = [
             'sortWhitelist' => [
                 'name',
@@ -53,10 +70,10 @@ class UnitsController extends AppController
             $acquire->set('user_id', $this->Auth->user('id'));
 
             if ($this->Units->Acquires->save($acquire)) {
-                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['name'] . '.');
-                return $this->redirect(['action' => 'index', '?' => ['type' => 'acquired']]);
+                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
+                return $this->redirect(['action' => 'index', 'type' => 'acquired']);
             } else {
-                $this->Flash->error(__("Could not acquire ") . $this->request->data['name'] . __('. Please try again.'));
+                $this->Flash->error(__("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.'));
             }
         }
 
@@ -74,15 +91,15 @@ class UnitsController extends AppController
         }
 
         // Don't try and filter units if the user isn't logged in
-        if (empty($this->Auth->user('id')) && !empty($this->request->query('type'))) {
+        if (empty($this->Auth->user('id')) && !empty($this->request->params['type'])) {
             return $this->redirect(['action' => 'index']);
         }
 
-        if ($this->request->query('type') === 'acquired') {
+        if ($this->request->params['type'] === 'acquired') {
             $query->matching('Acquires', function ($q) {
                 return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
             });
-        } elseif ($this->request->query('type') === 'available') {
+        } elseif ($this->request->params['type'] === 'available') {
             $query->notMatching('Acquires', function ($q) {
                 return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
             });

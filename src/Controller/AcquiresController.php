@@ -33,7 +33,7 @@ class AcquiresController extends AppController
             $unit = $this->Acquires->patchEntity($unit, $this->request->data);
             if ($this->Acquires->save($unit)) {
                 $this->Flash->success(__("Unit updated successfully."));
-                return $this->redirect(['action' => 'units']);
+                return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
             } else {
                 $this->Flash->error(__("Unit could not be updated, please try again."));
             }
@@ -61,7 +61,7 @@ class AcquiresController extends AppController
 
         if ($this->Acquires->delete($unit)) {
             $this->Flash->success(__("Unit has been removed successfully."));
-            return $this->redirect(['action' => 'units']);
+            return $this->redirect($this->referer());
         } else {
             $this->Flash->error(__("Could not remove the unit, please try again."));
         }

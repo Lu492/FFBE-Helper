@@ -1,13 +1,13 @@
 <nav class="row">
     <div class="col-md-12">
         <ul class="nav nav-pills nav-justified">
-            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->query('type') !== 'acquired') ? 'class="active"' : ''?>>
-                <?= $this->Html->link('Units', ['controller' => 'Units', 'action' => 'index'])?>
+            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->params['type'] === 'all') ? 'class="active"' : ''?>>
+                <?= $this->Html->link('Units', ['controller' => 'Units', 'action' => 'index', 'type' => 'all'])?>
             </li>
 
             <?php if (!empty($this->request->session()->read('Auth.User.id'))) { ?>
-                <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->query('type') === 'acquired') ? 'class="active"' : ''?>>
-                    <?= $this->Html->link('My units', ['controller' => 'Acquires', 'action' => 'index', '?' => ['type' => 'acquired']])?>
+                <li <?= ($this->request->controller === 'Units' && $this->request->action === 'index' && $this->request->params['type'] === 'acquired') ? 'class="active"' : ''?>>
+                    <?= $this->Html->link('My units', ['controller' => 'Units', 'action' => 'index', 'type' => 'acquired'])?>
                 </li>
             <?php } ?>
 
