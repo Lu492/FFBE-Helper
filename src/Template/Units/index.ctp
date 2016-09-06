@@ -6,7 +6,7 @@ $this->assign('title', 'Brave Exvius Units');
 
 <div class="units index">
     <?php
-    if (empty($this->request->params['type'] === 'all')) {
+    if ($this->request->params['type'] === 'all') {
         ?>
         <h2>Unit list</h2>
         <p>All units available in the game.</p>
@@ -23,6 +23,7 @@ $this->assign('title', 'Brave Exvius Units');
         <?php
     }
     ?>
+    <p>Stats are listed for the highest rarity of the unit.</p>
 
     <?php if ($this->request->session()->read('Auth.User')) { ?>
         <ul class="nav nav-tabs unit-nav">
@@ -67,12 +68,12 @@ $this->assign('title', 'Brave Exvius Units');
                     <th><?= $this->Paginator->sort('Acquires.rarity', 'Rarity', ['direction' => 'desc']);?></th>
                     <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
                 <?php  } ?>
-                <th><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th><?= $this->Paginator->sort('atk', $this->Html->image('atk.png') . ' ATK', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th><?= $this->Paginator->sort('def', $this->Html->image('def.png') . ' DEF', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th><?= $this->Paginator->sort('mag', $this->Html->image('mag.png') . ' MAG', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th><?= $this->Paginator->sort('spr', $this->Html->image('spr.png') . ' SPR', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('atk', $this->Html->image('atk.png') . ' ATK', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('def', $this->Html->image('def.png') . ' DEF', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('mag', $this->Html->image('mag.png') . ' MAG', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="hidden-xs"><?= $this->Paginator->sort('spr', $this->Html->image('spr.png') . ' SPR', ['direction' => 'desc', 'escape' => false]);?></th>
                 <th class="hidden-xs"><?= $this->Paginator->sort('hits', 'Hits per attack', ['direction' => 'desc', 'escape' => false]);?></th>
                 <?php if ($this->request->params['type'] === 'acquired') { ?>
                     <th>&nbsp;</th>
@@ -103,12 +104,12 @@ $this->assign('title', 'Brave Exvius Units');
                     <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity)?></td>
                 <?php } ?>
 
-                <td><?= $unit->hp?></td>
-                <td><?= $unit->mp?></td>
-                <td><?= $unit->atk?></td>
-                <td><?= $unit->def?></td>
-                <td><?= $unit->mag?></td>
-                <td><?= $unit->spr?></td>
+                <td class="hidden-xs"><?= $unit->hp?></td>
+                <td class="hidden-xs"><?= $unit->mp?></td>
+                <td class="hidden-xs"><?= $unit->atk?></td>
+                <td class="hidden-xs"><?= $unit->def?></td>
+                <td class="hidden-xs"><?= $unit->mag?></td>
+                <td class="hidden-xs"><?= $unit->spr?></td>
                 <td class="hidden-xs"><?= $unit->hits?></td>
 
                 <?php if ($this->request->params['type'] === 'acquired') {
