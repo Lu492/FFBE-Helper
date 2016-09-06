@@ -3,12 +3,7 @@
     <?php
     $rarities = \Cake\Core\Configure::read('rarities');
 
-    $url = ['action' => 'index'];
-    if ($this->request->query('type')) {
-        $url = array_merge($url, ['type' => $this->request->query('type')]);
-    }
-
-    echo $this->Form->create(null, ['id' => 'unitsearchform', 'url' => $url]);
+    echo $this->Form->create(null, ['id' => 'unitsearchform', 'url' => ['action' => 'index', 'type' => $this->request->params['type']]]);
 
     ?><div class='col-md-6'><?php
         echo $this->Form->input('name');
@@ -21,8 +16,12 @@
         echo $this->Form->input('max_rarity', ['type' => 'select', 'options' => $rarities, 'empty' => 'Select highest rarity']);
         ?></div>
     <?php
-    echo $this->Form->submit('Search', ['class' => 'btn btn-success']);
+    echo "<div class='submit'>" . $this->Form->button('<span class="glyphicon glyphicon-search" aria-hidden="true"></span> Filter', ['class' => 'btn btn-success', 'escape' => false]) . "</div>";
+
+    // Hidden field for managing the Search.Prg component loading
+    echo $this->Form->input('search', ['type' => 'hidden', 'value' => true]);
+
     echo $this->Form->end();
-    echo $this->Html->link('Reset', ['action' => 'index'], ['class' => 'btn btn-default']);
+    echo $this->Html->link('Reset', ['action' => 'index', 'type' => $this->request->params['type']], ['class' => 'btn btn-default']);
     ?>
 </div>
