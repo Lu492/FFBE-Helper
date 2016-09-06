@@ -93,6 +93,9 @@ span.label.role {
 #unittable td.actions a {
   margin-right: 4px; }
 
+div.search.well p a, div.add-units.well p a {
+  float: right; }
+
 #unitsearchform div.submit {
   float: left;
   margin: 0 15px 0; }
