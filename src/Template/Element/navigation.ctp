@@ -11,7 +11,7 @@
                 </li>
             <?php } ?>
 
-            <li <?= ($this->request->controller === 'Units' && $this->request->action === 'partyBalanced') ? 'class="active"' : ''?>>
+            <li <?= ($this->request->controller === 'Units' && strpos($this->request->action, 'party') !== false) ? 'class="active"' : ''?>>
                 <?= $this->Html->link('Build party', ['controller' => 'Units', 'action' => 'partyBalanced'])?>
             </li>
 
