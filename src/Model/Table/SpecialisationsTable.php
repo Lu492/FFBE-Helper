@@ -65,59 +65,31 @@ class SpecialisationsTable extends Table
     }
 
     /**
-     * Convert a role id into a set of stats for ordering units by
+     * Find the stats favoured for a specific specialisation
      *
-     * @param int $roleId The role id
+     * @param int $specialisationId Which specialisation to find stats for
+     * @param bool $ordering Should the stats returned be an order() compatible array
      *
      * @return array
      */
-    public function roleToStats($roleId)
+    public function favouredStats($specialisationId, $ordering = false)
     {
-        switch ($roleId) {
-            case 1: // Healing
-                $stats = [
-                    'spr' => 'desc',
-                    'mag' => 'desc',
-                    'hp' => 'desc'
-                ];
-                break;
-            case 2: // Support
-                $stats = [
-                    'mag' => 'desc',
-                    'def' => 'desc',
-                    'mp' => 'desc'
-                ];
-                break;
-            case 3: // Hybrid dmg
-                $stats = [
-                    'atk' => 'desc',
-                    'mag' => 'desc',
-                    'mp' => 'desc'
-                ];
-                break;
-            case 4: // Magic dmg
-                $stats = [
-                    'mag'  => 'desc',
-                    'spr'  => 'desc',
-                    'mp' => 'desc'
-                ];
-                break;
-            case 5: // Physical dmg
-                $stats = [
-                    'atk' => 'desc',
-                    'def' => 'desc',
-                    'hp' => 'desc'
-                ];
-                break;
-            case 7: // Tank
-                $stats = [
-                    'def' => 'desc',
-                    'spr' => 'desc',
-                    'hp' => 'desc'
-                ];
-                break;
+        $stats = $this->find()
+            ->select(['stats'])
+            ->where(['id' => $specialisationId])
+            ->first();
+
+        $statsArray = explode(',', $stats->get('stats'));
+        if (!$ordering) {
+            return $statsArray;
         }
 
-        return $stats;
+        $statsOrder = array_flip($statsArray);
+
+        foreach ($statsOrder as $stat => $dir) {
+            $statsOrder[$stat] = 'desc';
+        }
+
+        return $statsOrder;
     }
 }

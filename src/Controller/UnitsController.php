@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
+use Cake\Utility\Text;
 
 class UnitsController extends AppController
 {
@@ -152,20 +153,13 @@ class UnitsController extends AppController
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
 
-        $this->set('tank', $this->Units->selectUnit($userId, 7));
-        $this->set('tankStats', $this->Units->Specialisations->roleToStats(7));
+        $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
+        foreach ($roles as $id => $role) {
+            $slug = Text::slug(strtolower($role), '_');
+            $unit = $this->Units->selectUnit($userId, $id);
 
-        $this->set('physicalDps', $this->Units->selectUnit($userId, 5));
-        $this->set('physicalStats', $this->Units->Specialisations->roleToStats(5));
-
-        $this->set('magicalDps', $this->Units->selectUnit($userId, 4));
-        $this->set('magicalStats', $this->Units->Specialisations->roleToStats(4));
-
-        $this->set('healer', $this->Units->selectUnit($userId, 1));
-        $this->set('healerStats', $this->Units->Specialisations->roleToStats(1));
-
-        $this->set('support', $this->Units->selectUnit($userId, 2));
-        $this->set('supportStats', $this->Units->Specialisations->roleToStats(2));
+            $this->set($slug, $unit);
+        }
     }
 
     /**
@@ -186,24 +180,15 @@ class UnitsController extends AppController
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
 
-        $stats = $this->Units->Specialisations->roleToStats(7);
-        $this->set('tank', $this->Units->selectUnit($userId, null, $stats));
-        $this->set('tankStats', $stats);
+        $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
+        foreach ($roles as $id => $role) {
+            $slug = Text::slug(strtolower($role), '_');
+            $stats = $this->Units->Specialisations->favouredStats($id);
+            $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
+            $unit = $this->Units->selectUnit($userId, null, $statsOrder);
+            $unit->set('stats', $stats);
 
-        $stats = $this->Units->Specialisations->roleToStats(5);
-        $this->set('physicalDps', $this->Units->selectUnit($userId, null, $stats));
-        $this->set('physicalStats', $stats);
-
-        $stats = $this->Units->Specialisations->roleToStats(4);
-        $this->set('magicalDps', $this->Units->selectUnit($userId, null, $stats));
-        $this->set('magicalStats', $stats);
-
-        $stats = $this->Units->Specialisations->roleToStats(1);
-        $this->set('healer', $this->Units->selectUnit($userId, null, $stats));
-        $this->set('healerStats', $stats);
-
-        $stats = $this->Units->Specialisations->roleToStats(2);
-        $this->set('support', $this->Units->selectUnit($userId, null, $stats));
-        $this->set('supportStats', $stats);
+            $this->set($slug, $unit);
+        }
     }
 }

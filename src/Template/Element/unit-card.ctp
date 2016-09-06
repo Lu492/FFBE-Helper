@@ -7,8 +7,14 @@
     <p>Favoured stats for this role.</p>
     <p>
     <?php
-    foreach ($stats as $stat => $dir) {
-        echo "<span class='badge'>" . strtoupper($stat) . "</span>&nbsp;";
+    if (!empty($unit->_matchingData['Specialisations'])) {
+        foreach (explode(',', $unit->_matchingData['Specialisations']->stats) as $stat) {
+            echo "<span class='badge'>" . strtoupper($stat) . "</span>&nbsp;";
+        }
+    } elseif (!empty($unit->stats)) {
+        foreach ($unit->stats as $stat) {
+            echo "<span class='badge'>" . strtoupper($stat) . "</span>&nbsp;";
+        }
     }
     ?>
     </p>
