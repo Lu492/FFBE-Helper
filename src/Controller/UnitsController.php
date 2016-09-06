@@ -20,22 +20,11 @@ class UnitsController extends AppController
     {
         parent::initialize();
 
+        $this->loadComponent('Search.Prg', ['action' => ['index']]);
+
         $this->Auth->allow([
             'index'
         ]);
-    }
-
-    /**
-     * beforeFilter method
-     *
-     * @param \Cake\Event\Event $event
-     */
-    public function beforeFilter(Event $event)
-    {
-        // Only load the Search.Prg component if the form submission is from the search form
-        if ($this->request->is('post') && !empty($this->request->data['search'])) {
-            $this->loadComponent('Search.Prg', ['action' => ['index']]);
-        }
     }
 
     /**
@@ -63,19 +52,6 @@ class UnitsController extends AppController
                 'hp', 'mp', 'atk', 'def', 'mag', 'spr', 'hits'
             ]
         ];
-
-        // Acquire a new unit
-        if ($this->request->is('post')) {
-            $acquire = $this->Units->Acquires->newEntity($this->request->data);
-            $acquire->set('user_id', $this->Auth->user('id'));
-
-            if ($this->Units->Acquires->save($acquire)) {
-                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
-                return $this->redirect(['action' => 'index', 'type' => 'acquired']);
-            } else {
-                $this->Flash->error(__("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.'));
-            }
-        }
 
         $query = $this->Units->find('search', ['search' => $this->request->query])
             ->contain([
@@ -109,6 +85,28 @@ class UnitsController extends AppController
         $this->set('origins', $this->Units->Origins->find('list', ['keyField' => 'id', 'valueField' => 'shortname'])->order('shortname'));
         $this->set('jobs', $this->Units->Jobs->find('list')->order('name'));
         $this->set('specialisations', $this->Units->Specialisations->find('list')->order('name'));
+    }
+
+    /**
+     * Add a new unit to the acquired units
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function acquire()
+    {
+        if ($this->request->is('post')) {
+            $acquire = $this->Units->Acquires->newEntity($this->request->data);
+            $acquire->set('user_id', $this->Auth->user('id'));
+
+            if ($this->Units->Acquires->save($acquire)) {
+                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
+                return $this->redirect(['action' => 'index', 'type' => 'acquired']);
+            } else {
+                $this->Flash->error(__("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.'));
+            }
+        }
+
+        return $this->redirect($this->referer());
     }
 
     /**
