@@ -222,7 +222,7 @@ class UnitsTable extends Table
      * @param int|null $specialisationId Specialisation id to select a unit for
      * @param array $stats If selecting units based purely on their stats
      *
-     * @return mixed
+     * @return \App\Model\Entity\Unit
      */
     public function selectUnit($userId, $specialisationId = null, array $stats = [])
     {
@@ -235,7 +235,7 @@ class UnitsTable extends Table
             ->where(['Acquires.user_id' => $userId]);
 
         if (!empty($specialisationId)) {
-            $roleStats = $this->Specialisations->roleToStats($specialisationId);
+            $roleStats = $this->Specialisations->favouredStats($specialisationId, true);
             $query->order($roleStats);
         } elseif (!empty($stats)) {
             $roleStats = $stats;
