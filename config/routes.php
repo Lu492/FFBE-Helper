@@ -48,11 +48,10 @@ Router::prefix('admin', function (RouteBuilder $routes) {
 });
 
 Router::scope('/', function (RouteBuilder $routes) {
-    $routes->connect('/units', ['controller' => 'Units', 'action' => 'index', 'type' => 'all']);
     $routes->connect('/my-units', ['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
     $routes->connect('/available-units', ['controller' => 'Units', 'action' => 'index', 'type' => 'available']);
 
-    $routes->connect('/', ['controller' => 'Units', 'action' => 'index']);
+    $routes->connect('/', ['controller' => 'Units', 'action' => 'index', 'type' => 'all']);
     $routes->connect('/login', ['controller' => 'Users', 'action' => 'login']);
 
     $routes->fallbacks('DashedRoute');

@@ -38,7 +38,7 @@ class UnitsController extends AppController
     public function index()
     {
         if (empty($this->request->params['type'])) {
-            return $this->redirect(['action' => 'index', 'type' => 'all']);
+            $this->request->params['type'] = 'all';
         }
 
         $this->paginate = [
@@ -68,8 +68,8 @@ class UnitsController extends AppController
         }
 
         // Don't try and filter units if the user isn't logged in
-        if (empty($this->Auth->user('id')) && !empty($this->request->params['type'])) {
-            return $this->redirect(['action' => 'index']);
+        if (empty($this->Auth->user('id')) && $this->request->params['type'] !== 'all') {
+            return $this->redirect(['action' => 'index', 'type' => 'all']);
         }
 
         if ($this->request->params['type'] === 'acquired') {
@@ -136,19 +136,28 @@ class UnitsController extends AppController
     }
 
     /**
-     * Try and auto-generate a balanced party based on stats and roles
+     * Ensure that the current user has at least one unit to make a party with
+     *
+     * @return \Cake\Network\Response|null
      */
-    public function partyBalanced()
+    protected function hasUnits()
     {
-        // Check the user has some units to build a party with
         $unitCount = $this->Units->Acquires->find()
             ->where(['Acquires.user_id' => $this->Auth->user('id')])
             ->count();
 
         if ($unitCount < 1) {
             $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
-            return $this->redirect(['controller' => 'Aquisitions', 'action' => 'units']);
+            return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
         }
+    }
+
+    /**
+     * Try and auto-generate a balanced party based on stats and roles
+     */
+    public function partyBalanced()
+    {
+        $this->hasUnits();
 
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
@@ -156,10 +165,12 @@ class UnitsController extends AppController
         $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
         foreach ($roles as $id => $role) {
             $slug = Text::slug(strtolower($role), '_');
-            $unit = $this->Units->selectUnit($userId, $id);
+            $unit = $this->Units->selectUnit($userId, ['specialisationId' => $id]);
 
             $this->set($slug, $unit);
         }
+
+        return $this->render('party');
     }
 
     /**
@@ -167,15 +178,7 @@ class UnitsController extends AppController
      */
     public function partyStats()
     {
-        // Check the user has some units to build a party with
-        $unitCount = $this->Units->Acquires->find()
-            ->where(['Acquires.user_id' => $this->Auth->user('id')])
-            ->count();
-
-        if ($unitCount < 1) {
-            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
-            return $this->redirect(['controller' => 'Aquisitions', 'action' => 'units']);
-        }
+        $this->hasUnits();
 
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
@@ -185,10 +188,43 @@ class UnitsController extends AppController
             $slug = Text::slug(strtolower($role), '_');
             $stats = $this->Units->Specialisations->favouredStats($id);
             $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
-            $unit = $this->Units->selectUnit($userId, null, $statsOrder);
+            $unit = $this->Units->selectUnit($userId, ['stats' => $statsOrder]);
             $unit->set('stats', $stats);
 
             $this->set($slug, $unit);
         }
+
+        return $this->render('party');
+    }
+
+    /**
+     * Generate a party with a limit maximum rarity
+     */
+    public function partyRarity()
+    {
+        $this->hasUnits();
+
+        $this->Units->party = [];
+        $userId = $this->Auth->user('id');
+
+        $rarity = 5;
+        if ($this->request->query('rarity') !== null) {
+            $rarity = $this->request->query('rarity');
+        }
+
+        $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
+        foreach ($roles as $id => $role) {
+            $slug = Text::slug(strtolower($role), '_');
+            $stats = $this->Units->Specialisations->favouredStats($id);
+            $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
+            $unit = $this->Units->selectUnit($userId, ['stats' => $statsOrder, 'rarity' => $rarity, 'fallback' => false]);
+            if ($unit !== null) {
+                $unit->set('stats', $stats);
+            }
+
+            $this->set($slug, $unit);
+        }
+
+        return $this->render('party');
     }
 }

@@ -30,7 +30,7 @@ class UnitsTable extends Table
 {
 
     /**
-     * Store the id's of the units used in the party already to prevent duplicates
+     * Store the Acquires id's of the units used in the party already to prevent duplicate selections
      *
      * @var array
      */
@@ -214,18 +214,32 @@ class UnitsTable extends Table
     }
 
     /**
-     * Select a single unit based on either a specialisation or a set of stats
+     * Select a single unit based on a number of different criteria
      *
-     * If no stats are passed, then stats will be pulled from the specialisation
+     * Primarily it will try and select a unit based on it's role, if no unit is found, it'll select a 'best fit' unit
+     * based on the stats of the role it's finding a unit for.
+     *
+     * Units selection can be constrained by rarity as well.
      *
      * @param int $userId Currently logged in user id
-     * @param int|null $specialisationId Specialisation id to select a unit for
-     * @param array $stats If selecting units based purely on their stats
+     * @param array $options Array of options
+     *
+     *  - `fallback` bool If no unit is found for a role should the selection fallback to searching by stats
+     *  - `specialisationId` int The id of the specialisation to find a unit with
+     *  - `stats` array An array of stats in the form [stat => dir] for ordering units
+     *  - `minRarity` int The minimum rarity of unit which is eligible for the party
+     *  - `maxRarity` int The maximum rarity of unit which is eligible for the party
+     *  - 'rarity` int The rarity the unit must be to be selected
      *
      * @return \App\Model\Entity\Unit
      */
-    public function selectUnit($userId, $specialisationId = null, array $stats = [])
+    public function selectUnit($userId, array $options = [])
     {
+        $defaultOptions = [
+            'fallback' => true
+        ];
+        $options = array_merge($defaultOptions, $options);
+
         $query = $this->Acquires->find()
             ->contain([
                 'Units' => [
@@ -234,30 +248,53 @@ class UnitsTable extends Table
             ])
             ->where(['Acquires.user_id' => $userId]);
 
-        if (!empty($specialisationId)) {
-            $roleStats = $this->Specialisations->favouredStats($specialisationId, true);
-            $query->order($roleStats);
-        } elseif (!empty($stats)) {
-            $roleStats = $stats;
-            $query->order($roleStats);
-        } else {
-            $roleStats = ['hp'];
+        if (!empty($this->party)) {
+            $query->andWhere(['Acquires.id NOT IN' => $this->party]);
         }
 
-        if (!empty($specialisationId)) {
-            $query->matching('Units.Specialisations', function ($q) use ($specialisationId) {
-                return $q->where(['Specialisations.id' => $specialisationId]);
+        if (!empty($options['specialisationId'])) {
+            $roleStats = $this->Specialisations->favouredStats($options['specialisationId'], true);
+            $query->order($roleStats);
+        } elseif (!empty($options['stats'])) {
+            $roleStats = $options['stats'];
+            $query->order($roleStats);
+        } else {
+            $roleStats = [
+                'hp' => 'desc',
+                'mp' => 'desc'
+            ];
+        }
+
+        if (!empty($options['specialisationId'])) {
+            $query->matching('Units.Specialisations', function ($q) use ($options) {
+                return $q->where(['Specialisations.id' => $options['specialisationId']]);
             });
         }
 
-        if (!empty($this->party)) {
-            $query->where(['Acquires.id NOT IN' => $this->party]);
+        if (!empty($options['minRarity'])) {
+            $query->matching('Units', function ($q) use ($options) {
+                return $q->where(['Units.base_rarity >=' => $options['minRarity']]);
+            });
+        }
+
+        if (!empty($options['maxRarity'])) {
+            $query->matching('Units', function ($q) use ($options) {
+                return $q->where(['Units.base_rarity <=' => $options['minRarity']]);
+            });
+        }
+
+        if (!empty($options['rarity'])) {
+            $query->andWhere(['Acquires.rarity' => $options['rarity']]);
         }
 
         $unit = $query->first();
 
         if ($unit === null) {
-            return $this->selectUnit($userId, null, $roleStats);
+            if ($options['fallback'] === true) {
+                return $this->selectUnit($userId, ['stats' => $roleStats]);
+            } else {
+                return null;
+            }
         }
 
         $this->party[] = $unit->get('id');

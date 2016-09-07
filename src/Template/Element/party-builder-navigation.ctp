@@ -5,13 +5,13 @@
     <li <?= ($this->request->action === 'partyStats') ? 'class="active"' : ''?>>
         <?= $this->Html->link('Best by stats', ['action' => 'partyStats']);?>
     </li>
+    <li <?= ($this->request->action === 'partyRarity') ? 'class="active"' : ''?>>
+        <?= $this->Html->link('Single rarity', ['action' => 'partyRarity']);?>
+    </li>
     <li>
         <a href="#Physical">Physical</a>
     </li>
     <li>
         <a href="#Magical">Magical</a>
-    </li>
-    <li>
-        <a href="#Rarity">Single rarity</a>
     </li>
 </ul>
