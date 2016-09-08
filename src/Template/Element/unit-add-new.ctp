@@ -7,7 +7,7 @@
     <div class="add-form">
         <?php
         /* @var \App\View\AppView $this */
-        echo $this->Form->create(null, ['url' => ['controller' => 'Units', 'action' => 'acquire']]); ?>
+        echo $this->Form->create(null, ['url' => ['controller' => 'Units', 'action' => 'acquire'], 'id' => 'acquire-unit']); ?>
 
         <div class="col-md-4">
             <?php echo $this->Form->input('unit_name', ['autocomplete' => 'off', 'help' => 'Type the first few characters of the unit to auto-complete.', 'required' => true]); ?>
@@ -44,9 +44,22 @@
                     }
                 });
             },
+            search: function (event, ui) {
+                $('#acquire-unit div.form-group.radio label:hidden').show();
+            },
             select: function (event, ui) {
                 $('#unit-name').val(ui.item.label);
                 $('#unit-id').val(ui.item.value);
+
+                $('#acquire-unit div.form-group.radio label').each(function (i, e) {
+                    if ($(e).attr('for').replace('rarity-', '') < ui.item.base_rarity.stars) {
+                        $(e).hide();
+                    }
+                    if ($(e).attr('for').replace('rarity-', '') > ui.item.max_rarity.stars) {
+                        $(e).hide();
+                    }
+                });
+
                 return false;
             },
             minLength: 2

@@ -10,6 +10,7 @@
 namespace App\Controller;
 
 use Cake\Event\Event;
+use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Text;
 
 class UnitsController extends AppController
@@ -134,19 +135,33 @@ class UnitsController extends AppController
     }
 
     /**
-     * Generate an autocomplete list for jQueryUI autocomplete
+     * Generate json list for jQueryUI auto-complete
      *
      * Expects a query param of q with a string to search for, and responds with json
      *
      * @return string
+     * @throws NotFoundException
      */
     public function unitList()
     {
         $this->request->allowMethod(['get']);
         $this->request->accepts('application/json');
 
+        if (!$this->request->is('ajax')) {
+            throw new NotFoundException();
+        }
+
         $units = $this->Units->find()
-            ->select(['value' => 'id', 'label' => 'name']);
+            ->contain([
+                'BaseRarity',
+                'MaxRarity'
+            ])
+            ->select([
+                'value' => 'Units.id',
+                'label' => 'name',
+                'BaseRarity.stars',
+                'MaxRarity.stars'
+            ]);
 
         if (!empty($this->request->query['q'])) {
             $units->where(['name LIKE' => '%' . $this->request->query['q'] . '%']);
