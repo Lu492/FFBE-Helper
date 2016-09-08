@@ -85,7 +85,7 @@ class UnitsController extends AppController
 
         // Don't try and filter units if the user isn't logged in
         if (empty($this->Auth->user('id')) && $this->request->params['type'] !== 'all') {
-            return $this->redirect(['action' => 'index', 'type' => 'all']);
+            return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
 
         if ($this->request->params['type'] === 'acquired') {
