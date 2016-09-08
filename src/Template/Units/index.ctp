@@ -47,7 +47,12 @@ $this->assign('title', 'Brave Exvius Units');
     }
     ?>
 
-    <?php if ($units->isEmpty()): ?>
+    <?php if ($units->isEmpty() && $this->request->params['type'] === 'acquired'): ?>
+        <div class="alert alert-warning">
+            Sorry, you have not acquired any units which match that search.
+            <?= $this->Html->link('Re-run search with all units.', ['controller' => 'Units', 'action' => 'index', 'type' => 'all', '?' => $this->request->query])?>
+        </div>
+    <?php elseif ($units->isEmpty() && $this->request->params['type'] === 'acquired'): ?>
         <div class="alert alert-warning">Sorry, no units were found for that search.</div>
     <?php else: ?>
     <table summary="units" class="table" id="unittable">
