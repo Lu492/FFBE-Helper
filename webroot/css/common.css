@@ -90,8 +90,10 @@ span.label.role {
 
 #unittable thead {
   background-color: #fff; }
-#unittable td.actions a {
-  margin-right: 4px; }
+#unittable td.actions {
+  white-space: nowrap; }
+  #unittable td.actions a {
+    margin-right: 4px; }
 
 div.search.well p a, div.add-units.well p a {
   float: right; }
