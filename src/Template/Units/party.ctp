@@ -23,7 +23,7 @@
                 }
                 echo $this->Form->input('rarity', $options, ['label' => 'Acquired rarity']);
             ?></div>
-            <div class="col-md-3 button"><?php echo $this->Form->button('Build', ['class' => 'btn btn-default']);?></div>
+            <div class="col-md-3 button build-party"><?php echo $this->Form->button('Build', ['class' => 'btn btn-default']);?></div>
         </div>
     <?php endif;?>
 

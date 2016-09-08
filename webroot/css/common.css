@@ -24,6 +24,32 @@ div.level-bar {
     font-size: 12px;
     font-weight: bold; }
 
+/** Table displaying all units, acquired and available **/
+#unittable thead {
+  background-color: #fff; }
+#unittable td.actions {
+  white-space: nowrap; }
+  #unittable td.actions a {
+    margin-right: 4px; }
+
+.asc:after {
+  content: " \2193"; }
+
+.desc:after {
+  content: " \2191"; }
+
+/** Single unit displayed as part of a party **/
+#party-table {
+  width: 100%;
+  border: 1px solid #ccc; }
+  #party-table tr th {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px; }
+
+.button.build-party {
+  margin-top: 24px; }
+
 div.unit-card {
   text-align: center;
   background-color: #eee;
@@ -42,6 +68,41 @@ div.unit-card {
       font-weight: bold;
       font-size: 12px !important; }
 
+span.badge.light {
+  color: #333;
+  background-color: #c4c4c4; }
+  span.badge.light.pad {
+    padding: 7px 11px; }
+
+/** Tabs on the build party page **/
+ul.unit-nav {
+  margin-bottom: 5px; }
+
+span.label.role {
+  color: #4a4a4a; }
+  span.label.role.tank {
+    background-color: #bcbcbc; }
+  span.label.role.healing {
+    background-color: #f7b8b6; }
+  span.label.role.support {
+    background-color: #cbfbab; }
+  span.label.role.magic-damage {
+    background-color: #e7b6f2; }
+  span.label.role.physical-damage {
+    background-color: #efc1a6; }
+  span.label.role.hybrid-damage {
+    background-color: #abb8ed; }
+
+div.alert {
+  margin: 10px; }
+
+div.form-group.radio label {
+  margin-right: 20px; }
+
+span.star-rarity {
+  white-space: nowrap; }
+
+/** Block level site elements **/
 header {
   background-color: #007ba4; }
   header h1, header p {
@@ -73,37 +134,13 @@ footer {
   footer img.baked-with-cake {
     height: 60px; }
 
-span.label.role {
-  color: #4a4a4a; }
-  span.label.role.tank {
-    background-color: #bcbcbc; }
-  span.label.role.healing {
-    background-color: #f7b8b6; }
-  span.label.role.support {
-    background-color: #cbfbab; }
-  span.label.role.magic-damage {
-    background-color: #e7b6f2; }
-  span.label.role.physical-damage {
-    background-color: #efc1a6; }
-  span.label.role.hybrid-damage {
-    background-color: #abb8ed; }
-
-#unittable thead {
-  background-color: #fff; }
-#unittable td.actions {
-  white-space: nowrap; }
-  #unittable td.actions a {
-    margin-right: 4px; }
-
+/** Search units and add new unit forms **/
 div.search.well p a, div.add-units.well p a {
   float: right; }
 
 #unitsearchform div.submit {
   float: left;
   margin: 0 15px 0; }
-
-div.alert {
-  margin: 10px; }
 
 form div.submit {
   float: left;
@@ -112,6 +149,7 @@ form div.submit {
 div.login form div.submit {
   float: none; }
 
+/** Ajax loading div **/
 #ajax-loading {
   position: absolute;
   top: 40%;
@@ -123,37 +161,5 @@ div.login form div.submit {
   box-shadow: 1px 1px 3px #333;
   text-align: center;
   font-weight: bold; }
-
-.asc:after {
-  content: " \2193"; }
-
-.desc:after {
-  content: " \2191"; }
-
-#party-table {
-  width: 100%;
-  border: 1px solid #ccc; }
-  #party-table tr th {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px; }
-
-ul.unit-nav {
-  margin-bottom: 5px; }
-
-.col-md-3.button {
-  margin-top: 24px; }
-
-div.form-group.radio label {
-  margin-right: 20px; }
-
-span.star-rarity {
-  white-space: nowrap; }
-
-span.badge.light {
-  color: #333;
-  background-color: #c4c4c4; }
-  span.badge.light.pad {
-    padding: 7px 11px; }
 
 /*# sourceMappingURL=common.css.map */

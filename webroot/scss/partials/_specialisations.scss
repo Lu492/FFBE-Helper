@@ -1,0 +1,21 @@
+span.label.role {
+  color: #4a4a4a;
+  &.tank {
+    background-color: #bcbcbc;
+  }
+  &.healing {
+    background-color: #f7b8b6;
+  }
+  &.support {
+    background-color: #cbfbab;
+  }
+  &.magic-damage {
+    background-color: #e7b6f2;
+  }
+  &.physical-damage {
+    background-color: #efc1a6;
+  }
+  &.hybrid-damage {
+    background-color: #abb8ed;
+  }
+}

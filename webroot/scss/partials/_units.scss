@@ -1,0 +1,69 @@
+/** Table displaying all units, acquired and available **/
+#unittable {
+  thead {
+    background-color: #fff;
+  }
+  td.actions {
+    white-space: nowrap;
+    a {
+      margin-right: 4px;
+    }
+  }
+}
+
+.asc:after {
+  content: " \2193";
+}
+.desc:after {
+  content: " \2191";
+}
+
+/** Single unit displayed as part of a party **/
+#party-table {
+  width: 100%;
+  border: 1px solid #ccc;
+  tr th {
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+  }
+}
+
+.button.build-party {
+  margin-top: 24px;
+}
+
+div.unit-card {
+  text-align: center;
+  background-color: #eee;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  table {
+    width: 90%;
+    margin: 0 auto;
+    &, th, td {
+      border: 1px solid #ccc;
+      padding: 2px;
+      text-align: center;
+    }
+    border-radius: 4px;
+    th {
+      font-weight: bold;
+      font-size: 12px !important;
+    }
+  }
+}
+
+span.badge.light {
+  color: #333;
+  background-color: lighten(#777, 30%);
+  &.pad {
+    padding: 7px 11px;
+  }
+}
+
+/** Tabs on the build party page **/
+ul.unit-nav {
+  margin-bottom: 5px;
+}

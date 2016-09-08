@@ -1,13 +1,20 @@
 @import "partials/_levelBar";
-@import "partials/_unitcard";
+@import "partials/_units";
+@import "partials/_specialisations";
+@import "partials/_alerts";
+@import "partials/rarityHelper";
 
+$headerBgColor: #007ba4;
+$headerTextColor: #000;
+
+/** Block level site elements **/
 header {
-  background-color: #007ba4;
+  background-color: $headerBgColor;
   h1, p {
     font-family: 'Signika', serif;
-    color: #000;
+    color: $headerTextColor;
     text-align: center;
-    text-shadow: 0 0 4px lighten(#007ba4, 60%);
+    text-shadow: 0 0 4px lighten($headerBgColor, 60%);
   }
   h1 {
     font-size: 40px;
@@ -40,39 +47,7 @@ footer {
   }
 }
 
-span.label.role {
-  color: #4a4a4a;
-  &.tank {
-    background-color: #bcbcbc;
-  }
-  &.healing {
-    background-color: #f7b8b6;
-  }
-  &.support {
-    background-color: #cbfbab;
-  }
-  &.magic-damage {
-    background-color: #e7b6f2;
-  }
-  &.physical-damage {
-    background-color: #efc1a6;
-  }
-  &.hybrid-damage {
-    background-color: #abb8ed;
-  }
-}
-#unittable {
-  thead {
-    background-color: #fff;
-  }
-  td.actions {
-    white-space: nowrap;
-    a {
-      margin-right: 4px;
-    }
-  }
-}
-
+/** Search units and add new unit forms **/
 div.search.well, div.add-units.well {
   p a {
     float: right;
@@ -84,10 +59,6 @@ div.search.well, div.add-units.well {
     float: left;
     margin: 0 15px 0;
   }
-}
-
-div.alert{
-  margin: 10px;
 }
 
 form {
@@ -102,6 +73,7 @@ div.login form {
   }
 }
 
+/** Ajax loading div **/
 #ajax-loading {
   position: absolute;
   top: 40%;
@@ -115,43 +87,3 @@ div.login form {
   font-weight: bold;
 }
 
-.asc:after {
-  content: " \2193";
-}
-.desc:after {
-  content: " \2191";
-}
-
-#party-table {
-  width: 100%;
-  border: 1px solid #ccc;
-  tr th {
-    text-align: center;
-    font-weight: bold;
-    font-size: 24px;
-  }
-}
-
-ul.unit-nav {
-  margin-bottom: 5px;
-}
-
-.col-md-3.button {
-  margin-top: 24px;
-}
-
-div.form-group.radio label {
-  margin-right: 20px;
-}
-
-span.star-rarity {
-  white-space: nowrap;
-}
-
-span.badge.light {
-  color: #333;
-  background-color: lighten(#777, 30%);
-  &.pad {
-    padding: 7px 11px;
-  }
-}
