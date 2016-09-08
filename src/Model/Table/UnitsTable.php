@@ -258,8 +258,11 @@ class UnitsTable extends Table
 
         $query = $this->Acquires->find()
             ->contain([
+                'Rarities',
                 'Units' => [
-                    'Specialisations'
+                    'Specialisations',
+                    'BaseRarity',
+                    'MaxRarity'
                 ]
             ])
             ->where(['Acquires.user_id' => $userId]);
@@ -300,7 +303,7 @@ class UnitsTable extends Table
         }
 
         if (!empty($options['rarity'])) {
-            $query->andWhere(['Acquires.rarity' => $options['rarity']]);
+            $query->andWhere(['Acquires.rarity_id' => $options['rarity']]);
         }
 
         $unit = $query->first();

@@ -1,7 +1,7 @@
 <div class="unit-card">
     <?php if (!empty($unit)): ?>
         <h4><?= $unit->unit->name?></h4>
-        <p><?= $unit->rarity;?> of <?= $unit->unit->max_rarity?> <?= $this->Html->image('star.png')?></p>
+        <p><?= $this->Rarity->display($unit->rarity->stars, $unit->unit->max_rarity->stars, 'stars')?></p>
 
         <p><?= $this->element('unit-specialisations', ['specialisations' => $unit->unit->specialisations]);?></p>
 
@@ -49,6 +49,6 @@
         </table>
     <?php else:?>
         <h4><span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span> Sorry</h4>
-        <p>Could not find a unit matching the specified criteria.</p>
+        <p>Could not find a unit in your collection<br>matching the specified criteria.</p>
     <?php endif;?>
 </div>

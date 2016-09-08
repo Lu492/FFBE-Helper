@@ -49,6 +49,8 @@ class AcquiresTable extends Table
             'foreignKey' => 'unit_id',
             'joinType' => 'INNER'
         ]);
+
+        $this->belongsTo('Rarities');
     }
 
     /**

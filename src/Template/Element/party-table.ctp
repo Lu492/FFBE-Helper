@@ -1,13 +1,15 @@
 <table id="party-table">
-    <thead>
-    <tr>
-        <th>Tank</th>
-        <th>Physical DPS</th>
-        <th>Magical DPS</th>
-        <th>Support</th>
-        <th>Healer</th>
-    </tr>
-    </thead>
+    <?php if ($header):?>
+        <thead>
+        <tr>
+            <th>Tank</th>
+            <th>Physical DPS</th>
+            <th>Magical DPS</th>
+            <th>Support</th>
+            <th>Healer</th>
+        </tr>
+        </thead>
+    <?php endif;?>
     <tbody>
     <tr>
         <td><?= $this->element('unit-card', ['unit' => $tank]);?></td>

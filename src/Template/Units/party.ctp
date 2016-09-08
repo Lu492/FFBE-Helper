@@ -1,5 +1,6 @@
 <div class="units party">
     <h2>Build a party</h2>
+    <p>Automatically select from your acquired units to build a team.</p>
 
     <?= $this->element('party-builder-navigation');?>
 
@@ -26,5 +27,11 @@
         </div>
     <?php endif;?>
 
-    <?= $this->element('party-table');?>
+    <?php
+    $options = ['header' => true];
+    if ($this->request->action === 'partyRarity') {
+        $options = ['header' => false];
+    }
+    echo $this->element('party-table', $options);
+    ?>
 </div>
