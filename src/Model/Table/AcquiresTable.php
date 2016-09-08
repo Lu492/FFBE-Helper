@@ -67,12 +67,58 @@ class AcquiresTable extends Table
 
         $validator
             ->integer('level')
-            ->allowEmpty('level');
+            ->allowEmpty('level')
+            ->add('level', 'validRange', [
+                'rule' => ['range', 1, 80],
+                'message' => 'Level range is only between 1 and 80.'
+            ])
+            ->add('level', 'inRarity', [
+                'rule' => function ($value, $context) {
+                    $rarity = $this->Rarities->find()
+                        ->where(['stars' => $context['data']['rarity']])
+                        ->first();
+                    if (!$rarity) {
+                        return false;
+                    }
+
+                    if ($value > 1 && $value <= $rarity->get('max_level')) {
+                        return true;
+                    }
+
+                    return false;
+                },
+                'message' => 'Level is not allowed in this rarity.'
+            ]);
 
         $validator
             ->integer('rarity')
             ->requirePresence('rarity', 'create')
-            ->notEmpty('rarity');
+            ->notEmpty('rarity')
+            ->add('rarity', 'hasRarity', [
+                'rule' => function ($value, $context) {
+                    $unit = $this->Units->find()
+                        ->select([
+                            'id', 'name', 'base_rarity_id', 'max_rarity_id',
+                            'BaseRarity.stars', 'MaxRarity.stars'
+                        ])
+                        ->contain([
+                            'BaseRarity',
+                            'MaxRarity'
+                        ])
+                        ->where(['Units.id' => $context['data']['unit_id']])
+                        ->first();
+                    if (!$unit) {
+                        return false;
+                    }
+
+                    if ($value > $unit->base_rarity->stars && $value < $unit->max_rarity->stars) {
+                        return true;
+                    }
+
+                    return false;
+                },
+                'message' => 'This unit is not available at this rarity.'
+            ]);
 
         return $validator;
     }
