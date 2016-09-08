@@ -18,6 +18,7 @@ class RarityHelper extends Helper
      * @var array
      */
     protected $_defaultConfig = [
+        // TODO: Replace with database data, just like the level bar helper
         'rarities' => [
             1 => 1,
             2 => 2,
@@ -72,10 +73,11 @@ class RarityHelper extends Helper
      * @param string $field Name of the form field
      * @param \Cake\Datasource\EntityInterface|null $entity The form entity
      * @param string $type What type of form output, should be a string of 'numbers|stars|combo'
+     * @param boolean $required Is the field required
      *
      * @return string;
      */
-    public function form($field, EntityInterface $entity = null, $type = 'numbers')
+    public function form($field, EntityInterface $entity = null, $type = 'numbers', $required = false)
     {
         $out = '<div class="form-group radio">';
 
@@ -90,7 +92,12 @@ class RarityHelper extends Helper
                 $checked = 'checked="checked"';
             }
 
-            $out .= "<input type='radio' name='$field' value='$rarity' id='$field-$rarity' $checked>";
+            $requiredField = '';
+            if ($required) {
+                $requiredField = "required='required'";
+            }
+
+            $out .= "<input type='radio' name='$field' value='$rarity' id='$field-$rarity' $checked $requiredField>";
 
             if ($type === 'stars') {
                 for ($i = 0; $i < $rarity; $i++) {
