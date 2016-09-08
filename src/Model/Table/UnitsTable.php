@@ -195,9 +195,12 @@ class UnitsTable extends Table
                 'field' => 'job_id'
             ])
             ->compare('min_rarity', [
-                'field' => 'base_rarity',
+                'field' => 'base_rarity_id'
             ])
-            ->compare('max_rarity')
+            ->compare('max_rarity', [
+                'field' => 'max_rarity_id',
+                'operator' => '<='
+            ])
             ->finder('role', [
                 'finder' => 'bySpecialisation'
             ]);
@@ -286,13 +289,13 @@ class UnitsTable extends Table
 
         if (!empty($options['minRarity'])) {
             $query->matching('Units', function ($q) use ($options) {
-                return $q->where(['Units.base_rarity >=' => $options['minRarity']]);
+                return $q->where(['Units.base_rarity_id >=' => $options['minRarity']]);
             });
         }
 
         if (!empty($options['maxRarity'])) {
             $query->matching('Units', function ($q) use ($options) {
-                return $q->where(['Units.base_rarity <=' => $options['minRarity']]);
+                return $q->where(['Units.max_rarity_id <=' => $options['maxRarity']]);
             });
         }
 
