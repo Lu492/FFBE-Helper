@@ -67,8 +67,8 @@ $this->assign('title', 'Brave Exvius Units');
                 <th class="hidden-xs"><?= $this->Paginator->sort('Jobs.name', 'Job');?></th>
                 <th>Role</th>
                 <?php if ($this->request->params['type'] !== 'acquired') { ?>
-                    <th><?= $this->Paginator->sort('base_rarity');?></th>
-                    <th><?= $this->Paginator->sort('max_rarity');?></th>
+                    <th><?= $this->Paginator->sort('base_rarity_id');?></th>
+                    <th><?= $this->Paginator->sort('max_rarity_id');?></th>
                 <?php } else { ?>
                     <th><?= $this->Paginator->sort('Acquires.rarity', 'Rarity', ['direction' => 'desc']);?></th>
                     <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
@@ -95,11 +95,11 @@ $this->assign('title', 'Brave Exvius Units');
                 <td><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
 
                 <?php if ($this->request->params['type'] !== 'acquired') { ?>
-                    <td><?= $unit->base_rarity . ' ' . $this->Html->image('star.png')?></td>
-                    <td><?= $unit->max_rarity . ' ' . $this->Html->image('star.png')?></td>
+                    <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
+                    <td><?= $unit->max_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
                 <?php } else { ?>
                     <td><?php
-                        echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity, $unit->max_rarity, 'stars');
+                        echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity, $unit->max_rarity->stars, 'stars');
                     ?></td>
                     <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity)?></td>
                 <?php } ?>

@@ -60,7 +60,9 @@ class UnitsController extends AppController
                 'Jobs',
                 'Genders',
                 'Origins',
-                'Specialisations'
+                'Specialisations',
+                'BaseRarity',
+                'MaxRarity'
             ]);
 
         if (empty($this->request->query['sort'])) {

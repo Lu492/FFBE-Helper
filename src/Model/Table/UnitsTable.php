@@ -70,6 +70,19 @@ class UnitsTable extends Table
             'joinType' => 'INNER'
         ]);
 
+        $this->hasOne('BaseRarity', [
+            'className' => 'Rarities',
+            'foreignKey' => 'id',
+            'bindingKey' => 'base_rarity_id',
+            'propertyName' => 'base_rarity'
+        ]);
+        $this->hasOne('MaxRarity', [
+            'className' => 'Rarities',
+            'foreignKey' => 'id',
+            'bindingKey' => 'max_rarity_id',
+            'propertyName' => 'max_rarity'
+        ]);
+
         $this->hasMany('Acquires');
 
         $this->belongsToMany('Specialisations', [
