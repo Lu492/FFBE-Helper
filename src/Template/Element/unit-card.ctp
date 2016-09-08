@@ -10,11 +10,11 @@
         <?php
         if (!empty($unit->_matchingData['Specialisations'])) {
             foreach (explode(',', $unit->_matchingData['Specialisations']->stats) as $stat) {
-                echo "<span class='badge'>" . strtoupper($stat) . "</span>&nbsp;";
+                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
             }
         } elseif (!empty($unit->stats)) {
             foreach ($unit->stats as $stat) {
-                echo "<span class='badge'>" . strtoupper($stat) . "</span>&nbsp;";
+                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
             }
         }
         ?>

@@ -147,3 +147,11 @@ div.form-group.radio label {
 span.star-rarity {
   white-space: nowrap;
 }
+
+span.badge.light {
+  color: #333;
+  background-color: lighten(#777, 30%);
+  &.pad {
+    padding: 7px 11px;
+  }
+}
