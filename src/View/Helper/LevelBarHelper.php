@@ -15,15 +15,22 @@ class LevelBarHelper extends Helper
      *
      * @var array
      */
-    protected $_defaultConfig = [
-        'rarities' => [
-            1 => ['maxLevel' => 15],
-            2 => ['maxLevel' => 30],
-            3 => ['maxLevel' => 40],
-            4 => ['maxLevel' => 60],
-            5 => ['maxLevel' => 80]
-        ]
-    ];
+    protected $_defaultConfig = [];
+
+    /**
+     * Build the controller
+     *
+     * @param array $config
+     * @throws \RuntimeException
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        if (empty($this->config('rarities'))) {
+            throw new \RuntimeException(__('Expected an array of Rarity entities set to the view.'));
+        }
+    }
 
     /**
      * Generate a level progress bar
@@ -35,7 +42,7 @@ class LevelBarHelper extends Helper
      */
     public function progress($level, $rarity)
     {
-        $maxLevel = $this->config('rarities.' . $rarity . '.maxLevel');
+        $maxLevel = $this->config('rarities.' . ($rarity - 1))->get('max_level');
         $percent = $this->percentComplete($level, $maxLevel);
 
         if ($level === $maxLevel) {
@@ -61,7 +68,11 @@ class LevelBarHelper extends Helper
      */
     protected function percentComplete($level, $max)
     {
-        return ($level / $max) * 100;
+        if ($level <= $max) {
+            return ($level / $max) * 100;
+        }
+
+        return 0;
     }
 
     /**

@@ -98,10 +98,10 @@ $this->assign('title', 'Brave Exvius Units');
                     <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
                     <td><?= $unit->max_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
                 <?php } else { ?>
-                    <td><?php
-                        echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity, $unit->max_rarity->stars, 'stars');
-                    ?></td>
-                    <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity)?></td>
+                    <td>
+                        <?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity, $unit->max_rarity->stars, 'stars');?>
+                    </td>
+                    <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity_id);?></td>
                 <?php } ?>
 
                 <td class="hidden-xs"><?= $unit->hp?></td>

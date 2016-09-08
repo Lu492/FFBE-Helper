@@ -40,5 +40,9 @@ class AppView extends View
         $this->loadHelper('Form', ['className' => 'BootstrapUI.Form']);
         $this->loadHelper('Flash', ['className' => 'BootstrapUI.Flash']);
         $this->loadHelper('Paginator', ['className' => 'BootstrapUI.Paginator']);
+
+        if (!empty($this->viewVars['rarities'])) {
+            $this->loadHelper('LevelBar', ['rarities' => $this->viewVars['rarities']]);
+        }
     }
 }

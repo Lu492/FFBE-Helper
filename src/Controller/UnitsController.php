@@ -29,6 +29,19 @@ class UnitsController extends AppController
     }
 
     /**
+     * beforeFilter method
+     *
+     * @param \Cake\Event\Event $event
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->loadModel('Rarities');
+        $this->set('rarities', $this->Rarities->find()->order('stars')->toArray());
+    }
+
+    /**
      * List all the available units
      *
      * Can generate different lists of units depending on what is passed
