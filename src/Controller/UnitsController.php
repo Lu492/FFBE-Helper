@@ -118,7 +118,15 @@ class UnitsController extends AppController
                 $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
                 return $this->redirect(['action' => 'index', 'type' => 'acquired']);
             } else {
-                $this->Flash->error(__("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.'));
+                $message = __("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.');
+                if (!empty($acquire->errors())) {
+                    $message .= "<ul>";
+                    foreach ($acquire->errors() as $error) {
+                        $message.= "<li>" . $error[key($error)] . "</li>";
+                    }
+                    $message .= "</ul>";
+                }
+                $this->Flash->error($message);
             }
         }
 
