@@ -1,8 +1,10 @@
 <?php
 namespace App\View\Helper;
 
+use Cake\Datasource\EntityInterface;
+use Cake\Utility\Inflector;
+use Cake\Utility\Text;
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * Rarity helper
@@ -40,32 +42,70 @@ class RarityHelper extends Helper
      *
      * @param int $level Current rarity level
      * @param int $max Maximum attainable rarity level
-     * @param bool $stars
+     * @param string $type What type of form output, should be a string of 'numbers|stars|combo'
      *
      * @return string
      */
-    public function display($level, $max, $stars = true)
+    public function display($level, $max, $type = 'numbers')
     {
-        $out = $level . ' of ' . $max;
-        if ($stars) {
-            $out .= '&nbsp;' . $this->Html->image('stars.png');
+        $out = '<span class="star-rarity">';
+        if ($type === 'combo') {
+            $out .= $level . ' of ' . $max . '&nbsp;' . $this->Html->image('star.png');
+        } elseif ($type === 'stars') {
+            for ($i = 0; $i < $level; $i++) {
+                $out .= $this->Html->image('star.png');
+            }
+            for ($i = 0; $i < $max - $level; $i++) {
+                $out .= $this->Html->image('empty_star.png');
+            }
+        } else {
+            $out = $level . ' of ' . $max;
         }
 
+        $out .= "</span>";
         return $out;
     }
 
     /**
      * Output a set of radio buttons for selecting rarity level
      *
+     * @param string $field Name of the form field
+     * @param \Cake\Datasource\EntityInterface|null $entity The form entity
+     * @param string $type What type of form output, should be a string of 'numbers|stars|combo'
+     *
      * @return string;
      */
-    public function form()
+    public function form($field, EntityInterface $entity = null, $type = 'numbers')
     {
-        // TODO: Figure out why this isn't outputting a radio button
-        $this->Form->templates([
-            'radioWrapper' => '<div class="radio"><label{{attrs}}>{{text}}</label></div>',
-        ]);
-        $radios = $this->Form->radio('rarity', $this->config('rarities'));
-        return "<div class='form-group radio'>$radios</div>";
+        $out = '<div class="form-group radio">';
+
+        $out .= "<p><b>" . Inflector::humanize($field) . "</b></p>";
+
+        foreach ($this->config('rarities') as $rarity) {
+            $out .= "<label for='$field-$rarity'>";
+
+            $checked = '';
+            if ((!empty($entity) && !empty($entity->get('rarity')) && $entity->get('rarity') === $rarity)
+                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity)) {
+                $checked = 'checked="checked"';
+            }
+
+            $out .= "<input type='radio' name='$field' value='$rarity' id='$field-$rarity' $checked>";
+
+            if ($type === 'stars') {
+                for ($i = 0; $i < $rarity; $i++) {
+                    $out .= $this->Html->image('star.png');
+                }
+            } elseif ($type === 'combo') {
+                $out .= $rarity . $this->Html->image('star.png');
+            } else {
+                $out .= $rarity;
+            }
+
+            $out .= "</label>";
+        }
+        $out .= "</div>";
+
+        return $out;
     }
 }

@@ -4,8 +4,7 @@
     <?php
     echo $this->Form->create($unit);
     echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80]);
-    echo $this->Form->input('rarity', ['type' => 'select', 'options' => \Cake\Core\Configure::read('rarities')]);
-    echo $this->Rarity->form();
+    echo $this->Rarity->form('rarity', $unit, 'stars');
     echo $this->Form->submit('Update', ['class' => 'btn btn-success']);
     echo $this->Html->link('Cancel', ['controller' => 'Units', 'action' => 'index', 'type' => 'acquired'], ['class' => 'btn btn-default']);
     echo $this->Form->end();

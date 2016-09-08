@@ -142,4 +142,10 @@ ul.unit-nav {
 .col-md-3.button {
   margin-top: 24px; }
 
+div.form-group.radio label {
+  margin-right: 20px; }
+
+span.star-rarity {
+  white-space: nowrap; }
+
 /*# sourceMappingURL=common.css.map */

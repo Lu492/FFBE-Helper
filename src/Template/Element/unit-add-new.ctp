@@ -13,11 +13,11 @@
             <?php echo $this->Form->input('unit_name', ['autocomplete' => 'off', 'help' => 'Type the first few characters of the unit to auto-complete.', 'required' => true]); ?>
             <?php echo $this->Form->input('unit_id', ['type' => 'hidden']); ?>
         </div>
-        <div class="col-md-4">
-            <?php echo $this->Form->input('rarity', ['type' => 'select', 'options' => \Cake\Core\Configure::read('rarities')]); ?>
+        <div class="col-md-5">
+            <?= $this->Rarity->form('rarity', null, 'stars');?>
         </div>
-        <div class="col-md-4">
-            <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'placeholder' => 1]); ?>
+        <div class="col-md-3">
+            <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'value' => 1]); ?>
         </div>
         <div class="col-md-12">
             <?php
