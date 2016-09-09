@@ -81,7 +81,7 @@ class AcquiresTable extends Table
                         return false;
                     }
 
-                    if ($value > 1 && $value <= $rarity->get('max_level')) {
+                    if ($value >= 1 && $value <= $rarity->get('max_level')) {
                         return true;
                     }
 
