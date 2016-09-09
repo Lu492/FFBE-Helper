@@ -17,8 +17,8 @@
         <div class="col-md-6">
             <?php
             echo $this->Form->input('role', ['type' => 'select', 'options' => $specialisations, 'empty' => 'Select role']);
-            echo $this->Rarity->form('min_rarity', null, 'stars');
-            echo $this->Rarity->form('max_rarity', null, 'stars');
+            echo $this->Rarity->form('min_rarity');
+            echo $this->Rarity->form('max_rarity');
             ?>
         </div>
 

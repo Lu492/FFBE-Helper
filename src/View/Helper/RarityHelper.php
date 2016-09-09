@@ -72,42 +72,55 @@ class RarityHelper extends Helper
      *
      * @param string $field Name of the form field
      * @param \Cake\Datasource\EntityInterface|null $entity The form entity
-     * @param string $type What type of form output, should be a string of 'numbers|stars|combo'
-     * @param boolean $required Is the field required
+     * @param array $options Array of options for the helper output
+     *
+     *  - `required` bool : Should the generated field be a required field
+     *  - `type` string (numbers|stars|combo) : What type of form input should be generated
+     *  - `label` bool : Should a label be output for the field
      *
      * @return string;
      */
-    public function form($field, EntityInterface $entity = null, $type = 'numbers', $required = false)
+    public function form($field, EntityInterface $entity = null, array $options = [])
     {
+        $defaultOptions = [
+            'required' => false,
+            'type' => 'stars',
+            'label' => true
+        ];
+        $options = array_merge($defaultOptions, $options);
+
         $out = '<div class="form-group radio">';
 
-        $out .= "<p><b>" . Inflector::humanize($field) . "</b></p>";
+        if ($options['label']) {
+            $out .= "<p><b>" . Inflector::humanize($field) . "</b></p>";
+        }
 
         foreach ($this->config('rarities') as $rarity) {
             $out .= "<label for='$field-$rarity'>";
 
             $checked = '';
-            if ((!empty($entity) && !empty($entity->get('rarity')) && $entity->get('rarity') === $rarity)
-                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity)) {
             if ((!empty($entity) && !empty($entity->get($field)) && $entity->get($field) === $rarity)
+                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity)
+                || (!empty($this->request->query[$field]) && $this->request->query[$field] == $rarity)
+            ) {
                 $checked = 'checked="checked"';
             }
 
             $requiredField = '';
-            if ($required) {
+            if ($options['required']) {
                 $requiredField = "required='required'";
             }
 
             $out .= "<input type='radio' name='$field' value='$rarity' id='$field-$rarity' $checked $requiredField>";
 
-            if ($type === 'stars') {
+            if ($options['type'] === 'numbers') {
+                $out .= $rarity;
+            } elseif ($options['type'] === 'combo') {
+                $out .= $rarity . $this->Html->image('star.png');
+            } else {
                 for ($i = 0; $i < $rarity; $i++) {
                     $out .= $this->Html->image('star.png');
                 }
-            } elseif ($type === 'combo') {
-                $out .= $rarity . $this->Html->image('star.png');
-            } else {
-                $out .= $rarity;
             }
 
             $out .= "</label>";

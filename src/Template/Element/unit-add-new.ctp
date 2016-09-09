@@ -14,7 +14,7 @@
             <?php echo $this->Form->input('unit_id', ['type' => 'hidden']); ?>
         </div>
         <div class="col-md-5">
-            <?= $this->Rarity->form('rarity', null, 'stars', true);?>
+            <?= $this->Rarity->form('rarity', null, ['required' => true]);?>
         </div>
         <div class="col-md-3">
             <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'value' => 1]); ?>
