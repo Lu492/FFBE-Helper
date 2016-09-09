@@ -89,6 +89,7 @@ class RarityHelper extends Helper
             $checked = '';
             if ((!empty($entity) && !empty($entity->get('rarity')) && $entity->get('rarity') === $rarity)
                 || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity)) {
+            if ((!empty($entity) && !empty($entity->get($field)) && $entity->get($field) === $rarity)
                 $checked = 'checked="checked"';
             }
 

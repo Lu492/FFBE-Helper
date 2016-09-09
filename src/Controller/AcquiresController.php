@@ -22,7 +22,12 @@ class AcquiresController extends AppController
     public function edit($id)
     {
         $unit = $this->Acquires->find()
-            ->contain(['Units'])
+            ->contain([
+                'Units' => function ($q) {
+                    return $q->select(['id', 'name']);
+                },
+                'Rarities'
+            ])
             ->where([
                 'Acquires.id' => $id,
                 'Acquires.user_id' => $this->Auth->user('id')
