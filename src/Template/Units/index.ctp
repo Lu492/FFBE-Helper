@@ -39,13 +39,15 @@ $this->assign('title', 'Brave Exvius Units');
         </ul>
     <?php } ?>
 
-    <?= $this->element('unit-search', ['origins' => $origins, 'specialisations' => $specialisations]);?>
+    <div class="container">
+        <?= $this->element('unit-search', ['origins' => $origins, 'specialisations' => $specialisations]);?>
 
-    <?php
-    if ($this->request->params['type'] === 'acquired' || $this->request->params['type'] === 'available') {
-        echo $this->element('unit-add-new');
-    }
-    ?>
+        <?php
+        if ($this->request->params['type'] === 'acquired' || $this->request->params['type'] === 'available') {
+            echo $this->element('unit-add-new');
+        }
+        ?>
+    </div>
 
     <?php if ($units->isEmpty() && $this->request->params['type'] === 'acquired'): ?>
         <div class="alert alert-warning">
@@ -114,11 +116,11 @@ $this->assign('title', 'Brave Exvius Units');
 
                 <?php if ($this->request->params['type'] === 'acquired') {
                     echo "<td class='actions'>";
-                    echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default btn-xs']);
+                    echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default btn-sm']);
                     echo $this->Html->link(
                         '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
                         ['controller' => 'Acquires', 'action' => 'delete', $unit->_matchingData['Acquires']->id],
-                        ['class' => 'btn btn-danger btn-xs', 'escape' => false]
+                        ['class' => 'btn btn-danger btn-sm', 'escape' => false]
                     );
                     echo "</td>";
                 } ?>
