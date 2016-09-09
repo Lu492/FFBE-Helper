@@ -24,9 +24,16 @@ class AcquiresController extends AppController
         $unit = $this->Acquires->find()
             ->contain([
                 'Units' => function ($q) {
-                    return $q->select(['id', 'name']);
-                },
-                'Rarities'
+                    return $q
+                        ->select([
+                            'id', 'name',
+                            'BaseRarity.stars', 'MaxRarity.stars'
+                        ])
+                        ->contain([
+                            'BaseRarity',
+                            'MaxRarity'
+                        ]);
+                }
             ])
             ->where([
                 'Acquires.id' => $id,

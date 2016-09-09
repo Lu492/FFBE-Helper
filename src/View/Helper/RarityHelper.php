@@ -76,7 +76,9 @@ class RarityHelper extends Helper
      *
      *  - `required` bool : Should the generated field be a required field
      *  - `type` string (numbers|stars|combo) : What type of form input should be generated
-     *  - `label` bool : Should a label be output for the field
+     *  - `displayLabel` bool : Should a label be output for the field
+     *  - `label` string : The field label text
+     *  - `allowed` array : Array of allowed rarities
      *
      * @return string;
      */
@@ -85,17 +87,19 @@ class RarityHelper extends Helper
         $defaultOptions = [
             'required' => false,
             'type' => 'stars',
-            'label' => true
+            'displayLabel' => true,
+            'label' => Inflector::humanize($field),
+            'allowed' => $this->config('rarities')
         ];
         $options = array_merge($defaultOptions, $options);
 
         $out = '<div class="form-group radio">';
 
-        if ($options['label']) {
-            $out .= "<p><b>" . Inflector::humanize($field) . "</b></p>";
+        if ($options['displayLabel']) {
+            $out .= "<p><b>" . $options['label'] . "</b></p>";
         }
 
-        foreach ($this->config('rarities') as $rarity) {
+        foreach ($options['allowed'] as $rarity) {
             $out .= "<label for='$field-$rarity'>";
 
             $checked = '';
