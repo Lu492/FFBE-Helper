@@ -240,19 +240,21 @@ class UnitsTable extends Table
      * @param int $userId Currently logged in user id
      * @param array $options Array of options
      *
-     *  - `fallback` bool If no unit is found for a role should the selection fallback to searching by stats
-     *  - `specialisationId` int The id of the specialisation to find a unit with
-     *  - `stats` array An array of stats in the form [stat => dir] for ordering units
-     *  - `minRarity` int The minimum rarity of unit which is eligible for the party
-     *  - `maxRarity` int The maximum rarity of unit which is eligible for the party
-     *  - 'rarity` int The rarity the unit must be to be selected
+     *  - `fallback` bool : If no unit is found for a role should the selection fallback to searching by stats
+     *  - `party` bool : Add the selected unit to a party to prevent duplicate selections
+     *  - `specialisationId` int : The id of the specialisation to find a unit with
+     *  - `stats` array : An array of stats in the form [stat => dir] for ordering units
+     *  - `minRarity` int : The minimum rarity of unit which is eligible for the party
+     *  - `maxRarity` int : The maximum rarity of unit which is eligible for the party
+     *  - `rarity` int : The acquired rarity the unit must be to be selected
      *
      * @return \App\Model\Entity\Unit
      */
     public function selectUnit($userId, array $options = [])
     {
         $defaultOptions = [
-            'fallback' => true
+            'fallback' => true,
+            'party' => true
         ];
         $options = array_merge($defaultOptions, $options);
 
@@ -316,7 +318,9 @@ class UnitsTable extends Table
             }
         }
 
-        $this->party[] = $unit->get('id');
+        if ($options['party']) {
+            $this->party[] = $unit->get('id');
+        }
         return $unit;
     }
 }

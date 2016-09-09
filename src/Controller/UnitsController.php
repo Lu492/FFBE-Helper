@@ -255,13 +255,24 @@ class UnitsController extends AppController
             $slug = Text::slug(strtolower($role), '_');
             $stats = $this->Units->Specialisations->favouredStats($id);
             $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
-            $unit = $this->Units->selectUnit($userId, ['stats' => $statsOrder, 'rarity' => $rarity, 'fallback' => false]);
+
+            $options = ['rarity' => $rarity, 'fallback' => false];
+
+            if ($this->request->query('roles') == 1) {
+                $options = array_merge($options, ['specialisationId' => $id]);
+            } else {
+                $options = array_merge($options, ['stats' => $statsOrder]);
+            }
+            $unit = $this->Units->selectUnit($userId, $options);
+
             if ($unit !== null) {
                 $unit->set('stats', $stats);
             }
 
             $this->set($slug, $unit);
         }
+
+        $this->request->data = $this->request->query;
 
         return $this->render('party');
     }
