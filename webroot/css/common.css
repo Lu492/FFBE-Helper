@@ -103,29 +103,57 @@ div.form-group.radio label {
 span.star-rarity {
   white-space: nowrap; }
 
+nav.navbar-ffbe {
+  background-color: #4d4d4d;
+  border: 0;
+  border-radius: 0; }
+  nav.navbar-ffbe .navbar-nav > li > a {
+    text-shadow: none; }
+  nav.navbar-ffbe a {
+    color: #fff; }
+    nav.navbar-ffbe a:link, nav.navbar-ffbe a:visited {
+      background-color: #4d4d4d; }
+    nav.navbar-ffbe a:hover, nav.navbar-ffbe a:active {
+      background-color: #666666; }
+  nav.navbar-ffbe li.active a {
+    background-color: #737373; }
+
 /** Block level site elements **/
 header {
-  background-color: #007ba4; }
+  height: 150px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,dbdbdb+50,d1d1d1+51,fefefe+100;Grey+Gloss+%231 */
+  background: #e2e2e2;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 );
+  /* IE6-9 */ }
+  header > div {
+    padding: 15px 0; }
   header h1, header p {
     font-family: 'Signika', serif;
     color: #000;
     text-align: center;
-    text-shadow: 0 0 4px #d7f5ff; }
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
   header h1 {
+    width: 560px;
+    padding: 0 0 17px 0;
+    margin: 0 auto 0;
     font-size: 40px;
-    margin-bottom: 0; }
+    border-bottom: 1px solid #4d4d4d; }
   header p {
     font-size: 30px;
-    margin-bottom: 15px; }
-
-nav {
-  margin: 20px 0 0 0; }
+    margin: 15px 0 0 0; }
 
 footer {
   margin-top: 15px;
   padding: 10px 0;
-  background-color: #333;
-  color: #ccc; }
+  background-color: #4d4d4d;
+  color: #cccccc; }
   footer p {
     text-align: center; }
   footer a {

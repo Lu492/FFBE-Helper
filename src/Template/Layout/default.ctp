@@ -23,9 +23,11 @@
                 <p>Unit Helper</p>
             </div>
         </header>
+    </div>
 
-        <?= $this->element('navigation');?>
+    <?= $this->element('navigation');?>
 
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <?= $this->Flash->render() ?>
@@ -39,6 +41,7 @@
                 <p><a href="https://github.com/davidyell/FFBE-Helper">You can find all the code on Github</a></p>
                 <p><?= $this->Html->image('Baked-with-CakePHP.png', ['class' => 'baked-with-cake', 'url' => 'http://cakephp.org/'])?></p>
                 <p>Thanks to <a href="https://exviuswiki.com/">Exviuswiki.com</a></p>
+                <p><a href="http://finalfantasyexvius.com/">Play Final Fantasy Brave Exvius</a></p>
             </div>
         </footer>
     </div>

@@ -1,0 +1,22 @@
+nav.navbar-ffbe {
+  background-color: $blockBgColor;
+  border: 0;
+  border-radius: 0;
+  .navbar-nav > li > a {
+    text-shadow: none;
+  }
+  a {
+    color: #fff;
+    &:link, &:visited {
+      background-color: $blockBgColor;
+    }
+    &:hover, &:active {
+      background-color: lighten($blockBgColor, 10%);
+    }
+  }
+  li.active {
+    a {
+      background-color: lighten($blockBgColor, 15%);
+    }
+  }
+}
