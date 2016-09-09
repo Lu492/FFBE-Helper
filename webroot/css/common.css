@@ -52,11 +52,19 @@ div.level-bar {
   margin-right: 10px; }
 
 div.unit-card {
+  width: 250px;
+  float: left;
   text-align: center;
   background-color: #eee;
   border-radius: 5px;
-  padding: 5px;
+  padding-bottom: 13px;
   margin: 5px; }
+  div.unit-card h3 {
+    padding: 6px 0 9px 0;
+    margin: 0;
+    background-color: #d5d5d5;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px; }
   div.unit-card table {
     width: 90%;
     margin: 0 auto;
@@ -66,8 +74,8 @@ div.unit-card {
       padding: 2px;
       text-align: center; }
     div.unit-card table th {
-      font-weight: bold;
-      font-size: 12px !important; }
+      font-size: 12px !important;
+      background-color: #e1e1e1; }
 
 span.badge.light {
   color: #333;
@@ -142,7 +150,7 @@ header {
   header p.header-credit {
     position: absolute;
     top: 180px;
-    right: 5px;
+    right: 10px;
     color: #fff;
     font-size: 11px; }
 

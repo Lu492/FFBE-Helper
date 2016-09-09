@@ -1,4 +1,11 @@
 <div class="unit-card">
+
+    <?php
+    if (!empty($header)) {
+        echo '<h3>' . $header . '</h3>';
+    }
+    ?>
+
     <?php if (!empty($unit)): ?>
         <h4><?= $unit->unit->name?></h4>
         <p><?= $this->Rarity->display($unit->rarity->stars, $unit->unit->max_rarity->stars, 'stars')?></p>

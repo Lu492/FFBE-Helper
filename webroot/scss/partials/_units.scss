@@ -39,11 +39,20 @@
 }
 
 div.unit-card {
+  width: 250px;
+  float: left;
   text-align: center;
   background-color: #eee;
   border-radius: 5px;
-  padding: 5px;
+  padding-bottom: 13px;
   margin: 5px;
+  h3 {
+    padding: 6px 0 9px 0;
+    margin: 0;
+    background-color: darken(#eee, 10%);
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
   table {
     width: 90%;
     margin: 0 auto;
@@ -54,8 +63,8 @@ div.unit-card {
     }
     border-radius: 4px;
     th {
-      font-weight: bold;
       font-size: 12px !important;
+      background-color: darken(#eee, 5%);
     }
   }
 }
