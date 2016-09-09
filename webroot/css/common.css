@@ -47,8 +47,9 @@ div.level-bar {
     font-weight: bold;
     font-size: 24px; }
 
-.button.build-party {
-  margin-top: 24px; }
+#party-rarity-form div.radio p {
+  float: left;
+  margin-right: 10px; }
 
 div.unit-card {
   text-align: center;
@@ -136,7 +137,8 @@ footer {
 
 /** Search units and add new unit forms **/
 div.search.well p a, div.add-units.well p a {
-  float: right; }
+  float: right;
+  width: 150px; }
 
 #unitsearchform div.submit {
   float: left;

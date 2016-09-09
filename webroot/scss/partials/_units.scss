@@ -29,8 +29,13 @@
   }
 }
 
-.button.build-party {
-  margin-top: 24px;
+#party-rarity-form {
+  div.radio {
+    p {
+      float: left;
+      margin-right: 10px;
+    }
+  }
 }
 
 div.unit-card {
