@@ -22,6 +22,7 @@
                 <h1>Final Fantasy Brave Exvius</h1>
                 <p>Unit Helper</p>
             </div>
+            <p class="header-credit">Header image courtesy of <a href="http://fengzhudesign.com/">Feng Zhu Design</a></p>
         </header>
     </div>
 

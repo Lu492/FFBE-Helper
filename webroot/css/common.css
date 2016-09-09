@@ -120,34 +120,31 @@ nav.navbar-ffbe {
 
 /** Block level site elements **/
 header {
-  height: 150px;
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e2e2e2+0,dbdbdb+50,d1d1d1+51,fefefe+100;Grey+Gloss+%231 */
-  background: #e2e2e2;
-  /* Old browsers */
-  background: -moz-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #e2e2e2 0%, #dbdbdb 50%, #d1d1d1 51%, #fefefe 100%);
-  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e2e2e2', endColorstr='#fefefe',GradientType=0 );
-  /* IE6-9 */ }
+  height: 200px;
+  background: url(../img/header-bg.jpg) center center no-repeat;
+  background-size: 100% auto; }
   header > div {
-    padding: 15px 0; }
-  header h1, header p {
-    font-family: 'Signika', serif;
-    color: #000;
-    text-align: center;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
-  header h1 {
-    width: 560px;
-    padding: 0 0 17px 0;
-    margin: 0 auto 0;
-    font-size: 40px;
-    border-bottom: 1px solid #4d4d4d; }
-  header p {
-    font-size: 30px;
-    margin: 15px 0 0 0; }
+    padding: 45px 0 0 0; }
+    header > div h1, header > div p {
+      font-family: 'Signika', serif;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 0 3px rgba(0, 0, 0, 0.4); }
+    header > div h1 {
+      width: 560px;
+      padding: 0 0 17px 0;
+      margin: 0 auto 0;
+      font-size: 40px;
+      border-bottom: 1px solid #fff; }
+    header > div p {
+      font-size: 30px;
+      margin: 15px 0 0 0; }
+  header p.header-credit {
+    position: absolute;
+    top: 180px;
+    right: 5px;
+    color: #fff;
+    font-size: 11px; }
 
 footer {
   margin-top: 15px;
