@@ -40,8 +40,11 @@ header {
     position: absolute;
     top: 180px;
     right: 10px;
-    color: $contrastText;
+    color: darken($contrastText, 25%);
     font-size: 11px;
+    a {
+      color: darken($contrastText, 25%);
+    }
   }
 }
 
