@@ -75,7 +75,7 @@ class AcquiresTable extends Table
             ->add('level', 'inRarity', [
                 'rule' => function ($value, $context) {
                     $rarity = $this->Rarities->find()
-                        ->where(['stars' => $context['data']['rarity']])
+                        ->where(['stars' => $context['data']['rarity_id']])
                         ->first();
                     if (!$rarity) {
                         return false;
@@ -91,10 +91,10 @@ class AcquiresTable extends Table
             ]);
 
         $validator
-            ->integer('rarity')
-            ->requirePresence('rarity', 'create')
-            ->notEmpty('rarity')
-            ->add('rarity', 'hasRarity', [
+            ->integer('rarity_id')
+            ->requirePresence('rarity_id', 'create')
+            ->notEmpty('rarity_id')
+            ->add('rarity_id', 'hasRarity', [
                 'rule' => function ($value, $context) {
                     $unit = $this->Units->find()
                         ->select([
@@ -111,10 +111,9 @@ class AcquiresTable extends Table
                         return false;
                     }
 
-                    if ($value > $unit->base_rarity->stars && $value < $unit->max_rarity->stars) {
+                    if ($value >= $unit->base_rarity->stars && $value <= $unit->max_rarity->stars) {
                         return true;
                     }
-
                     return false;
                 },
                 'message' => 'This unit is not available at this rarity.'
