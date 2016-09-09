@@ -52,10 +52,10 @@
                 $('#unit-id').val(ui.item.value);
 
                 $('#acquire-unit div.form-group.radio label').each(function (i, e) {
-                    if ($(e).attr('for').replace('rarity-', '') < ui.item.base_rarity.stars) {
+                    if (parseInt($(e).attr('for').replace('rarity_id-', '')) < parseInt(ui.item.base_rarity.stars)) {
                         $(e).hide();
                     }
-                    if ($(e).attr('for').replace('rarity-', '') > ui.item.max_rarity.stars) {
+                    if (parseInt($(e).attr('for').replace('rarity_id-', '')) > parseInt(ui.item.max_rarity.stars)) {
                         $(e).hide();
                     }
                 });
