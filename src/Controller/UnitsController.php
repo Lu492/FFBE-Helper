@@ -85,6 +85,7 @@ class UnitsController extends AppController
 
         // Don't try and filter units if the user isn't logged in
         if (empty($this->Auth->user('id')) && $this->request->params['type'] !== 'all') {
+            $this->Flash->set(__('You must login to access that page.'), ['key' => 'auth']);
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
 
