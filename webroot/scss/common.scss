@@ -48,6 +48,15 @@ header {
   }
 }
 
+h1, h2 {
+  font-family: 'Signika', serif;
+}
+h2 {
+  font-size: 35px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #333;
+}
+
 footer {
   margin-top: 15px;
   padding: 10px 0;
@@ -69,9 +78,14 @@ footer {
 
 /** Search units and add new unit forms **/
 div.search.well, div.add-units.well {
-  p a {
-    float: right;
+  h3 {
+    margin: 4px 0 10px 0;
+    font-size: 22px;
+  }
+  a {
     width: 150px;
+    float: left;
+    margin-right: 10px;
   }
 }
 
