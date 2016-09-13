@@ -39,7 +39,7 @@ $this->assign('title', 'Brave Exvius Units');
         </ul>
     <?php } ?>
 
-    <div class="container">
+    <div class="container-fluid">
         <?= $this->element('unit-search', ['origins' => $origins, 'specialisations' => $specialisations]);?>
 
         <?php

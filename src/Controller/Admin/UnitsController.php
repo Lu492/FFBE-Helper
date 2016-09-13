@@ -2,6 +2,7 @@
 namespace App\Controller\Admin;
 
 use App\Controller\AppController;
+use Cake\Event\Event;
 
 /**
  * Units Controller
@@ -21,6 +22,19 @@ class UnitsController extends AppController
     }
 
     /**
+     * Set all the page titles
+     *
+     * @param Event $event
+     * @return \Cake\Network\Response|null
+     */
+    public function beforeRender(Event $event)
+    {
+        parent::beforeRender($event);
+
+        $this->set('title', 'FF Brave Exvius Unit Helper Admin');
+    }
+
+    /**
      * Index method
      *
      * @return \Cake\Network\Response|null
@@ -28,7 +42,14 @@ class UnitsController extends AppController
     public function index()
     {
         $query = $this->Units->find('search', ['search' => $this->request->query])
-            ->contain(['Origins', 'Races', 'Jobs', 'Genders']);
+            ->contain([
+                'Origins',
+                'Races',
+                'Jobs',
+                'Genders',
+                'BaseRarity',
+                'MaxRarity'
+            ]);
 
         $units = $this->paginate($query);
 
@@ -45,7 +66,15 @@ class UnitsController extends AppController
     public function view($id = null)
     {
         $unit = $this->Units->get($id, [
-            'contain' => ['Origins', 'Races', 'Jobs', 'Genders', 'Specialisations']
+            'contain' => [
+                'Origins',
+                'Races',
+                'Jobs',
+                'Genders',
+                'Specialisations',
+                'BaseRarity',
+                'MaxRarity'
+            ]
         ]);
 
         $this->set('unit', $unit);
@@ -88,7 +117,8 @@ class UnitsController extends AppController
         $jobs = $this->Units->Jobs->find('list')->order('name');
         $genders = $this->Units->Genders->find('list')->order('name');
         $specialisations = $this->Units->Specialisations->find('list')->order('name');
-        $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations'));
+        $rarities = $this->Units->Rarities->find('list')->order(['stars' => 'asc']);
+        $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations', 'rarities'));
     }
 
     /**
@@ -101,7 +131,11 @@ class UnitsController extends AppController
     public function edit($id = null)
     {
         $unit = $this->Units->get($id, [
-            'contain' => ['Specialisations']
+            'contain' => [
+                'Specialisations',
+                'BaseRarity',
+                'MaxRarity'
+            ]
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $unit = $this->Units->patchEntity($unit, $this->request->data);
@@ -117,8 +151,12 @@ class UnitsController extends AppController
         $races = $this->Units->Races->find('list')->order('name');
         $jobs = $this->Units->Jobs->find('list')->order('name');
         $genders = $this->Units->Genders->find('list')->order('name');
-        $specialisations = $this->Units->Specialisations->find('list')->order('name');;
-        $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations'));
+        $specialisations = $this->Units->Specialisations->find('list')->order('name');
+
+        $this->loadModel('Rarities');
+        $rarities = $this->Rarities->find('list')->order(['stars' => 'asc']);
+
+        $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations', 'rarities'));
     }
 
     /**

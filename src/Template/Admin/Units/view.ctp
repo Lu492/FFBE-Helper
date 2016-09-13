@@ -31,11 +31,11 @@
         </tr>
         <tr>
             <th><?= __('Base Rarity') ?></th>
-            <td><?= $this->Number->format($unit->base_rarity) ?></td>
+            <td><?= $this->Number->format($unit->base_rarity->stars) ?></td>
         </tr>
         <tr>
             <th><?= __('Max Rarity') ?></th>
-            <td><?= $this->Number->format($unit->max_rarity) ?></td>
+            <td><?= $this->Number->format($unit->max_rarity->stars) ?></td>
         </tr>
         <tr>
             <th><?= __('Hp') ?></th>

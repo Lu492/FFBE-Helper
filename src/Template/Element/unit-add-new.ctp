@@ -1,8 +1,7 @@
 <div class="add-units row well">
-    <p>
-        Find and add new units to your collection.
-        <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
-    </p>
+    <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
+    <h3>Find and add new units to your collection.</h3>
+    <div class="clearfix"><!-- blank --></div>
 
     <div class="add-form">
         <?php
@@ -21,7 +20,7 @@
         </div>
         <div class="col-md-12">
             <?php
-            echo $this->Form->button('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Acquire unit', ['class' => 'btn btn-primary']);
+            echo $this->Form->button('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Acquire unit', ['class' => 'btn btn-success']);
             echo $this->Form->end();
             ?>
         </div>

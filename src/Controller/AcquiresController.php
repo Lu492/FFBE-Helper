@@ -31,7 +31,8 @@ class AcquiresController extends AppController
                         ])
                         ->contain([
                             'BaseRarity',
-                            'MaxRarity'
+                            'MaxRarity',
+                            'Specialisations'
                         ]);
                 }
             ])

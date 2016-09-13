@@ -29,6 +29,7 @@
     <?= $this->element('navigation');?>
 
     <div class="container-fluid">
+        <a name="content" id="content"></a>
         <div class="row">
             <div class="col-md-12">
                 <?= $this->Flash->render() ?>

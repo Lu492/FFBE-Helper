@@ -1,11 +1,10 @@
 <div class="search row well">
-    <p>
-        Search and filter available units.
-        <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
-    </p>
+    <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
+    <h3>Search and filter available units.</h3>
+    <div class="clearfix"><!-- blank --></div>
 
     <div class="search-form">
-        <?php echo $this->Form->create(null, ['id' => 'unitsearchform', 'url' => ['action' => 'index', 'type' => $this->request->params['type']]]);?>
+        <?php echo $this->Form->create(null, ['id' => 'unitsearchform', 'url' => ['action' => 'index', 'type' => $this->request->params['type'], '#' => 'content']]);?>
 
         <div class='col-md-6'>
             <?php

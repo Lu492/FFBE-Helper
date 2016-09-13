@@ -24,8 +24,8 @@
                 <th><?= $this->Paginator->sort('race_id') ?></th>
                 <th><?= $this->Paginator->sort('job_id') ?></th>
                 <th><?= $this->Paginator->sort('gender_id') ?></th>
-                <th><?= $this->Paginator->sort('base_rarity') ?></th>
-                <th><?= $this->Paginator->sort('max_rarity') ?></th>
+                <th><?= $this->Paginator->sort('base_rarity_id') ?></th>
+                <th><?= $this->Paginator->sort('max_rarity_id') ?></th>
                 <th><?= $this->Paginator->sort('trust_master_reward') ?></th>
                 <th><?= $this->Paginator->sort('hp') ?></th>
                 <th><?= $this->Paginator->sort('mp') ?></th>
@@ -48,8 +48,8 @@
                 <td><?= $unit->race->name ?></td>
                 <td><?= $unit->job->name ?></td>
                 <td><?= $unit->gender->name ?></td>
-                <td><?= $this->Number->format($unit->base_rarity) ?></td>
-                <td><?= $this->Number->format($unit->max_rarity) ?></td>
+                <td><?= $this->Number->format($unit->base_rarity->stars) ?></td>
+                <td><?= $this->Number->format($unit->max_rarity->stars) ?></td>
                 <td><?= h($unit->trust_master_reward) ?></td>
                 <td><?= $this->Number->format($unit->hp) ?></td>
                 <td><?= $this->Number->format($unit->mp) ?></td>

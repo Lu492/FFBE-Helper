@@ -14,15 +14,14 @@
             </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-            <li>
-                <?php
-                if (empty($this->request->session()->read('Auth.User.id'))) {
-                    echo $this->Html->link('<span class="glyphicon glyphicon-share" aria-hidden="true"></span> Login', ['controller' => 'Users', 'action' => 'login'], ['escape' => false]);
-                } else {
-                    echo $this->Html->link('<span class="glyphicon glyphicon-off" aria-hidden="true"></span> Logout ' . $this->request->session()->read('Auth.User.username'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]);
-                }
-                ?>
-            </li>
+            <?php if (!empty($this->request->session()->read('Auth.User.id'))): ?>
+                <?php if ($this->request->session()->read('Auth.User.role') === 'admin'):?>
+                    <li><?= $this->Html->link('<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Administration', ['controller' => 'Units', 'action' => 'index', 'prefix' => 'admin'], ['escape' => false]);?></li>
+                <?php endif;?>
+                <li><?= $this->Html->link('<span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Logout ' . $this->request->session()->read('Auth.User.username'), ['controller' => 'Users', 'action' => 'logout'], ['escape' => false]);?></li>
+            <?php else:?>
+                <li><?= $this->Html->link('<span class="glyphicon glyphicon-log-in" aria-hidden="true"></span> Login', ['controller' => 'Users', 'action' => 'login'], ['escape' => false]);?></li>
+            <?php endif;?>
         </ul>
     </div>
 </nav>
