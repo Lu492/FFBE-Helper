@@ -230,7 +230,7 @@ class UnitsTable extends Table
     }
 
     /**
-     * Select a single unit based on a number of different criteria
+     * Select a single unit from the users acquired units based on a number of different criteria
      *
      * Primarily it will try and select a unit based on it's role, if no unit is found, it'll select a 'best fit' unit
      * based on the stats of the role it's finding a unit for.
