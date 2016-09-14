@@ -52,6 +52,11 @@ class UnitsTable extends Table
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Search.Search');
+        $this->addBehavior('Proffer.Proffer', [
+            'image' => [
+                'dir' => 'image_dir'
+            ]
+        ]);
 
         $this->belongsTo('Origins', [
             'foreignKey' => 'origin_id',
@@ -103,8 +108,12 @@ class UnitsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
-            ->requirePresence('name', 'create')
+            ->requirePresence('name')
             ->notEmpty('name');
+
+        $validator
+            ->requirePresence('description')
+            ->notEmpty('description');
 
         $validator
             ->integer('base_rarity')
@@ -123,6 +132,10 @@ class UnitsTable extends Table
             ->integer('hp')
             ->requirePresence('hp', 'create')
             ->notEmpty('hp');
+
+        $validator
+            ->requirePresence('image', 'create')
+            ->allowEmpty('image', 'update');
 
         $validator
             ->integer('mp')

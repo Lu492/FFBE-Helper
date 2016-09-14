@@ -225,5 +225,4 @@ if (Configure::read('debug')) {
 Plugin::load('Migrations');
 Plugin::load('Search');
 Plugin::load('BootstrapUI');
-
-Configure::write('rarities', [1 => 1, 2 => 2, 3 => 3, 4 => 4, 5 => 5]);
+Plugin::load('Proffer');

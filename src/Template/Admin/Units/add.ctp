@@ -1,14 +1,16 @@
 <div class="units form large-9 medium-8 columns content">
-    <?= $this->Form->create($unit) ?>
+    <?= $this->Form->create($unit, ['type' => 'file']) ?>
     <fieldset>
         <legend><?= __('Add Unit') ?></legend>
         <?php
         echo $this->Form->input('name');
+        echo $this->Form->input('description');
         echo $this->Form->input('origin_id', ['options' => $origins]);
         echo $this->Form->input('specialisations._ids', ['options' => $specialisations]);
         echo $this->Rarity->form('base_rarity_id', $unit, ['required' => true, 'label' => 'Base rarity']);
         echo $this->Rarity->form('max_rarity_id', $unit, ['required' => true, 'label' => 'Max rarity']);
         echo $this->Form->input('trust_master_reward');
+        echo $this->Form->input('image', ['type' => 'file']);
 
         ?>
         <div class="row">
