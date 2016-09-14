@@ -61,9 +61,9 @@
                 <td><?= h($unit->created) ?></td>
                 <td><?= h($unit->modified) ?></td>
                 <td class="actions">
-                    <?= $this->Html->link(__('View'), ['action' => 'view', $unit->id]) ?>
-                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $unit->id]) ?>
-                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $unit->id], ['confirm' => __('Are you sure you want to delete # {0}?', $unit->id)]) ?>
+                    <?= $this->Html->link(__('View'), ['action' => 'view', $unit->id], ['class' => 'btn btn-default btn-sm']) ?>
+                    <?= $this->Html->link(__('Edit'), ['action' => 'edit', $unit->id], ['class' => 'btn btn-default btn-sm']) ?>
+                    <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $unit->id], ['confirm' => __('Are you sure you want to delete # {0}?', $unit->id), 'class' => 'btn btn-danger btn-sm']) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
