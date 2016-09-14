@@ -18,10 +18,12 @@ class UnitImage extends AbstractMigration
                 'after' => 'name'
             ])
             ->addColumn('image', 'string', [
-                'after' => 'trust_master_reward'
+                'after' => 'trust_master_reward',
+                'null' => true
             ])
             ->addColumn('image_dir', 'string', [
-                'after' => 'image'
+                'after' => 'image',
+                'null' => true
             ])
             ->save();
 
