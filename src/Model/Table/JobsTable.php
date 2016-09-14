@@ -75,7 +75,7 @@ class JobsTable extends Table
     {
         $rules->addCreate(new IsUnique(['name']), 'uniqueJob', [
             'errorField' => 'Jobs.name',
-            'message' => 'This race already exists'
+            'message' => 'This job already exists.'
         ]);
 
         return $rules;
