@@ -57,30 +57,6 @@ class UnitsController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Unit id.
-     * @return \Cake\Network\Response|null
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $unit = $this->Units->get($id, [
-            'contain' => [
-                'Origins',
-                'Races',
-                'Jobs',
-                'Genders',
-                'Specialisations',
-                'BaseRarity',
-                'MaxRarity'
-            ]
-        ]);
-
-        $this->set('unit', $unit);
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Network\Response|void Redirects on successful add, renders view otherwise.
