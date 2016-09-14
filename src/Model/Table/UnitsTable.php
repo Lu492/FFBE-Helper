@@ -116,14 +116,14 @@ class UnitsTable extends Table
             ->notEmpty('description');
 
         $validator
-            ->integer('base_rarity')
-            ->requirePresence('base_rarity', 'create')
-            ->notEmpty('base_rarity');
+            ->integer('base_rarity_id')
+            ->requirePresence('base_rarity_id', 'create')
+            ->notEmpty('base_rarity_id');
 
         $validator
-            ->integer('max_rarity')
-            ->requirePresence('max_rarity', 'create')
-            ->notEmpty('max_rarity');
+            ->integer('max_rarity_id')
+            ->requirePresence('max_rarity_id', 'create')
+            ->notEmpty('max_rarity_id');
 
         $validator
             ->allowEmpty('trust_master_reward');
