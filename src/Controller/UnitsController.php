@@ -64,6 +64,7 @@ class UnitsController extends AppController
                 'max_rarity',
                 'Acquires.rarity',
                 'Acquires.level',
+                'Acquires.trust',
                 'hp', 'mp', 'atk', 'def', 'mag', 'spr', 'hits'
             ]
         ];

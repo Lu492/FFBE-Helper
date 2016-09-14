@@ -13,6 +13,9 @@
         }
 
         echo $this->Rarity->form('rarity_id', $unit, ['allowed' => $allowed, 'label' => 'Rarity']);
+
+        echo $this->Form->input('trust', ['type' => 'number', 'min' => 0, 'max' => 100]);
+
         echo $this->Form->input('unit_id', ['type' => 'hidden', 'value' => $unit->unit_id]);
         echo $this->Form->submit('Update', ['class' => 'btn btn-success']);
         echo $this->Html->link('Cancel', ['controller' => 'Units', 'action' => 'index', 'type' => 'acquired'], ['class' => 'btn btn-default']);

@@ -74,6 +74,7 @@ $this->assign('title', 'Brave Exvius Units');
                 <?php } else { ?>
                     <th><?= $this->Paginator->sort('Acquires.rarity', 'Rarity', ['direction' => 'desc']);?></th>
                     <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
+                    <th class="hidden-xs"><?= $this->Paginator->sort('Acquires.trust', 'Trust %', ['direction' => 'desc']);?></th>
                 <?php  } ?>
                 <th class="hidden-xs"><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
                 <th class="hidden-xs"><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
@@ -104,6 +105,7 @@ $this->assign('title', 'Brave Exvius Units');
                         <?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity_id, $unit->max_rarity->stars, 'stars');?>
                     </td>
                     <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity_id);?></td>
+                    <td class="hidden-xs"><?= $unit->_matchingData['Acquires']->trust?>%</td>
                 <?php } ?>
 
                 <td class="hidden-xs"><?= $unit->hp?></td>
