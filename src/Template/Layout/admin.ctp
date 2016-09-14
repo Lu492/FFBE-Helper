@@ -16,7 +16,7 @@
 
 </head>
 <body>
-    <div class="container-fluid">
+    <div class="container-fluid" id="content">
         <div class="row">
             <?= $this->Flash->render() ?>
             <div class="col-md-2">

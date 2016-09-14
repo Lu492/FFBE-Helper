@@ -1,5 +1,9 @@
 @import "partials/rarityHelper";
 
+#content {
+  margin: 20px 0 30px;
+}
+
 select[multiple=multiple] {
   height: 150px;
 }
