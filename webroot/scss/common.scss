@@ -13,7 +13,7 @@ $contrastText: #fff;
 header {
   height: 200px;
   background: url(../img/header-bg.jpg) center center no-repeat;
-  background-size: 100% auto;
+  background-size: cover;
 
   & > div {
     padding: 45px 0 0 0;
@@ -48,12 +48,6 @@ header {
     a {
       color: darken($contrastText, 25%);
     }
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  header {
-    background-size: auto 130%;
   }
 }
 

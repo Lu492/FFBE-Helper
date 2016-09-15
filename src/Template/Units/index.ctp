@@ -66,9 +66,9 @@ $this->assign('title', 'Brave Exvius Units');
 
                 <th class="hidden-xs">&nbsp;</th>
                 <th><?= $this->Paginator->sort('name');?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('origin_id', 'Game origin');?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('Jobs.name', 'Job');?></th>
-                <th class="hidden-xs">Role</th>
+                <th class="visible-lg"><?= $this->Paginator->sort('origin_id', 'Game origin');?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('Jobs.name', 'Job');?></th>
+                <th class="visible-lg">Role</th>
                 <?php if ($this->request->params['type'] !== 'acquired') { ?>
                     <th><?= $this->Paginator->sort('base_rarity_id');?></th>
                     <th><?= $this->Paginator->sort('max_rarity_id');?></th>
@@ -77,13 +77,13 @@ $this->assign('title', 'Brave Exvius Units');
                     <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
                     <th class="hidden-xs"><?= $this->Paginator->sort('Acquires.trust', 'Trust %', ['direction' => 'desc']);?></th>
                 <?php  } ?>
-                <th class="hidden-xs"><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('atk', $this->Html->image('atk.png') . ' ATK', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('def', $this->Html->image('def.png') . ' DEF', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('mag', $this->Html->image('mag.png') . ' MAG', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('spr', $this->Html->image('spr.png') . ' SPR', ['direction' => 'desc', 'escape' => false]);?></th>
-                <th class="hidden-xs"><?= $this->Paginator->sort('hits', 'Hits per attack', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('hp', $this->Html->image('hp.png') . ' HP', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('mp', $this->Html->image('mp.png') . ' MP', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('atk', $this->Html->image('atk.png') . ' ATK', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('def', $this->Html->image('def.png') . ' DEF', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('mag', $this->Html->image('mag.png') . ' MAG', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('spr', $this->Html->image('spr.png') . ' SPR', ['direction' => 'desc', 'escape' => false]);?></th>
+                <th class="visible-lg"><?= $this->Paginator->sort('hits', 'Hits per attack', ['direction' => 'desc', 'escape' => false]);?></th>
                 <?php if ($this->request->params['type'] === 'acquired') { ?>
                     <th>&nbsp;</th>
                 <?php } ?>
@@ -100,28 +100,29 @@ $this->assign('title', 'Brave Exvius Units');
                         ?>
                     </td>
                     <td><?= $this->Html->link($unit->name, 'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->name, '_'));?></td>
-                    <td class="hidden-xs"><?= $unit->origin->shortname?></td>
-                    <td class="hidden-xs"><?= $unit->job->name?></td>
-                    <td class="hidden-xs"><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
+                    <td class="visible-lg"><?= $unit->origin->shortname?></td>
+                    <td class="visible-lg"><?= $unit->job->name?></td>
+                    <td class="visible-lg"><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
 
                     <?php if ($this->request->params['type'] !== 'acquired') { ?>
                         <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
                         <td><?= $unit->max_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
                     <?php } else { ?>
                         <td>
-                            <?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity_id, $unit->max_rarity->stars, 'stars');?>
+                            <span class="visible-md visible-lg"><?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity_id, $unit->max_rarity->stars, 'stars');?></span>
+                            <span class="hidden-md hidden-lg"><?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity_id, $unit->max_rarity->stars, 'numbers');?></span>
                         </td>
                         <td><?= $this->LevelBar->progress($unit->_matchingData['Acquires']->level, $unit->_matchingData['Acquires']->rarity_id);?></td>
                         <td class="hidden-xs"><?= $unit->_matchingData['Acquires']->trust?>%</td>
                     <?php } ?>
 
-                    <td class="hidden-xs"><?= $unit->hp?></td>
-                    <td class="hidden-xs"><?= $unit->mp?></td>
-                    <td class="hidden-xs"><?= $unit->atk?></td>
-                    <td class="hidden-xs"><?= $unit->def?></td>
-                    <td class="hidden-xs"><?= $unit->mag?></td>
-                    <td class="hidden-xs"><?= $unit->spr?></td>
-                    <td class="hidden-xs"><?= $unit->hits?></td>
+                    <td class="visible-lg"><?= $unit->hp?></td>
+                    <td class="visible-lg"><?= $unit->mp?></td>
+                    <td class="visible-lg"><?= $unit->atk?></td>
+                    <td class="visible-lg"><?= $unit->def?></td>
+                    <td class="visible-lg"><?= $unit->mag?></td>
+                    <td class="visible-lg"><?= $unit->spr?></td>
+                    <td class="visible-lg"><?= $unit->hits?></td>
 
                     <?php
                     if ($this->request->params['type'] === 'acquired') {

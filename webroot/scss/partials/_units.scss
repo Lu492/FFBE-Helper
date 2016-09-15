@@ -78,6 +78,17 @@ div.unit-card {
   }
 }
 
+@media screen and (max-width: 767px) {
+  div.unit-card {
+    width: 100%;
+  }
+}
+@media screen and (min-width: 768px) {
+  div.unit-card {
+    width: 350px;
+  }
+}
+
 span.badge.light {
   color: #333;
   background-color: lighten(#777, 30%);
