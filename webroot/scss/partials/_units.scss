@@ -3,6 +3,12 @@
   thead {
     background-color: #fff;
   }
+  td.sprite {
+    text-align: center;
+    img {
+      height: 50px;
+    }
+  }
   td.actions {
     white-space: nowrap;
     a {

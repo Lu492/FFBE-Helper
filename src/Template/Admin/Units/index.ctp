@@ -34,7 +34,6 @@
                 <th><?= $this->Paginator->sort('mag') ?></th>
                 <th><?= $this->Paginator->sort('spr') ?></th>
                 <th><?= $this->Paginator->sort('hits') ?></th>
-                <th><?= $this->Paginator->sort('created') ?></th>
                 <th><?= $this->Paginator->sort('modified') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -43,7 +42,12 @@
             <?php foreach ($units as $unit): ?>
             <tr>
                 <td><?= $this->Number->format($unit->id) ?></td>
-                <td><?= h($unit->name) ?></td>
+                <td><?php
+                    if (!empty($unit->image)) {
+                        echo $this->Html->image('../files/units/image/' . $unit->image_dir . '/' . $unit->image, ['class' => 'table-image small']);
+                    }
+                    echo h($unit->name);
+                ?></td>
                 <td><?= $unit->origin->shortname ?></td>
                 <td><?= $unit->race->name ?></td>
                 <td><?= $unit->job->name ?></td>
@@ -58,8 +62,7 @@
                 <td><?= $this->Number->format($unit->mag) ?></td>
                 <td><?= $this->Number->format($unit->spr) ?></td>
                 <td><?= $this->Number->format($unit->hits) ?></td>
-                <td><?= h($unit->created) ?></td>
-                <td><?= h($unit->modified) ?></td>
+                <td><?= $this->Time->timeAgoInWords($unit->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('Edit'), ['action' => 'edit', $unit->id], ['class' => 'btn btn-default btn-sm']) ?>
                     <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $unit->id], ['confirm' => __('Are you sure you want to delete # {0}?', $unit->id), 'class' => 'btn btn-danger btn-sm']) ?>
