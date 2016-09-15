@@ -15,8 +15,8 @@ $(function () {
     $('#unittable').stickyTableHeaders();
 
 //  Show and hide buttons for slides
-    var hide = '<span class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span> Hide';
-    var show = '<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show';
+    var hide = 'glyphicon glyphicon-chevron-up';
+    var show = 'glyphicon glyphicon-chevron-down';
 
 //  Show and or hide a form well element
     function toggleWell(well, form, button) {
@@ -25,16 +25,16 @@ $(function () {
             form.slideToggle({
                 start: function (animation) {
                     if ($(this).is(':visible')) {
-                        button.html(hide);
+                        button.find('span').removeClass(show).addClass(hide);
                     } else {
-                        button.html(show);
+                        button.find('span').removeClass(hide).addClass(show);
                     }
                 },
                 complete: function () {
                     if ($(this).is(':visible')) {
-                        button.html(hide);
+                        button.find('span').removeClass(show).addClass(hide);
                     } else {
-                        button.html(show);
+                        button.find('span').removeClass(hide).addClass(show);
                     }
                 }
             });

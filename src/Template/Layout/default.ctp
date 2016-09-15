@@ -19,8 +19,10 @@
     <div class="container-fluid">
         <header class="row">
             <div class="col-md-12">
-                <h1>Final Fantasy Brave Exvius</h1>
-                <p>Unit Helper</p>
+                <h1 class="hidden-xs">Final Fantasy Brave Exvius</h1>
+                <p class="hidden-xs">Unit Helper</p>
+
+                <h1 class="visible-xs">Final Fantasy Brave Exvius | Unit Helper</h1>
             </div>
             <p class="header-credit">Header image courtesy of <a href="http://fengzhudesign.com/">Feng Zhu Design</a></p>
         </header>

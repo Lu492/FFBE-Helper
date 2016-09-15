@@ -64,11 +64,11 @@ $this->assign('title', 'Brave Exvius Units');
                 $this->Paginator->options(['url' => ['action' => 'index', 'type' => $this->request->params['type']]]);
                 ?>
 
-                <th>&nbsp;</th>
+                <th class="hidden-xs">&nbsp;</th>
                 <th><?= $this->Paginator->sort('name');?></th>
                 <th class="hidden-xs"><?= $this->Paginator->sort('origin_id', 'Game origin');?></th>
                 <th class="hidden-xs"><?= $this->Paginator->sort('Jobs.name', 'Job');?></th>
-                <th>Role</th>
+                <th class="hidden-xs">Role</th>
                 <?php if ($this->request->params['type'] !== 'acquired') { ?>
                     <th><?= $this->Paginator->sort('base_rarity_id');?></th>
                     <th><?= $this->Paginator->sort('max_rarity_id');?></th>
@@ -92,7 +92,7 @@ $this->assign('title', 'Brave Exvius Units');
         <tbody>
             <?php foreach ($units as $unit) { ?>
                 <tr>
-                    <td class="sprite">
+                    <td class="sprite hidden-xs">
                         <?php
                         if (!empty($unit->image)) {
                             echo $this->Html->image('../files/units/image/' . $unit->image_dir . '/' . $unit->image);
@@ -102,7 +102,7 @@ $this->assign('title', 'Brave Exvius Units');
                     <td><?= $this->Html->link($unit->name, 'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->name, '_'));?></td>
                     <td class="hidden-xs"><?= $unit->origin->shortname?></td>
                     <td class="hidden-xs"><?= $unit->job->name?></td>
-                    <td><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
+                    <td class="hidden-xs"><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
 
                     <?php if ($this->request->params['type'] !== 'acquired') { ?>
                         <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
@@ -126,11 +126,11 @@ $this->assign('title', 'Brave Exvius Units');
                     <?php
                     if ($this->request->params['type'] === 'acquired') {
                         echo "<td class='actions'>";
-                        echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default']);
+                        echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default btn-sm']);
                         echo $this->Html->link(
                             '<span class="glyphicon glyphicon-trash" aria-hidden="true"></span>',
                             ['controller' => 'Acquires', 'action' => 'delete', $unit->_matchingData['Acquires']->id],
-                            ['class' => 'btn btn-danger', 'escape' => false]
+                            ['class' => 'btn btn-danger btn-sm', 'escape' => false]
                         );
                         echo "</td>";
                     }

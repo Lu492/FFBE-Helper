@@ -8,6 +8,11 @@
 
     <?php if (!empty($unit)): ?>
         <h4><?= $unit->unit->name?></h4>
+        <?php
+        if (!empty($unit->unit->image)) {
+            echo "<div class='sprite'>" . $this->Html->image('../files/units/image/' . $unit->unit->image_dir . '/' . $unit->unit->image) . "</div>";
+        }
+        ?>
         <p><?= $this->Rarity->display($unit->rarity->stars, $unit->unit->max_rarity->stars, 'stars')?></p>
 
         <p><?= $this->element('unit-specialisations', ['specialisations' => $unit->unit->specialisations]);?></p>

@@ -31,3 +31,9 @@ div.level-bar {
     font-weight: bold;
   }
 }
+
+@media only screen and (max-width: 768px) {
+  div.level-bar {
+    width: 100px;
+  }
+}

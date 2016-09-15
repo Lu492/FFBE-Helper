@@ -1,6 +1,7 @@
 <div class="search row well">
-    <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
-    <h3>Search and filter available units.</h3>
+    <a href="#search" class="btn btn-info btn-sm btn-block show-hide">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Search and filter available units
+    </a>
     <div class="clearfix"><!-- blank --></div>
 
     <div class="search-form">

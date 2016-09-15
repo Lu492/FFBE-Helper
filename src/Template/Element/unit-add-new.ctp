@@ -1,6 +1,7 @@
 <div class="add-units row well">
-    <a href="#search" class="btn btn-info btn-sm show-hide"><span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Show</a>
-    <h3>Find and add new units to your collection.</h3>
+    <a href="#search" class="btn btn-info btn-sm btn-block show-hide">
+        <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Find and add new units to your collection
+    </a>
     <div class="clearfix"><!-- blank --></div>
 
     <div class="add-form">
