@@ -9,21 +9,28 @@
         /* @var \App\View\AppView $this */
         echo $this->Form->create(null, ['url' => ['controller' => 'Units', 'action' => 'acquire'], 'id' => 'acquire-unit']); ?>
 
-        <div class="col-md-4">
-            <?php echo $this->Form->input('unit_name', ['autocomplete' => 'off', 'help' => 'Type the first few characters of the unit to auto-complete.', 'required' => true]); ?>
-            <?php echo $this->Form->input('unit_id', ['type' => 'hidden']); ?>
+        <div class="row">
+            <div class="col-md-3">
+                <?php echo $this->Form->input('unit_name', ['autocomplete' => 'off', 'help' => 'Type the first few characters of the unit to auto-complete.', 'required' => true]); ?>
+                <?php echo $this->Form->input('unit_id', ['type' => 'hidden']); ?>
+            </div>
+            <div class="col-md-5">
+                <?= $this->Rarity->form('rarity_id', null, ['required' => true]);?>
+            </div>
+            <div class="col-md-2">
+                <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'value' => 1]); ?>
+            </div>
+            <div class="col-md-2">
+                <?php echo $this->Form->input('trust', ['type' => 'number', 'min' => 0, 'max' => 100, 'step' => 'any', 'value' => 0]); ?>
+            </div>
         </div>
-        <div class="col-md-5">
-            <?= $this->Rarity->form('rarity_id', null, ['required' => true]);?>
-        </div>
-        <div class="col-md-3">
-            <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'value' => 1]); ?>
-        </div>
-        <div class="col-md-12">
-            <?php
-            echo $this->Form->button('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Acquire unit', ['class' => 'btn btn-success']);
-            echo $this->Form->end();
-            ?>
+        <div class="row">
+            <div class="col-md-12">
+                <?php
+                echo $this->Form->button('<span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Acquire unit', ['class' => 'btn btn-success']);
+                echo $this->Form->end();
+                ?>
+            </div>
         </div>
     </div>
 </div>
