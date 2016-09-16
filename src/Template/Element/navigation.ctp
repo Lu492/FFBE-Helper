@@ -12,6 +12,10 @@
             <li <?= ($this->request->controller === 'Units' && strpos($this->request->action, 'party') !== false) ? 'class="active"' : ''?>>
                 <?= $this->Html->link('Build party', ['controller' => 'Units', 'action' => 'partyBalanced'])?>
             </li>
+
+            <li <?= ($this->request->controller === 'Units' && strpos($this->request->action, 'closestToMax') !== false) ? 'class="active"' : ''?>>
+                <?= $this->Html->link('Units close to max', ['controller' => 'Units', 'action' => 'closestToMax'])?>
+            </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <?php if (!empty($this->request->session()->read('Auth.User.id'))): ?>

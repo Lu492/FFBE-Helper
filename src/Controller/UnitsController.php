@@ -278,4 +278,17 @@ class UnitsController extends AppController
 
         return $this->render('party');
     }
+
+    public function closestToMax()
+    {
+        $acquires = $this->Units->Acquires->find()
+            ->contain([
+                'Units' => [
+                    'BaseRarity',
+                    'MaxRarity'
+                ]
+            ]);
+
+        $this->set('acquires', $acquires);
+    }
 }
