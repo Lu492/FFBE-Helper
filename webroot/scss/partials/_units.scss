@@ -98,12 +98,13 @@ span.badge.light {
 }
 
 div.unit-detail {
-  img {
+  div.sprite {
     float: left;
     margin-right: 15px;
   }
-  h2 {
-    margin-left: 100px;
+  div.details {
+    width: 70%;
+    float: left;
   }
 }
 
