@@ -43,7 +43,7 @@ $(function () {
 
 //  Show/Hide for the search form
     if (window.location.search.indexOf('search=1') !== -1) {
-        $('div.search.well a.show-hide').html(hide);
+        $('div.search.well a.show-hide').find('span').removeClass(show).addClass(hide);
     } else {
         $('div.search.well div.search-form').hide();
     }
