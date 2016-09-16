@@ -1,6 +1,14 @@
 <div class="acquires edit container">
     <div class="col-md-6 col-md-offset-3">
-        <h2><?= $unit->unit->name?></h2>
+        <div class="unit-detail">
+            <?php
+            if (!empty($unit->unit->image)) {
+                echo $this->Html->image('../files/units/image/' . $unit->unit->image_dir . '/' . $unit->unit->image);
+            }
+            echo "<h2>" . $unit->unit->name . "</h2>";
+            ?>
+        </div>
+
         <?php
         echo "<p>" . $this->element('unit-specialisations', ['specialisations' => $unit->unit->specialisations]) . "</p>";
 

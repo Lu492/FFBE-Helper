@@ -97,6 +97,16 @@ span.badge.light {
   }
 }
 
+div.unit-detail {
+  img {
+    float: left;
+    margin-right: 10px;
+  }
+  h2 {
+    margin-left: 80px;
+  }
+}
+
 /** Tabs on the build party page **/
 ul.unit-nav {
   margin-bottom: 5px;

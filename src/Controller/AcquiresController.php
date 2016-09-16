@@ -26,7 +26,7 @@ class AcquiresController extends AppController
                 'Units' => function ($q) {
                     return $q
                         ->select([
-                            'id', 'name',
+                            'id', 'name', 'image_dir', 'image', 'description',
                             'BaseRarity.stars', 'MaxRarity.stars'
                         ])
                         ->contain([
