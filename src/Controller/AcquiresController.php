@@ -46,7 +46,7 @@ class AcquiresController extends AppController
             $unit = $this->Acquires->patchEntity($unit, $this->request->data);
             if ($this->Acquires->save($unit)) {
                 $this->Flash->success(__("Unit updated successfully."));
-                return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
+                return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired', '?' => ['search' => 1]]);
             } else {
                 $this->Flash->error(__("Unit could not be updated, please try again."));
             }
