@@ -278,4 +278,16 @@ class UnitsController extends AppController
 
         return $this->render('party');
     }
+
+    public function partyManual()
+    {
+        $this->set('tank' , null);
+        $this->set('physical_damage', null);
+        $this->set('magic_damage', null);
+        $this->set('support', null);
+        $this->set('healing', null);
+        $this->set('hybrid_damage', null);
+
+        return $this->render('party');
+    }
 }

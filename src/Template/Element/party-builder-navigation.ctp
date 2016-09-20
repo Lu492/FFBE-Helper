@@ -8,10 +8,7 @@
     <li <?= ($this->request->action === 'partyRarity') ? 'class="active"' : ''?>>
         <?= $this->Html->link('Single rarity', ['action' => 'partyRarity']);?>
     </li>
-    <li>
-        <a href="#Physical">Physical</a>
-    </li>
-    <li>
-        <a href="#Magical">Magical</a>
+    <li <?= ($this->request->action === 'partyManual') ? 'class="active"' : ''?>>
+        <?= $this->Html->link('Manually', ['action' => 'partyManual']);?>
     </li>
 </ul>

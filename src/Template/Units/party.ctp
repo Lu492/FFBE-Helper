@@ -24,6 +24,9 @@ $this->assign('title', 'Build a party');
             <div class="col-md-2"><?php echo $this->Form->input('roles', ['type' => 'checkbox', 'label' => 'Constrain to roles', 'hiddenField' => false]);?></div>
             <div class="col-md-4"><?php echo $this->Form->button('<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Build party', ['class' => 'btn btn-success']);?></div>
         </div>
+    <?php elseif ($this->request->action === 'partyManual'): ?>
+        <h3>Manually</h3>
+        <p>Select units of your choices from your acquired units.</p>
     <?php endif;?>
 
     <?php
