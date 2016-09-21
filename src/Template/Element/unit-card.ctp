@@ -23,13 +23,17 @@
 
         <?php
         if (!empty($unit->_matchingData['Specialisations'])) {
+            echo "<p>";
             foreach (explode(',', $unit->_matchingData['Specialisations']->stats) as $stat) {
-                echo "<p><span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;</p>";
+                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
             }
+            echo "</p>";
         } elseif (!empty($unit->stats)) {
+            echo "<p>";
             foreach ($unit->stats as $stat) {
-                echo "<p><span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;</p>";
+                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
             }
+            echo "</p>";
         }
         ?>
 
