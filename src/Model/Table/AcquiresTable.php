@@ -136,4 +136,54 @@ class AcquiresTable extends Table
 
         return $rules;
     }
+
+    /**
+     * Ensure a user has acquired at least one unit for building parties with
+     *
+     * @param int $userId User id to filter acquisitions by
+     * @param string $operator The comparison operator to use (gt|lt|gte|lte|eq)
+     * @param int $count How many units
+     *
+     * @return bool
+     */
+    public function checkUnitCount($userId, $operator = 'gte', $count = 1)
+    {
+        $unitCount = $this->find()
+            ->where(['Acquires.user_id' => $userId])
+            ->count();
+
+        $allowedOperators = ['gt', 'lt', 'gte', 'lte', 'eq'];
+        if (in_array($operator, $allowedOperators)) {
+            switch ($operator) {
+                case "gt":
+                    if ($unitCount > $count) {
+                        return true;
+                    }
+                    break;
+                case "lt":
+                    if ($unitCount < $count) {
+                        return true;
+                    }
+                    break;
+                default:
+                case "gte":
+                    if ($unitCount >= $count) {
+                        return true;
+                    }
+                    break;
+                case "lte":
+                    if ($unitCount <= $count) {
+                        return true;
+                    }
+                    break;
+                case "eq":
+                    if ($unitCount === $count) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+
+        return false;
+    }
 }

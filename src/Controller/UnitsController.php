@@ -195,30 +195,14 @@ class UnitsController extends AppController
     }
 
     /**
-     * Ensure that the current user has at least one unit to make a party with
-     *
-     * @return \Cake\Network\Response|null
-     *
-     * TODO: This should be a table method
-     */
-    protected function hasUnits()
-    {
-        $unitCount = $this->Units->Acquires->find()
-            ->where(['Acquires.user_id' => $this->Auth->user('id')])
-            ->count();
-
-        if ($unitCount < 1) {
-            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
-            return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
-        }
-    }
-
-    /**
      * Try and auto-generate a balanced party based on stats and roles
      */
     public function partyBalanced()
     {
-        $this->hasUnits();
+        if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
+            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+            return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
+        }
 
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
@@ -239,7 +223,10 @@ class UnitsController extends AppController
      */
     public function partyStats()
     {
-        $this->hasUnits();
+        if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
+            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+            return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
+        }
 
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
@@ -263,7 +250,10 @@ class UnitsController extends AppController
      */
     public function partyRarity()
     {
-        $this->hasUnits();
+        if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
+            $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+            return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
+        }
 
         $this->Units->party = [];
         $userId = $this->Auth->user('id');
