@@ -17,20 +17,21 @@
 
         <p><?= $this->element('unit-specialisations', ['specialisations' => $unit->unit->specialisations]);?></p>
 
-        <p>Favoured stats for this role.</p>
-        <p>
+        <?php if (!empty($unit->_matchingData['Specialisations']) || !empty($unit->stats)): ?>
+            <p>Favoured stats for this role.</p>
+        <?php endif;?>
+
         <?php
         if (!empty($unit->_matchingData['Specialisations'])) {
             foreach (explode(',', $unit->_matchingData['Specialisations']->stats) as $stat) {
-                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
+                echo "<p><span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;</p>";
             }
         } elseif (!empty($unit->stats)) {
             foreach ($unit->stats as $stat) {
-                echo "<span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;";
+                echo "<p><span class='badge light pad'>" . $this->Html->image($stat . '.png') . strtoupper($stat) . "</span>&nbsp;</p>";
             }
         }
         ?>
-        </p>
 
         <p>Max stats</p>
         <table>

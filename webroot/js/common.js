@@ -63,4 +63,27 @@ $(function () {
 
     toggleWell(addWell, addForm, addButton);
 
+//  Autocomplete for the party picker
+    $(function () {
+        $('div.manual-party div.unit-card.picker form input').autocomplete({
+            source: function (request, response) {
+                $.ajax({
+                    url: '/units/unit-list',
+                    dataType: 'json',
+                    data: {
+                        q: $(this.element).val()
+                    },
+                    success: function (data) {
+                        response(data.units);
+                    }
+                });
+            },
+            select: function (event, ui) {
+                $(this).parents('div.unit-card.picker').find('div.unit-placeholder').load('/units/single-unit', {unitId: ui.item.value});
+
+                return false;
+            },
+            minLength: 2
+        });
+    });
 });

@@ -176,9 +176,30 @@ class UnitsController extends AppController
     }
 
     /**
+     * Load a single unit-card via ajax
+     *
+     * @return \Cake\Network\Response
+     */
+    public function singleUnit()
+    {
+        $this->request->allowMethod(['post']);
+
+        if (!$this->request->is('ajax')) {
+            throw new NotFoundException();
+        }
+
+        $unit = $this->Units->selectUnit($this->Auth->user('id'), ['unitId' => $this->request->data('unitId')]);
+
+        $this->set('unit', $unit);
+        return $this->render('/Element/unit-card');
+    }
+
+    /**
      * Ensure that the current user has at least one unit to make a party with
      *
      * @return \Cake\Network\Response|null
+     *
+     * TODO: This should be a table method
      */
     protected function hasUnits()
     {

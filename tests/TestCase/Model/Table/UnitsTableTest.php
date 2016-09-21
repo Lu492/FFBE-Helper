@@ -159,6 +159,17 @@ class UnitsTableTest extends TestCase
                     'party' => [8]
                 ]
             ],
+            [
+                [
+                    'unitId' => 19
+                ],
+                'expected' => [
+                    'unit' => '\App\Model\Entity\Unit',
+                    'acquire' => '\App\Model\Entity\Acquire',
+                    'name' => 'Mizell',
+                    'party' => [25] // Acquire id
+                ]
+            ],
         ];
     }
 

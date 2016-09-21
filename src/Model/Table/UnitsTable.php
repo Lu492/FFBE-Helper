@@ -253,6 +253,7 @@ class UnitsTable extends Table
      * @param int $userId Currently logged in user id
      * @param array $options Array of options
      *
+     *  - `unitId` int : A specific units primary key
      *  - `fallback` bool : If no unit is found for a role should the selection fallback to searching by stats
      *  - `party` bool : Add the selected unit to a party to prevent duplicate selections
      *  - `specialisationId` int : The id of the specialisation to find a unit with
@@ -284,6 +285,10 @@ class UnitsTable extends Table
 
         if (!empty($this->party)) {
             $query->andWhere(['Acquires.id NOT IN' => $this->party]);
+        }
+
+        if (!empty($options['unitId'])) {
+            $query->andWhere(['Acquires.unit_id' => $options['unitId']]);
         }
 
         if (!empty($options['specialisationId'])) {

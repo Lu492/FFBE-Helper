@@ -44,6 +44,14 @@
   }
 }
 
+div.unit-card.picker form {
+  padding: 0 10px;
+}
+
+div.unit-placeholder > div.unit-card {
+  width: 98%;
+}
+
 div.unit-card {
   width: 250px;
   float: left;

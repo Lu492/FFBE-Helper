@@ -21,12 +21,12 @@ $this->assign('title', 'Build a party');
         <?php echo $this->Form->create(null, ['type' => 'get', 'id' => 'party-rarity-form']); ?>
         <div class="row">
             <div class="col-md-6"><?php echo $this->Rarity->form('rarity', null, ['required' => true, 'label' => 'Acquired rarity']);?></div>
-            <div class="col-md-2"><?php echo $this->Form->input('roles', ['type' => 'checkbox', 'label' => 'Constrain to roles', 'hiddenField' => false]);?></div>
+            <div class="col-md-2"><?php echo $this->Form->input('roles', ['type' => 'checkbox', 'label' => 'Pick from roles only', 'hiddenField' => false]);?></div>
             <div class="col-md-4"><?php echo $this->Form->button('<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Build party', ['class' => 'btn btn-success']);?></div>
         </div>
     <?php elseif ($this->request->action === 'partyManual'): ?>
         <h3>Manually</h3>
-        <p>Select units of your choices from your acquired units.</p>
+        <p>Select units of your choices from your acquired units. Use the autocomplete fields to search your acquired units to build your team.</p>
     <?php endif;?>
 
     <?php
@@ -34,6 +34,11 @@ $this->assign('title', 'Build a party');
     if ($this->request->action === 'partyRarity' && empty($this->request->query['roles'])) {
         $options = ['header' => false];
     }
-    echo $this->element('party-table', $options);
+
+    if ($this->request->action === 'partyManual') {
+        echo $this->element('party-table-manual', $options);
+    } else {
+        echo $this->element('party-table', $options);
+    }
     ?>
 </div>
