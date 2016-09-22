@@ -86,4 +86,16 @@ $(function () {
             minLength: 2
         });
     });
+
+//  Reselect a unit in a party
+    $('#party-table').on('click', '.unit-card a', function (e) {
+        var specialisation = $(this).data('specialisation');
+        $(this).parents('div.unit-card').remove();
+
+            jQuery.post('/units/single-unit', {
+                specialisationId: specialisation
+            }, function (data, status) {
+                $('#party-table').append(data);
+            }, 'html');
+    });
 });

@@ -2,7 +2,10 @@
 
     <?php
     if (!empty($header)) {
-        echo '<h3>' . $header . '</h3>';
+        echo "<h3>$header</h3>";
+
+        $slug = $this->Text->slug(strtolower($header));
+        echo "<a href='#redraw-$slug' class='btn btn-default btn-sm' data-specialisation='$specialisationId' title='Select a different unit'><span class='glyphicon glyphicon-refresh' aria-hidden='true'></span></a>";
     }
     ?>
 

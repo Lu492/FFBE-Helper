@@ -39,6 +39,11 @@ class UnitsController extends AppController
 
         $this->loadModel('Rarities');
         $this->set('rarities', $this->Rarities->find()->order('stars')->toArray());
+
+        // Reset the saved party in the session when not doing ajax to refresh units
+        if (!$this->request->is('ajax') && $this->request->session()->read('party') !== null) {
+            $this->request->session()->delete('party');
+        }
     }
 
     /**
@@ -187,7 +192,30 @@ class UnitsController extends AppController
             throw new NotFoundException();
         }
 
-        $unit = $this->Units->selectUnit($this->Auth->user('id'), ['unitId' => $this->request->data('unitId')]);
+        $options = [];
+        if (!empty($this->request->data('unitId'))) {
+            $options['unitId'] = $this->request->data('unitId');
+        }
+
+        if (!empty($this->request->data('specialisationId'))) {
+            $options['specialisationId'] = $this->request->data('specialisationId');
+
+            $specialisation = $this->Units->Specialisations->find()
+                ->where(['id' => $this->request->data('specialisationId')])
+                ->first();
+            $this->set('header', $specialisation->name);
+            $this->set('specialisationId', $specialisation->id);
+        }
+
+        if ($this->request->session()->read('party') !== null) {
+            $options['existingParty'] = $this->request->session()->read('party');
+        }
+
+        $unit = $this->Units->selectUnit($this->Auth->user('id'), $options);
+
+        if ($this->request->session()->read('party') !== null) {
+            $this->request->session()->write('party', array_merge($this->request->session()->read('party'), [$unit->id]));
+        }
 
         $this->set('unit', $unit);
         return $this->render('/Element/unit-card');
@@ -209,10 +237,18 @@ class UnitsController extends AppController
         $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
         foreach ($roles as $id => $role) {
             $slug = Text::slug(strtolower($role), '_');
-            $unit = $this->Units->selectUnit($userId, ['specialisationId' => $id]);
+
+            $options = ['specialisationId' => $id];
+            if ($this->request->session()->read('party') !== null) {
+                $options = array_merge($options, ['existingParty' => $this->request->session()->read('party')]);
+            }
+
+            $unit = $this->Units->selectUnit($userId, $options);
 
             $this->set($slug, $unit);
         }
+
+        $this->request->session()->write('party', $this->Units->party);
 
         return $this->render('party');
     }
@@ -240,6 +276,8 @@ class UnitsController extends AppController
 
             $this->set($slug, $unit);
         }
+
+        $this->request->session()->write('party', $this->Units->party);
 
         return $this->render('party');
     }
@@ -285,6 +323,8 @@ class UnitsController extends AppController
         }
 
         $this->request->data = $this->request->query;
+
+        $this->request->session()->write('party', $this->Units->party);
 
         return $this->render('party');
     }

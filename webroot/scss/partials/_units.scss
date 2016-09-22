@@ -53,6 +53,7 @@ div.unit-placeholder > div.unit-card {
 }
 
 div.unit-card {
+  position: relative;
   width: 250px;
   float: left;
   text-align: center;
@@ -66,6 +67,11 @@ div.unit-card {
     background-color: darken(#eee, 10%);
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+  }
+  a {
+    position: absolute;
+    top: 5px;
+    right: 5px;
   }
   div.sprite {
     min-height: 105px;

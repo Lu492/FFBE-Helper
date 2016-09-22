@@ -6,6 +6,18 @@ $this->assign('title', 'Build a party');
     <h2>Build a party</h2>
     <p>Automatically select from your acquired units to build a team.</p>
 
+    <?php if ($this->request->action !== 'partyManual'): ?>
+        <p>Units for the party are picked in the following order.</p>
+        <ol>
+            <li>Tank</li>
+            <li>Physical DPS</li>
+            <li>Magic DPS</li>
+            <li>Healing</li>
+            <li>Support</li>
+            <li>Hybrid DPS</li>
+        </ol>
+    <?php endif;?>
+
     <?= $this->element('party-builder-navigation');?>
 
     <?php if ($this->request->action === 'partyStats'): ?>

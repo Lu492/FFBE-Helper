@@ -261,16 +261,22 @@ class UnitsTable extends Table
      *  - `minRarity` int : The minimum rarity of unit which is eligible for the party
      *  - `maxRarity` int : The maximum rarity of unit which is eligible for the party
      *  - `rarity` int : The acquired rarity the unit must be to be selected
+     *  - `existingParty` array : Acquired unit id's already in the party
      *
-     * @return \App\Model\Entity\Unit
+     * @return \App\Model\Entity\Acquire
      */
     public function selectUnit($userId, array $options = [])
     {
         $defaultOptions = [
             'fallback' => true,
-            'party' => true
+            'party' => true,
+            'existingParty' => []
         ];
         $options = array_merge($defaultOptions, $options);
+
+        if (!empty($options['existingParty'])) {
+            $this->party = $options['existingParty'];
+        }
 
         $query = $this->Acquires->find()
             ->contain([
