@@ -108,8 +108,8 @@ div.login form {
 
 /** Ajax loading div **/
 #ajax-loading {
-  position: absolute;
-  top: 40%;
+  position: fixed;
+  top: 43%;
   left: 48%;
   padding: 15px;
   border-radius: 6px;
