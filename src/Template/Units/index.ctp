@@ -10,6 +10,7 @@ $this->assign('title', 'Brave Exvius Units');
         ?>
         <h2>Unit list</h2>
         <p>All units available in the game.</p>
+        <div class="alert alert-info">Unit database last updated: <?= $lastUpdate->modified->timezone('America/Los_Angeles')->format('D j M Y H:i:s T');?></div>
         <?php
     } elseif ($this->request->params['type'] === 'acquired') {
         ?>

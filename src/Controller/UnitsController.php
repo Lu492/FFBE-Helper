@@ -108,6 +108,7 @@ class UnitsController extends AppController
         $this->set('origins', $this->Units->Origins->find('list', ['keyField' => 'id', 'valueField' => 'shortname'])->order('shortname'));
         $this->set('jobs', $this->Units->Jobs->find('list')->order('name'));
         $this->set('specialisations', $this->Units->Specialisations->find('list')->order('name'));
+        $this->set('lastUpdate', $this->Units->find()->order(['modified' => 'desc'])->first());
     }
 
     /**
