@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.7.13-log)
 # Database: ffbe
-# Generation Time: 2016-09-16 09:36:28 +0000
+# Generation Time: 2016-10-07 15:35:31 +0000
 # ************************************************************
 
 
@@ -48,55 +48,61 @@ INSERT INTO `acquires` (`id`, `user_id`, `unit_id`, `level`, `rarity_id`, `trust
 VALUES
 	(1,1,1,66,5,0,'2016-09-02 09:57:35','2016-09-06 08:44:25'),
 	(3,1,2,25,5,0,'2016-09-02 13:22:16','2016-09-06 08:51:44'),
-	(4,1,76,72,5,14.7,'2016-09-02 13:23:24','2016-09-16 08:49:55'),
-	(5,1,3,61,5,0,'2016-09-02 13:23:45','2016-09-16 08:51:43'),
-	(6,1,28,36,4,10.5,'2016-09-02 13:24:00','2016-09-16 09:08:03'),
+	(4,1,76,80,5,20.9,'2016-09-02 13:23:24','2016-10-07 15:06:05'),
+	(5,1,3,80,5,0,'2016-09-02 13:23:45','2016-10-07 15:13:31'),
+	(6,1,28,36,4,15.5,'2016-09-02 13:24:00','2016-10-07 15:14:10'),
 	(7,1,52,48,5,4.1,'2016-09-02 13:24:14','2016-09-16 08:52:03'),
-	(8,1,60,60,4,6.7,'2016-09-02 13:27:51','2016-09-16 08:50:19'),
+	(8,1,60,60,4,11.7,'2016-09-02 13:27:51','2016-10-07 15:13:42'),
 	(9,1,23,25,3,0.3,'2016-09-02 13:28:03','2016-09-16 09:00:56'),
-	(10,1,31,28,3,0.3,'2016-09-02 13:28:15','2016-09-16 08:54:02'),
+	(10,1,31,36,3,0.6,'2016-09-02 13:28:15','2016-10-07 15:07:58'),
 	(11,1,7,30,2,30.2,'2016-09-02 13:28:24','2016-09-16 09:09:32'),
-	(12,1,8,30,2,25.2,'2016-09-02 13:28:36','2016-09-16 09:08:20'),
-	(13,1,16,23,3,10.3,'2016-09-02 13:28:47','2016-09-16 09:12:19'),
+	(12,1,8,30,2,30.2,'2016-09-02 13:28:36','2016-10-07 15:14:29'),
+	(13,1,16,23,3,15.3,'2016-09-02 13:28:47','2016-10-07 15:17:09'),
 	(14,1,56,6,3,5.4,'2016-09-02 13:28:57','2016-09-16 09:22:32'),
-	(15,1,57,1,3,0,'2016-09-02 13:29:06','2016-09-06 09:02:19'),
-	(16,1,27,10,4,20,'2016-09-02 13:29:17','2016-09-16 09:03:47'),
-	(17,1,33,60,4,3.4,'2016-09-02 13:29:27','2016-09-16 09:07:28'),
+	(15,1,57,8,3,5.6,'2016-09-02 13:29:06','2016-10-07 15:21:17'),
+	(16,1,27,12,4,25,'2016-09-02 13:29:17','2016-10-07 15:16:25'),
+	(17,1,33,60,4,8.4,'2016-09-02 13:29:27','2016-10-07 15:13:21'),
 	(18,1,35,60,4,13.8,'2016-09-02 13:29:40','2016-09-16 09:07:45'),
 	(19,1,37,8,4,5,'2016-09-02 13:29:52','2016-09-16 09:03:26'),
-	(20,1,66,3,5,5.3,'2016-09-02 13:30:02','2016-09-16 09:09:11'),
+	(20,1,66,43,5,6.3,'2016-09-02 13:30:02','2016-10-07 15:06:50'),
 	(21,1,78,1,4,0.4,'2016-09-02 13:30:16','2016-09-16 09:20:57'),
-	(22,1,13,1,3,0,'2016-09-02 13:30:26','2016-09-02 13:30:26'),
+	(22,1,13,16,3,0,'2016-09-02 13:30:26','2016-10-07 15:12:49'),
 	(23,1,15,40,3,16.5,'2016-09-02 13:30:35','2016-09-14 15:33:29'),
 	(24,1,18,1,3,5.3,'2016-09-02 13:30:47','2016-09-16 09:23:15'),
 	(25,1,19,16,3,5.1,'2016-09-02 13:30:58','2016-09-16 09:20:05'),
 	(26,1,20,13,3,15,'2016-09-02 13:31:09','2016-09-16 09:19:45'),
-	(27,1,26,1,3,0,'2016-09-02 13:31:20','2016-09-02 13:31:20'),
+	(27,1,26,9,3,10,'2016-09-02 13:31:20','2016-10-07 15:17:21'),
 	(28,1,29,1,3,0,'2016-09-02 13:31:30','2016-09-02 13:31:30'),
-	(29,1,30,21,3,5.1,'2016-09-02 13:31:41','2016-09-16 09:01:14'),
-	(30,1,32,18,3,10.1,'2016-09-02 13:31:50','2016-09-16 09:11:40'),
-	(31,1,36,1,3,0,'2016-09-02 13:32:00','2016-09-02 13:32:00'),
+	(29,1,30,18,4,15.2,'2016-09-02 13:31:41','2016-10-07 15:11:27'),
+	(30,1,32,18,3,15.1,'2016-09-02 13:31:50','2016-10-07 15:16:36'),
+	(31,1,36,10,3,10,'2016-09-02 13:32:00','2016-10-07 15:17:45'),
 	(32,1,55,12,3,20.1,'2016-09-02 13:32:09','2016-09-16 09:11:57'),
-	(33,1,58,23,3,0,'2016-09-02 13:32:29','2016-09-16 09:02:50'),
-	(34,1,4,30,2,15.7,'2016-09-02 13:37:15','2016-09-16 09:28:33'),
-	(35,1,5,30,2,25.1,'2016-09-02 13:37:51','2016-09-16 09:10:58'),
-	(36,1,6,30,2,25.5,'2016-09-02 13:38:00','2016-09-16 09:10:41'),
-	(37,1,9,30,2,20.1,'2016-09-02 13:38:11','2016-09-16 09:10:03'),
-	(38,1,10,30,2,30.1,'2016-09-02 13:38:20','2016-09-16 09:09:48'),
-	(39,1,11,30,2,25.1,'2016-09-02 13:38:29','2016-09-16 09:11:25'),
+	(33,1,58,37,3,5.2,'2016-09-02 13:32:29','2016-10-07 15:08:11'),
+	(34,1,4,30,2,20.7,'2016-09-02 13:37:15','2016-10-07 15:14:49'),
+	(35,1,5,30,2,50.1,'2016-09-02 13:37:51','2016-10-07 15:16:04'),
+	(36,1,6,30,2,30.5,'2016-09-02 13:38:00','2016-10-07 15:15:56'),
+	(37,1,9,30,2,45.1,'2016-09-02 13:38:11','2016-10-07 15:15:36'),
+	(38,1,10,30,2,60.1,'2016-09-02 13:38:20','2016-10-07 15:15:27'),
+	(39,1,11,30,2,70.1,'2016-09-02 13:38:29','2016-10-07 15:16:13'),
 	(40,1,12,1,3,0.2,'2016-09-02 13:38:37','2016-09-16 09:23:39'),
 	(41,1,14,1,3,0.2,'2016-09-02 13:38:45','2016-09-16 09:25:19'),
-	(42,1,17,24,3,5.2,'2016-09-02 13:38:53','2016-09-16 09:01:31'),
-	(43,1,53,30,2,15.3,'2016-09-02 13:39:01','2016-09-16 09:10:20'),
-	(44,1,69,47,4,1.8,'2016-09-05 14:20:38','2016-09-16 08:52:23'),
-	(45,1,67,32,4,1,'2016-09-06 08:40:40','2016-09-16 08:53:23'),
-	(46,1,80,18,3,0.1,'2016-09-06 09:02:57','2016-09-16 08:54:26'),
-	(49,1,59,23,2,0.1,'2016-09-09 11:59:09','2016-09-16 09:03:08'),
-	(50,1,81,1,5,0,'2016-09-16 09:02:28','2016-09-16 09:02:28'),
-	(51,1,54,23,2,0.1,'2016-09-16 09:06:43','2016-09-16 09:06:43'),
-	(52,1,21,17,3,5.1,'2016-09-16 09:07:12','2016-09-16 09:27:55'),
-	(53,1,41,1,3,0,'2016-09-16 09:21:37','2016-09-16 09:21:37'),
-	(54,1,22,1,4,0,'2016-09-16 09:22:17','2016-09-16 09:22:17');
+	(42,1,17,27,3,5.3,'2016-09-02 13:38:53','2016-10-07 15:08:24'),
+	(43,1,53,30,2,25.3,'2016-09-02 13:39:01','2016-10-07 15:15:48'),
+	(44,1,69,44,5,3.5,'2016-09-05 14:20:38','2016-10-07 15:07:03'),
+	(45,1,67,46,5,3.4,'2016-09-06 08:40:40','2016-10-07 15:06:22'),
+	(46,1,80,18,3,5.1,'2016-09-06 09:02:57','2016-10-07 15:11:13'),
+	(49,1,59,26,2,0.1,'2016-09-09 11:59:09','2016-10-07 15:12:19'),
+	(50,1,81,22,5,0.2,'2016-09-16 09:02:28','2016-10-07 15:07:16'),
+	(51,1,54,26,2,0.1,'2016-09-16 09:06:43','2016-10-07 15:12:33'),
+	(52,1,21,17,3,10.1,'2016-09-16 09:07:12','2016-10-07 15:18:14'),
+	(53,1,41,46,5,7.7,'2016-09-16 09:21:37','2016-10-07 15:06:37'),
+	(54,1,22,7,4,5,'2016-09-16 09:22:17','2016-10-07 15:18:03'),
+	(55,1,75,42,4,1.1,'2016-10-07 15:07:42','2016-10-07 15:07:42'),
+	(56,1,84,22,3,0.1,'2016-10-07 15:10:49','2016-10-07 15:10:49'),
+	(57,1,61,22,3,10.1,'2016-10-07 15:11:55','2016-10-07 15:11:55'),
+	(58,1,25,7,4,5,'2016-10-07 15:15:13','2016-10-07 15:15:13'),
+	(59,1,63,1,3,0,'2016-10-07 15:18:37','2016-10-07 15:18:37'),
+	(60,1,85,1,4,0,'2016-10-07 15:20:43','2016-10-07 15:20:43');
 
 /*!40000 ALTER TABLE `acquires` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -191,7 +197,11 @@ VALUES
 	(45,'Sage','2016-09-01 09:38:36','2016-09-01 09:38:36'),
 	(46,'Princess','2016-09-01 09:39:48','2016-09-01 09:39:48'),
 	(47,'Juggler','2016-09-14 16:23:32','2016-09-14 16:23:32'),
-	(48,'Fencer','2016-09-14 16:25:28','2016-09-14 16:25:28');
+	(48,'Fencer','2016-09-14 16:25:28','2016-09-14 16:25:28'),
+	(49,'Cleric','2016-10-07 15:20:31','2016-10-07 15:20:31'),
+	(50,'l\'Cie','2016-10-07 15:28:48','2016-10-07 15:28:48'),
+	(51,'Squire','2016-10-07 15:29:59','2016-10-07 15:29:59'),
+	(52,'Fell Knight','2016-10-07 15:31:14','2016-10-07 15:31:14');
 
 /*!40000 ALTER TABLE `jobs` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -226,7 +236,9 @@ VALUES
 	(8,'Final Fantasy XI','FF 11','2016-08-31 16:00:00','2016-08-31 16:00:00'),
 	(9,'Final Fantasy XII','FF 12','2016-08-31 16:00:00','2016-08-31 16:00:00'),
 	(10,'Final Fantasy Brave Exvius','FF BE','2016-08-31 16:00:00','2016-08-31 16:00:00'),
-	(11,'Final Fantasy Crystal Defenders','FF CD','2016-09-14 17:19:47','2016-09-14 17:19:47');
+	(11,'Final Fantasy Crystal Defenders','FF CD','2016-09-14 17:19:47','2016-09-14 17:19:47'),
+	(12,'Final Fantasy Tactics','FF T','2016-10-07 16:19:20','2016-10-07 16:19:20'),
+	(13,'Final Fantasy XIII','FF 13','2016-10-07 16:26:09','2016-10-07 16:26:09');
 
 /*!40000 ALTER TABLE `origins` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -385,7 +397,16 @@ VALUES
 	(102,80,5),
 	(103,81,5),
 	(104,82,5),
-	(105,83,5);
+	(105,83,5),
+	(106,84,1),
+	(107,84,4),
+	(108,85,1),
+	(109,85,4),
+	(110,86,7),
+	(111,87,5),
+	(112,88,2),
+	(113,88,5),
+	(114,89,5);
 
 /*!40000 ALTER TABLE `practises` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -440,7 +461,8 @@ VALUES
 	(2,2,30,'2016-09-02 12:08:16','2016-09-02 12:08:16'),
 	(3,3,40,'2016-09-02 12:08:24','2016-09-02 12:08:24'),
 	(4,4,60,'2016-09-02 12:08:30','2016-09-02 12:08:30'),
-	(5,5,80,'2016-09-02 12:08:36','2016-09-02 12:08:36');
+	(5,5,80,'2016-09-02 12:08:36','2016-09-02 12:08:36'),
+	(6,6,100,'2016-10-07 16:27:29','2016-10-07 16:27:29');
 
 /*!40000 ALTER TABLE `rarities` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -602,7 +624,13 @@ VALUES
 	(80,'Freya','A Burmecian woman who appears in tales of Gaia, a world foreign to this one. Despite being a dragon knight, the pride of Burmecia, she was forbidden to reenter her own country once she had left. Yet her pride in being a dragon knight never wavered, and she remained eternally zealous. She had a cool demeanor, with an old-fashioned way of speaking, and though she was quick to rebuke her companions, she felt very deeply for them. She was also an old friend of Zidane.',7,2,23,2,3,5,'Angel Earrings','Freya-5.png','7df44b04-eb7f-4350-b6c9-9c84b468d6bd',2545,112,103,93,86,90,1,'2016-09-01 09:46:56','2016-09-14 16:18:33'),
 	(81,'Juggler','A warrior who appears in the tales of a distant world where crystals bring peace and prosperity to the people. The identity of this small creature, whose visible pom-pom suggests a possible relationship to the moogle race, is completely shrouded in mystery. Its weapon of choice seems to be knives, and beyond being merely light on its feet, it even moves around while balancing on a ball. Never seen without a smile on its face, those who study acrobatics have yet to reach a consensus on the meaning of its enigmatic grin.',11,2,47,1,4,5,'Sticky Fingers','Juggler-5.png','46fab61d-8e6a-4813-a141-5348e6d0afe2',2750,135,111,100,90,116,4,'2016-09-14 16:23:32','2016-09-14 16:23:32'),
 	(82,'Thief','A warrior who appears in the tales of a distant world where crystals bring peace and prosperity to the people. Sensing a wicked presence nearby, the moogles called upon all their friends to ask for the protection of their precious crystals. The Thief, with his incredible agility in battle, and specializing in the collection of any gil scattered throughout the field, was one of them. The Thief is an indispensable ally when money is required to keep troops in top shape.',11,2,7,1,4,5,'Coin Steal','Thief-5.png','e9cbcd3e-f57e-4ed7-a886-d2151671a44d',2650,118,113,98,92,98,4,'2016-09-14 16:24:41','2016-09-14 16:24:41'),
-	(83,'Fencer','A warrior who appears in the tales of a distant world where crystals bring peace and prosperity to the people. Sensing a wicked presence nearby, the moogles called upon their friends to ask for the protection of their precious crystals. The Fencer, who specializes in close combat, was one of them. Her sharp blade slices without mercy through any opponent that crosses her, while the grace with which she dodges her foes\' attacks is said to be quite beguilling.',11,2,48,2,4,5,'Lunge Combo','Fencer-5.png','3ed2f4f7-a591-4b3f-84fc-58d423a8ab30',2681,128,120,95,90,95,2,'2016-09-14 16:25:28','2016-09-14 16:25:28');
+	(83,'Fencer','A warrior who appears in the tales of a distant world where crystals bring peace and prosperity to the people. Sensing a wicked presence nearby, the moogles called upon their friends to ask for the protection of their precious crystals. The Fencer, who specializes in close combat, was one of them. Her sharp blade slices without mercy through any opponent that crosses her, while the grace with which she dodges her foes\' attacks is said to be quite beguilling.',11,2,48,2,4,5,'Lunge Combo','Fencer-5.png','3ed2f4f7-a591-4b3f-84fc-58d423a8ab30',2681,128,120,95,90,95,2,'2016-09-14 16:25:28','2016-09-14 16:25:28'),
+	(84,'Ludmille','A red mage from the empire of Zoldaad. Ludmille\'s family were casualities of the war brought on by the empire; as a result, she spent most of her chilhood in an orphanage. Her tragic past caused her to grow up coveting power, which eventually motivated her to hone her skills for the purpose of joining the military forces of Zoldaad. The air of mistery she exudes always creates the impression that she is cold and distant.',10,2,22,2,3,5,'Dualcast','Ludmille-5.png','2b3f45f9-9e3c-49e1-800b-382af98ccdc4',2348,136,99,91,98,95,2,'2016-10-07 15:10:30','2016-10-07 15:10:30'),
+	(85,'Alma','A young girl who appears in the tales of holy stones known as auracite in the distant world of Ivalice. Alma is the youngest of four siblings in the honorable House Beoulve\'s line of succession. She attends the Eagrose Preparatory Akademy, and is a cheerful and bright girl who readily befriends people across class boundaries. Alma favored her full brother, Ramza, over their two elder half brothers, and spent most of her life in a monastery. There she met Princess Ovelia, to whom she became a close friend after realizing they shared similar circumstances.',12,2,49,2,3,5,'Lordly Robe','Alma-5.png','7a309bff-88bb-47da-b10c-0dd8e7d6ef0a',2106,142,84,80,90,118,1,'2016-10-07 15:20:31','2016-10-07 15:20:31'),
+	(86,'Charlotte','A kinght of Grandshelt on active duty, and Rain and Lasswell\'s peer. Charlotte\'s stern and austere personality causes her to butt heads with the easygoing Rain, leaving Lasswell to bear the brunt of her complaints about his friend. The anxiety she felt after learning that her two comrades would set off on a dangerous journey was so acute that it materialized into a crystal, allowing those with the power of visions to summon her forth.',10,2,3,2,3,5,'Equip H Shield','Charlotte-5.png','01d52fec-c8f2-4856-b682-75850db45791',2720,112,92,104,88,104,3,'2016-10-07 15:25:27','2016-10-07 15:25:27'),
+	(87,'Lightning','A woman who appears in the tales of a world where the gods toy with humanity\'s fate. Lightning is a soldier from the floating continent of Cocoon, ruled by servants of the gods known as the fal\'Cie. Her unsociable and serious demeanor often makes her seem indifferent to those around her, when in reality she hides a gentle soul that drives her to face peril boldly to protect those she loves. Lightning gave up her post as a soldier to save her sister Serah, who had become a prisoner of the fal\'Cie, and boarded a train full of unjustly exiled citizens to defy the fate the gods had chosen for her.',13,2,50,2,5,6,'Aurora Scarf','Lightning-6.png','f92dca5a-57a3-4021-9f54-d6214f87f207',3615,157,145,126,123,120,5,'2016-10-07 15:28:48','2016-10-07 15:28:48'),
+	(88,'Delita','A young man who appears in the tales of holy stones known as auracite in the distant world of Ivalice. Delita served the widely respected House of Beoulve, into which he and his sister Tietra had been adopted following the death of their severely ill parents. Once taken in, he became fast friends with Ramza, a son of the head of the house, Barbaneth Beoulve. It was Delita\'s adoptive father who would push him and Ramza to join the exclusive Gariland Royal Military Akademy. The two friends gradually formed a bond which transcended the social gap that originally separated them.',12,2,51,1,5,6,'Moonblade','Delita-6.png','06962f25-aa22-464a-baa5-419679979db1',3507,153,148,126,119,117,1,'2016-10-07 15:29:59','2016-10-07 15:29:59'),
+	(89,'Gaffgarion','A mercenary who appears in the tales of holy stones known as auracite in the distant world of Ivalice. As tensions ran high due to the outbreak of war, Gaffgarion was hired by the Order of the Northern Sky to protect Princess Ovelia en route to Eagrose. He had in fact been division commander of the Order of the Eastern Sky during the Fifty Years\' War, but was expelled for the barbarism he employed to ensure his final victory. Now he serves as a superior to his comrade Ramza, who has renounced the name of his noble house.',12,2,52,1,4,5,'Bracer','Gaffgarion-5.png','4f5b4e75-ee47-4ebf-98cb-1b1481805e0e',2681,111,113,102,87,88,2,'2016-10-07 15:31:14','2016-10-07 15:31:14');
 
 /*!40000 ALTER TABLE `units` ENABLE KEYS */;
 UNLOCK TABLES;
