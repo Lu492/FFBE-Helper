@@ -42,6 +42,7 @@ class AppView extends View
 
         if (!empty($this->viewVars['rarities'])) {
             $this->loadHelper('LevelBar', ['rarities' => $this->viewVars['rarities']]);
+            $this->loadHelper('Rarity', ['rarities' => $this->viewVars['rarities']]);
         }
     }
 }

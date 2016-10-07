@@ -17,16 +17,7 @@ class RarityHelper extends Helper
      *
      * @var array
      */
-    protected $_defaultConfig = [
-        // TODO: Replace with database data, just like the level bar helper
-        'rarities' => [
-            1 => 1,
-            2 => 2,
-            3 => 3,
-            4 => 4,
-            5 => 5
-        ]
-    ];
+    protected $_defaultConfig = [];
 
     /**
      * Which helpers to load for this helper
@@ -37,6 +28,21 @@ class RarityHelper extends Helper
         'Html',
         'Form'
     ];
+
+    /**
+     * Build the helper
+     *
+     * @param array $config
+     * @throws \RuntimeException
+     */
+    public function initialize(array $config)
+    {
+        parent::initialize($config);
+
+        if (empty($this->config('rarities'))) {
+            throw new \RuntimeException(__('Expected an array of Rarity entities set to the view.'));
+        }
+    }
 
     /**
      * Display the rarity of it's maximum, optionally with a star icon
@@ -89,7 +95,7 @@ class RarityHelper extends Helper
             'type' => 'stars',
             'displayLabel' => true,
             'label' => Inflector::humanize($field),
-            'allowed' => $this->config('rarities')
+            'allowed' => collection($this->config('rarities'))->indexBy('id')
         ];
         $options = array_merge($defaultOptions, $options);
 
@@ -100,12 +106,12 @@ class RarityHelper extends Helper
         }
 
         foreach ($options['allowed'] as $rarity) {
-            $out .= "<label for='$field-$rarity'>";
+            $out .= "<label for='$field-{$rarity->stars}'>";
 
             $checked = '';
-            if ((!empty($entity) && !empty($entity->get($field)) && $entity->get($field) === $rarity)
-                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity)
-                || (!empty($this->request->query[$field]) && $this->request->query[$field] == $rarity)
+            if ((!empty($entity) && !empty($entity->get($field)) && $entity->get($field) === $rarity->stars)
+                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity->stars)
+                || (!empty($this->request->query[$field]) && $this->request->query[$field] == $rarity->stars)
             ) {
                 $checked = 'checked="checked"';
             }
@@ -115,14 +121,14 @@ class RarityHelper extends Helper
                 $requiredField = "required='required'";
             }
 
-            $out .= "<input type='radio' name='$field' value='$rarity' id='$field-$rarity' $checked $requiredField>";
+            $out .= "<input type='radio' name='$field' value='$rarity->stars' id='$field-{$rarity->stars}' $checked $requiredField>";
 
             if ($options['type'] === 'numbers') {
-                $out .= $rarity;
+                $out .= $rarity->stars;
             } elseif ($options['type'] === 'combo') {
-                $out .= $rarity . $this->Html->image('star.png');
+                $out .= $rarity->stars . $this->Html->image('star.png');
             } else {
-                for ($i = 0; $i < $rarity; $i++) {
+                for ($i = 0; $i < $rarity->stars; $i++) {
                     $out .= $this->Html->image('star.png');
                 }
             }

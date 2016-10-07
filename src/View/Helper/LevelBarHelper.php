@@ -18,7 +18,7 @@ class LevelBarHelper extends Helper
     protected $_defaultConfig = [];
 
     /**
-     * Build the controller
+     * Build the helper
      *
      * @param array $config
      * @throws \RuntimeException
