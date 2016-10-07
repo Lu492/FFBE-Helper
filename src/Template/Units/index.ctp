@@ -74,7 +74,7 @@ $this->assign('title', 'Brave Exvius Units');
                     <th><?= $this->Paginator->sort('base_rarity_id');?></th>
                     <th><?= $this->Paginator->sort('max_rarity_id');?></th>
                 <?php } else { ?>
-                    <th><?= $this->Paginator->sort('Acquires.rarity', 'Rarity', ['direction' => 'desc']);?></th>
+                    <th><?= $this->Paginator->sort('Acquires.rarity_id', 'Rarity', ['direction' => 'desc']);?></th>
                     <th><?= $this->Paginator->sort('Acquires.level', 'Level', ['direction' => 'desc']);?></th>
                     <th class="hidden-xs"><?= $this->Paginator->sort('Acquires.trust', 'Trust %', ['direction' => 'desc']);?></th>
                 <?php  } ?>
