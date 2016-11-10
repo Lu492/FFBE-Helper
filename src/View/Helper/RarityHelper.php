@@ -84,7 +84,7 @@ class RarityHelper extends Helper
      *  - `type` string (numbers|stars|combo) : What type of form input should be generated
      *  - `displayLabel` bool : Should a label be output for the field
      *  - `label` string : The field label text
-     *  - `allowed` array : Array of allowed rarities
+     *  - `allowed` array : Array of allowed rarity objects
      *
      * @return string;
      */

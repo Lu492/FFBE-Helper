@@ -8,8 +8,23 @@
 
 namespace App\Controller;
 
+use Cake\Event\Event;
+
 class AcquiresController extends AppController
 {
+
+    /**
+     * beforeFilter method
+     *
+     * @param \Cake\Event\Event $event
+     */
+    public function beforeFilter(Event $event)
+    {
+        parent::beforeFilter($event);
+
+        $this->loadModel('Rarities');
+        $this->set('rarities', $this->Rarities->find()->order('stars')->toArray());
+    }
 
     /**
      * Edit a units acquired status

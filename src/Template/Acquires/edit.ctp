@@ -20,10 +20,10 @@
 
         $allowed = [];
         for ($i = $unit->unit->base_rarity->stars; $i <= $unit->unit->max_rarity->stars; $i++) {
-            $allowed[$i] = $i;
+            $allowed[$i] = (object)['id' => $i, 'stars' => $i];
         }
 
-        echo $this->Rarity->form('rarity_id', $unit, ['allowed' => $allowed, 'label' => 'Rarity']);
+        echo $this->Rarity->form('rarity_id', $unit, ['allowed' => $allowed, 'label' => 'Rarity', 'type' => 'combo']);
 
         echo $this->Form->input('trust', ['type' => 'number', 'min' => 0, 'max' => 100]);
 

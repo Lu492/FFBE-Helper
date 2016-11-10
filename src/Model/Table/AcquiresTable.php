@@ -68,8 +68,8 @@ class AcquiresTable extends Table
             ->integer('level')
             ->allowEmpty('level')
             ->add('level', 'validRange', [
-                'rule' => ['range', 1, 80],
-                'message' => 'Level range is only between 1 and 80.'
+                'rule' => ['range', 1, 100],
+                'message' => 'Level range is only between 1 and 100.'
             ])
             ->add('level', 'inRarity', [
                 'rule' => function ($value, $context) {
