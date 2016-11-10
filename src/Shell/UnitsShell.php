@@ -117,14 +117,8 @@ class UnitsShell extends Shell
                     $localUnit->set('trust_master_reward', $unit['trustMaster']);
                     $localUnit->set('modified', new FrozenTime());
 
-                    // TODO: Find out why the new unit entity, seems to drop it's primary key when trying to update
-//                    if ($unit['name'] === 'Lid') {
-//                        var_dump($localUnit);
-//                        exit;
-//                    }
-
                     if ($this->Units->save($localUnit)) {
-                        $this->out(__("Updated information for `{$unit['name']}`"));
+                        $this->out(__("Updated information for `<info>{$unit['name']}</info>`"));
                     } else {
                         $this->out(__("<error>Could not save new data for `{$unit['name']}`</error>"));
                         $this->_stop();
@@ -132,6 +126,8 @@ class UnitsShell extends Shell
                 }
             } // End looping table rows
         } // End looping tables
+
+        $this->out('Completed.', 2);
     }
 
     /**
@@ -152,7 +148,7 @@ class UnitsShell extends Shell
         if (!$unitPageHtml) {
             // Use the random wait here, to attempt to simulate random traffic, and avoid bashing their server.
             $wait = rand(5, 19);
-            $this->out("<info>Cannot find `{$unit['name']}` in the local db. Adding new unit in $wait seconds.</info>");
+            $this->out("<warning>Cannot find `{$unit['name']}` in the local db. Adding new unit in $wait seconds.</warning>");
             sleep($wait);
 
             $client = new Client();
@@ -265,7 +261,7 @@ class UnitsShell extends Shell
             ]);
 
             if ($this->Jobs->save($job)) {
-                $this->out("Added new job `{$unit['job']}` for unit `{$unit['name']}`");
+                $this->out("<comment>-> Added new job `{$unit['job']}` for unit `{$unit['name']}`</comment>");
             }
         }
 
