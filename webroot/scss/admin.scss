@@ -23,3 +23,9 @@ select[multiple=multiple] {
 img.table-image.small {
   height: 50px;
 }
+
+form .form-group.radio {
+  label {
+    margin-right: 5px;
+  }
+}

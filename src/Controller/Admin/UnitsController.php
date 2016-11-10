@@ -94,7 +94,7 @@ class UnitsController extends AppController
         $genders = $this->Units->Genders->find('list')->order('name');
         $specialisations = $this->Units->Specialisations->find('list')->order('name');
         $this->loadModel('Rarities');
-        $rarities = $this->Rarities->find('list')->order(['stars' => 'asc']);
+        $rarities = $this->Rarities->find()->order('stars')->toArray();
         $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations', 'rarities'));
     }
 
@@ -131,7 +131,7 @@ class UnitsController extends AppController
         $specialisations = $this->Units->Specialisations->find('list')->order('name');
 
         $this->loadModel('Rarities');
-        $rarities = $this->Rarities->find('list')->order(['stars' => 'asc']);
+        $rarities = $this->Rarities->find()->order('stars')->toArray();
 
         $this->set(compact('unit', 'origins', 'races', 'jobs', 'genders', 'specialisations', 'rarities'));
     }
