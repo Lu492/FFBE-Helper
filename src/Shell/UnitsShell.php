@@ -1,6 +1,7 @@
 <?php
 namespace App\Shell;
 
+use App\Model\Entity\Unit;
 use Cake\Cache\Cache;
 use Cake\Chronos\Chronos;
 use Cake\Console\Shell;
@@ -70,7 +71,14 @@ class UnitsShell extends Shell
 
             $html = $response->body();
             Cache::write('unitList', $html, 'day');
+
+            $this->out('<comment>Loading unit list from the wiki.</comment>', 2);
+        } else {
+            $this->out('<comment>Loading unit list from cache.</comment>', 2);
         }
+
+        $updated = 0;
+        $added = 0;
 
         // Turn off parsing warnings
         // @see http://php.net/manual/en/domdocument.loadhtml.php#95463
@@ -93,6 +101,7 @@ class UnitsShell extends Shell
 
                 if ($row->hasChildNodes()) {
                     $unit = [];
+                    $unit['sprite'] = 'https://exviuswiki.com' . $row->childNodes->item(1)->childNodes->item(1)->childNodes->item(0)->attributes->getNamedItem('src')->value;
                     $unit['name'] = trim($row->childNodes->item(3)->nodeValue);
                     $unit['origin'] = trim($row->childNodes->item(5)->nodeValue);
                     $unit['roles'] = trim($row->childNodes->item(7)->nodeValue);
@@ -103,11 +112,21 @@ class UnitsShell extends Shell
                     /* @var \App\Model\Entity\Unit $localUnit */
                     $this->loadModel('Units');
                     $localUnit = $this->Units->find()
+                        ->contain([
+                            'MaxRarity'
+                        ])
                         ->where(['name' => $unit['name']])
                         ->first();
 
                     if (!$localUnit) {
+                        $added++;
                         $localUnit = $this->buildNewUnit($unit);
+                    } else {
+                        if ($localUnit->max_rarity->get('stars') !== (int)$unit['maxRarity'] || empty($localUnit->get('image'))) {
+                            $spriteDetails = $this->saveSprite($unit, $localUnit);
+                            $localUnit->set('image', $spriteDetails['filename']);
+                            $localUnit->set('image_dir', $spriteDetails['directory']);
+                        }
                     }
 
                     $localUnit->set('specialisations', $this->getRole($unit));
@@ -118,6 +137,7 @@ class UnitsShell extends Shell
                     $localUnit->set('modified', new FrozenTime());
 
                     if ($this->Units->save($localUnit)) {
+                        $updated++;
                         $this->out(__("Updated information for `<info>{$unit['name']}</info>`"));
                     } else {
                         $this->out(__("<error>Could not save new data for `{$unit['name']}`</error>"));
@@ -127,7 +147,8 @@ class UnitsShell extends Shell
             } // End looping table rows
         } // End looping tables
 
-        $this->out('Completed.', 2);
+        $this->out(null, 2);
+        $this->out("Completed. Updated <info>$updated</info> and added <info>$added</info>.");
     }
 
     /**
@@ -216,7 +237,43 @@ class UnitsShell extends Shell
         $description = $content->childNodes->item(1)->nodeValue;
         $localUnit->set('description', $description);
 
+        // Save the sprite
+        $spriteDetails = $this->saveSprite($unit, $localUnit);
+        $localUnit->set('image', $spriteDetails['filename']);
+        $localUnit->set('image_dir', $spriteDetails['directory']);
+
         return $localUnit;
+    }
+
+    /**
+     * Copy the remote sprite image to the local file system and return it's details
+     *
+     * @param array $unit
+     * @param \App\Model\Entity\Unit|null $localUnit
+     *
+     * @return array
+     */
+    protected function saveSprite(array $unit, Unit $localUnit = null)
+    {
+        if ($localUnit !== null && !empty($localUnit->get('image_dir'))) {
+            $folder = $localUnit->get('image_dir');
+        } else {
+            $folder = Text::uuid();
+        }
+
+        $fileName = basename($unit['sprite']);
+
+        $remoteImage = $unit['sprite'];
+        $localImage = WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder . DS . $fileName;
+        mkdir(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder);
+        copy($remoteImage, $localImage);
+
+        $this->out("-> <comment>Copying new sprite for unit `{$unit['name']}`</comment>");
+
+        return [
+            'filename' => $fileName,
+            'directory' => $folder
+        ];
     }
 
     /**
@@ -261,7 +318,7 @@ class UnitsShell extends Shell
             ]);
 
             if ($this->Jobs->save($job)) {
-                $this->out("<comment>-> Added new job `{$unit['job']}` for unit `{$unit['name']}`</comment>");
+                $this->out("-> <comment>Added new job `{$unit['job']}` for unit `{$unit['name']}`</comment>");
             }
         }
 
