@@ -15,7 +15,7 @@
                 <?php echo $this->Form->input('unit_id', ['type' => 'hidden']); ?>
             </div>
             <div class="col-md-5">
-                <?= $this->Rarity->form('rarity_id', null, ['required' => true]);?>
+                <?= $this->Rarity->form('rarity_id', null, ['required' => true, 'type' => 'combo']);?>
             </div>
             <div class="col-md-2">
                 <?php echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80, 'value' => 1]); ?>

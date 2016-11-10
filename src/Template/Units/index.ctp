@@ -106,8 +106,8 @@ $this->assign('title', 'Brave Exvius Units');
                     <td class="visible-lg"><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
 
                     <?php if ($this->request->params['type'] !== 'acquired') { ?>
-                        <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
-                        <td><?= $unit->max_rarity->stars . ' ' . $this->Html->image('star.png')?></td>
+                        <td><?= $unit->base_rarity->stars . ' ' . $this->Html->image('Rarity-' . $unit->base_rarity->stars . '.png')?></td>
+                        <td><?= $unit->max_rarity->stars . ' ' . $this->Html->image('Rarity-' . $unit->max_rarity->stars . '.png')?></td>
                     <?php } else { ?>
                         <td>
                             <span class="visible-md visible-lg"><?php echo $this->Rarity->display($unit->_matchingData['Acquires']->rarity_id, $unit->max_rarity->stars, 'stars');?></span>

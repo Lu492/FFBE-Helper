@@ -32,7 +32,7 @@ $this->assign('title', 'Build a party');
 
         <?php echo $this->Form->create(null, ['type' => 'get', 'id' => 'party-rarity-form']); ?>
         <div class="row">
-            <div class="col-md-6"><?php echo $this->Rarity->form('rarity', null, ['required' => true, 'label' => 'Acquired rarity']);?></div>
+            <div class="col-md-6"><?php echo $this->Rarity->form('rarity', null, ['required' => true, 'label' => 'Acquired rarity', 'type' => 'combo']);?></div>
             <div class="col-md-2"><?php echo $this->Form->input('roles', ['type' => 'checkbox', 'label' => 'Pick from roles only', 'hiddenField' => false]);?></div>
             <div class="col-md-4"><?php echo $this->Form->button('<span class="glyphicon glyphicon-repeat" aria-hidden="true"></span> Build party', ['class' => 'btn btn-success']);?></div>
         </div>

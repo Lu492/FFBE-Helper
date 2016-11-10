@@ -57,7 +57,7 @@ class RarityHelper extends Helper
     {
         $out = '<span class="star-rarity">';
         if ($type === 'combo') {
-            $out .= $level . ' of ' . $max . '&nbsp;' . $this->Html->image('star.png');
+            $out .= $level . ' of ' . $max . '&nbsp;' . $this->Html->image('Rarity-' . $max . '.png');
         } elseif ($type === 'stars') {
             for ($i = 0; $i < $level; $i++) {
                 $out .= $this->Html->image('star.png');
@@ -126,10 +126,10 @@ class RarityHelper extends Helper
             if ($options['type'] === 'numbers') {
                 $out .= $rarity->stars;
             } elseif ($options['type'] === 'combo') {
-                $out .= $rarity->stars . $this->Html->image('star.png');
+                $out .= $rarity->stars . '&nbsp;' . $this->Html->image('Rarity-' . $rarity->stars . '.png');
             } else {
                 for ($i = 0; $i < $rarity->stars; $i++) {
-                    $out .= $this->Html->image('star.png');
+                    $out .= $this->Html->image('Rarity-' . $rarity->stars . '.png');
                 }
             }
 
