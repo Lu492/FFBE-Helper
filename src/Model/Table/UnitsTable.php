@@ -74,17 +74,16 @@ class UnitsTable extends Table
             'foreignKey' => 'gender_id',
             'joinType' => 'INNER'
         ]);
-
-        $this->hasOne('BaseRarity', [
+        $this->belongsTo('BaseRarity', [
             'className' => 'Rarities',
-            'foreignKey' => 'id',
-            'bindingKey' => 'base_rarity_id',
+            'foreignKey' => 'base_rarity_id',
+            'bindingKey' => 'id',
             'propertyName' => 'base_rarity'
         ]);
-        $this->hasOne('MaxRarity', [
+        $this->belongsTo('MaxRarity', [
             'className' => 'Rarities',
-            'foreignKey' => 'id',
-            'bindingKey' => 'max_rarity_id',
+            'foreignKey' => 'max_rarity_id',
+            'bindingKey' => 'id',
             'propertyName' => 'max_rarity'
         ]);
 
