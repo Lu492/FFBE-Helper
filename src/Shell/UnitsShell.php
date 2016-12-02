@@ -4,6 +4,7 @@ namespace App\Shell;
 use App\Model\Entity\Unit;
 use Cake\Cache\Cache;
 use Cake\Chronos\Chronos;
+use Cake\Console\ConsoleIo;
 use Cake\Console\Shell;
 use Cake\Http\Client;
 use Cake\I18n\FrozenTime;
@@ -14,6 +15,18 @@ use Cake\Utility\Text;
  */
 class UnitsShell extends Shell
 {
+    /**
+     * UnitsShell constructor.
+     *
+     * @param \Cake\Console\ConsoleIo|null $io
+     */
+    public function __construct($io = null)
+    {
+        parent::__construct($io);
+
+        $this->_io->styles('unit', ['text' => 'magenta']);
+        $this->_io->styles('success', ['text' => 'green']);
+    }
 
     /**
      * Manage the available sub-commands along with their arguments and help
@@ -138,9 +151,9 @@ class UnitsShell extends Shell
 
                     if ($this->Units->save($localUnit)) {
                         $updated++;
-                        $this->out(__("Updated information for `<info>{$unit['name']}</info>`"));
+                        $this->out(__("<success>Updated information for </success>`<unit>{$unit['name']}</unit>`"));
                     } else {
-                        $this->out(__("<error>Could not save new data for `{$unit['name']}`</error>"));
+                        $this->out(__("<error>Could not save new data for </error>`<unit>{$unit['name']}</unit>`"));
                         $this->_stop();
                     }
                 }
@@ -169,7 +182,7 @@ class UnitsShell extends Shell
         if (!$unitPageHtml) {
             // Use the random wait here, to attempt to simulate random traffic, and avoid bashing their server.
             $wait = rand(5, 19);
-            $this->out("<warning>Cannot find `{$unit['name']}` in the local db. Adding new unit in $wait seconds.</warning>");
+            $this->out("<warning>Cannot find </warning>`<unit>{$unit['name']}</unit>`<warning> in the local db. Adding new unit in $wait seconds.</warning>");
             sleep($wait);
 
             $client = new Client();
@@ -183,7 +196,7 @@ class UnitsShell extends Shell
             $unitPageHtml = $response->body();
             Cache::write($wikiName, $unitPageHtml, 'day');
         } else {
-            $this->out("<info>Cannot find `{$unit['name']}` in the local db. Adding new unit from cache.</info>");
+            $this->out("<info>Cannot find </info>`<unit>{$unit['name']}</unit>`<info> in the local db. Adding new unit from cache.</info>");
         }
 
         $document = new \DOMDocument();
@@ -265,10 +278,12 @@ class UnitsShell extends Shell
 
         $remoteImage = $unit['sprite'];
         $localImage = WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder . DS . $fileName;
-        mkdir(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder);
+        if (!file_exists(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder)) {
+            mkdir(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder);
+        }
         copy($remoteImage, $localImage);
 
-        $this->out("-> <comment>Copying new sprite for unit `{$unit['name']}`</comment>");
+        $this->out("-> Copying new sprite for unit `<unit>{$unit['name']}</unit>`");
 
         return [
             'filename' => $fileName,
@@ -291,7 +306,7 @@ class UnitsShell extends Shell
             ->first();
 
         if (!$gender) {
-            $this->out("<error>Could not find gender `{$unit['gender']}` for unit {$unit['name']}</error>");
+            $this->out("<error>Could not find gender `{$unit['gender']}` for unit</error> `<unit>{$unit['name']}</unit>`");
             $this->_stop();
         }
 
@@ -318,7 +333,7 @@ class UnitsShell extends Shell
             ]);
 
             if ($this->Jobs->save($job)) {
-                $this->out("-> <comment>Added new job `{$unit['job']}` for unit `{$unit['name']}`</comment>");
+                $this->out("-> Added new job `<comment>{$unit['job']}</comment>` for unit `<unit>{$unit['name']}</unit>`");
             }
         }
 
@@ -340,7 +355,7 @@ class UnitsShell extends Shell
             ->first();
 
         if (!$origin) {
-            $this->out("<error>Could not find origin `{$unit['origin']}` for unit {$unit['name']}</error>");
+            $this->out("<error>Could not find origin `{$unit['origin']}` for unit</error> `<unit>{$unit['name']}</unit>`");
             $this->_stop();
         }
 
@@ -363,7 +378,7 @@ class UnitsShell extends Shell
             ]);
 
         if (!$roles) {
-            $this->out("<error>Could not find roles `{$unit['roles']}` for unit {$unit['name']}</error>");
+            $this->out("<error>Could not find roles `{$unit['roles']}` for unit</error> `<unit>{$unit['name']}</unit>`");
             $this->_stop();
         }
 
@@ -386,7 +401,7 @@ class UnitsShell extends Shell
             ->first();
 
         if (!$rarity) {
-            $this->out("<error>Could not find rarity `{$rarity}` for unit {$unit['name']}</error>");
+            $this->out("<error>Could not find rarity `{$rarity}` for unit</error> `<unit>{$unit['name']}</unit>`");
             $this->_stop();
         }
 
@@ -413,7 +428,7 @@ class UnitsShell extends Shell
             ]);
 
             if ($this->Races->save($race)) {
-                $this->out("Added new race `{$unit['job']}` for unit `{$unit['name']}`");
+                $this->out("-> Added new race `<comment>{$unit['job']}</comment>` for unit `<unit>{$unit['name']}</unit>`");
             }
         }
 
