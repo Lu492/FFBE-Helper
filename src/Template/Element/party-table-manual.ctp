@@ -3,6 +3,6 @@
     <?= $this->element('unit-card-picker', ['header' => 'Physical DPS']);?>
     <?= $this->element('unit-card-picker', ['header' => 'Magic DPS']);?>
     <?= $this->element('unit-card-picker', ['header' => 'Support']);?>
-    <?= $this->element('unit-card-picker', ['header' => 'Healer']);?>
+    <?= $this->element('unit-card-picker', ['header' => 'Healing']);?>
     <?= $this->element('unit-card-picker', ['header' => 'Hybrid DPS']);?>
 </div>
