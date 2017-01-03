@@ -50,14 +50,14 @@ $this->assign('title', 'Brave Exvius Units');
         ?>
     </div>
 
-    <?php if ($units->isEmpty() && $this->request->params['type'] === 'acquired'): ?>
+    <?php if ($units->isEmpty() && $this->request->params['type'] === 'acquired') : ?>
         <div class="alert alert-warning">
             Sorry, you have not acquired any units which match that search.
             <?= $this->Html->link('Re-run search with all units.', ['controller' => 'Units', 'action' => 'index', 'type' => 'all', '?' => $this->request->query])?>
         </div>
-    <?php elseif ($units->isEmpty() && $this->request->params['type'] === 'acquired'): ?>
+    <?php elseif ($units->isEmpty() && $this->request->params['type'] === 'acquired') : ?>
         <div class="alert alert-warning">Sorry, no units were found for that search.</div>
-    <?php else: ?>
+    <?php else : ?>
     <table summary="units" class="table" id="unittable">
         <thead>
             <tr>
@@ -100,7 +100,13 @@ $this->assign('title', 'Brave Exvius Units');
                         }
                         ?>
                     </td>
-                    <td><?= $this->Html->link($unit->name, 'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->name, '_'));?></td>
+                    <td>
+                        <?= $this->Html->link(
+                            $unit->name . '&nbsp;<span class="glyphicon glyphicon-share" aria-hidden="true"></span>',
+                            'https://exviuswiki.com/' . \Cake\Utility\Text::slug($unit->name, '_'),
+                            ['escape' => false, 'title' => "View {$unit->name} on ExviusWiki.com"]
+                        );?>
+                    </td>
                     <td class="visible-lg"><?= $unit->origin->shortname?></td>
                     <td class="visible-lg"><?= $unit->job->name?></td>
                     <td class="visible-lg"><?= $this->element('unit-specialisations', ['specialisations' => $unit->specialisations]);?></td>
