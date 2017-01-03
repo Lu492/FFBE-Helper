@@ -55,6 +55,7 @@ div.unit-placeholder > div.unit-card {
 div.unit-card {
   position: relative;
   width: 250px;
+  max-height: 500px;
   float: left;
   text-align: center;
   background-color: #eee;
@@ -74,7 +75,7 @@ div.unit-card {
     right: 5px;
   }
   div.sprite {
-    min-height: 105px;
+    height: 105px;
   }
   table {
     width: 90%;
