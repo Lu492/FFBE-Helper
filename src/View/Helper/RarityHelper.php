@@ -32,7 +32,9 @@ class RarityHelper extends Helper
     /**
      * Build the helper
      *
-     * @param array $config
+     * @param array $config Array of helper configuration
+     *
+     * @return void
      * @throws \RuntimeException
      */
     public function initialize(array $config)

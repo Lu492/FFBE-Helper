@@ -61,7 +61,7 @@ class AppController extends Controller
     /**
      * beforeFilter callback
      *
-     * @param \Cake\Event\Event $event
+     * @param \Cake\Event\Event $event Event instance
      *
      * @return void
      */
@@ -78,6 +78,8 @@ class AppController extends Controller
 
     /**
      * Check that users are allowed to do things
+     *
+     * @param array|null $user The currently logged in users details
      *
      * @return false
      */

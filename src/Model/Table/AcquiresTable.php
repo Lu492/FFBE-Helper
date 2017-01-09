@@ -113,6 +113,7 @@ class AcquiresTable extends Table
                     if ($value >= $unit->base_rarity->stars && $value <= $unit->max_rarity->stars) {
                         return true;
                     }
+
                     return false;
                 },
                 'message' => 'This unit is not available at this rarity.'

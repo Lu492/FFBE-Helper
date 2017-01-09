@@ -16,7 +16,9 @@ class AcquiresController extends AppController
     /**
      * beforeFilter method
      *
-     * @param \Cake\Event\Event $event
+     * @param \Cake\Event\Event $event Event instance
+     *
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -60,6 +62,7 @@ class AcquiresController extends AppController
             $unit = $this->Acquires->patchEntity($unit, $this->request->data);
             if ($this->Acquires->save($unit)) {
                 $this->Flash->success(__("Unit updated successfully."));
+
                 return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired', '?' => ['search' => 1]]);
             } else {
                 $this->Flash->error(__("Unit could not be updated, please try again."));
@@ -88,6 +91,7 @@ class AcquiresController extends AppController
 
         if ($this->Acquires->delete($unit)) {
             $this->Flash->success(__("Unit has been removed successfully."));
+
             return $this->redirect($this->referer());
         } else {
             $this->Flash->error(__("Could not remove the unit, please try again."));

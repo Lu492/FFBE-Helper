@@ -2,7 +2,6 @@
 namespace App\View\Helper;
 
 use Cake\View\Helper;
-use Cake\View\View;
 
 /**
  * LevelBar helper
@@ -20,7 +19,9 @@ class LevelBarHelper extends Helper
     /**
      * Build the helper
      *
-     * @param array $config
+     * @param array $config Array of helper configuration
+     *
+     * @return void
      * @throws \RuntimeException
      */
     public function initialize(array $config)
@@ -55,6 +56,7 @@ class LevelBarHelper extends Helper
         $output .= "<span class='bar " . $this->barClass($percent) . "' style='width:" . $percent . "%'></span>";
         $output .= "<span class='bar-label'>" . $barLabel . "</span>";
         $output .= "</div>";
+
         return $output;
     }
 
@@ -76,6 +78,8 @@ class LevelBarHelper extends Helper
     }
 
     /**
+     * Generate an appropriate css class depending on the percentage complete
+     *
      * @param float $percentComplete Percentage completion of a rarity tier
      *
      * @return string
@@ -86,19 +90,14 @@ class LevelBarHelper extends Helper
             case $percentComplete >= 0 && $percentComplete <= 25:
             default:
                 return 'low';
-                break;
             case $percentComplete >= 26 && $percentComplete <= 50:
                 return 'medium';
-                break;
             case $percentComplete >= 51 && $percentComplete <= 75:
                 return 'high';
-                break;
             case $percentComplete >= 76 && $percentComplete <= 99:
                 return 'vhigh';
-                break;
             case 100:
                 return 'max';
-                break;
         }
     }
 }

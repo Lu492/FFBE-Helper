@@ -223,8 +223,8 @@ class UnitsTable extends Table
     /**
      * Find units based on their specialisation
      *
-     * @param \Cake\ORM\Query $query
-     * @param array $options
+     * @param \Cake\ORM\Query $query Currenty query object
+     * @param array $options Array of query options
      * @return \Cake\ORM\Query
      */
     public function findBySpecialisation(Query $query, array $options)
@@ -344,6 +344,7 @@ class UnitsTable extends Table
         if ($options['party']) {
             $this->party[] = $unit->get('id');
         }
+
         return $unit;
     }
 }

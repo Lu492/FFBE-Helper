@@ -1,8 +1,8 @@
 <?php
 namespace App\Model\Table;
 
-use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\RulesChecker;
+use Cake\ORM\Rule\IsUnique;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
@@ -67,7 +67,7 @@ class JobsTable extends Table
     /**
      * Don't allow duplicate jobs
      *
-     * @param \Cake\ORM\RulesChecker $rules
+     * @param \Cake\ORM\RulesChecker $rules Rules instance to modify
      *
      * @return \Cake\ORM\RulesChecker
      */

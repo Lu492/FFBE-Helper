@@ -152,7 +152,7 @@ class UnitsController extends AppController
      *
      * Expects a query param of q with a string to search for, and responds with json
      *
-     * @return string
+     * @return void
      * @throws NotFoundException
      */
     public function unitList()
@@ -366,7 +366,7 @@ class UnitsController extends AppController
     /**
      * Find a list of the current users acquired units which are closest to their rarities maximum level
      *
-     * @return \Cake\Network\Response|null
+     * @return void
      */
     public function closestToLevel()
     {

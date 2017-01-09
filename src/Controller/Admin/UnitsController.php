@@ -13,6 +13,8 @@ class UnitsController extends AppController
 {
     /**
      * Initialize the controller
+     *
+     * @return void
      */
     public function initialize()
     {
@@ -24,8 +26,9 @@ class UnitsController extends AppController
     /**
      * Set all the page titles
      *
-     * @param Event $event
-     * @return \Cake\Network\Response|null
+     * @param Event $event Event instance
+     *
+     * @return void
      */
     public function beforeRender(Event $event)
     {
@@ -37,7 +40,7 @@ class UnitsController extends AppController
     /**
      * Index method
      *
-     * @return \Cake\Network\Response|null
+     * @return void
      */
     public function index()
     {

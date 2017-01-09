@@ -18,7 +18,7 @@ class UnitsShell extends Shell
     /**
      * UnitsShell constructor.
      *
-     * @param \Cake\Console\ConsoleIo|null $io
+     * @param \Cake\Console\ConsoleIo|null $io ConsoleIO instance to modify
      */
     public function __construct($io = null)
     {
@@ -52,15 +52,17 @@ class UnitsShell extends Shell
     /**
      * main() method.
      *
-     * @return bool|int Success or error code.
+     * @return void
      */
-    public function main() 
+    public function main()
     {
         $this->out($this->OptionParser->help());
     }
 
     /**
      * Update the local database unit data with data pulled from ExviusWiki.com
+     *
+     * @return void
      */
     public function update()
     {
@@ -167,7 +169,7 @@ class UnitsShell extends Shell
     /**
      * Create a new Unit entity, using data from the ExviusWiki.com unit page
      *
-     * @param array $unit
+     * @param array $unit Array of unit data pulled from the web
      * @return \App\Model\Entity\Unit
      */
     protected function buildNewUnit(array $unit)
@@ -261,8 +263,8 @@ class UnitsShell extends Shell
     /**
      * Copy the remote sprite image to the local file system and return it's details
      *
-     * @param array $unit
-     * @param \App\Model\Entity\Unit|null $localUnit
+     * @param array $unit Array of unit data
+     * @param \App\Model\Entity\Unit|null $localUnit The current unit entity from the local db
      *
      * @return array
      */
@@ -294,7 +296,7 @@ class UnitsShell extends Shell
     /**
      * Get a gender entity by name
      *
-     * @param array $unit
+     * @param array $unit Array of unit data
      *
      * @return \Cake\Datasource\EntityInterface
      */
@@ -316,7 +318,7 @@ class UnitsShell extends Shell
     /**
      * Convert a string into a job entity
      *
-     * @param array $unit
+     * @param array $unit Array of unit data
      *
      * @return \Cake\Datasource\EntityInterface
      */
@@ -343,7 +345,7 @@ class UnitsShell extends Shell
     /**
      * Convert the name of an origin into an entity form for linking
      *
-     * @param array $unit
+     * @param array $unit Array of unit data
      *
      * @return \Cake\Datasource\EntityInterface
      */
@@ -365,7 +367,7 @@ class UnitsShell extends Shell
     /**
      * Convert a comma separated role string into an array of specialisation entities
      *
-     * @param array $unit
+     * @param array $unit Array of unit data
      *
      * @return array
      */
@@ -388,8 +390,8 @@ class UnitsShell extends Shell
     /**
      * Convert a rarity star rating into an entity
      *
-     * @param array $unit
-     * @param int $rarity
+     * @param array $unit Array of unit data
+     * @param int $rarity Rarity in number of stars
      *
      * @return \Cake\Datasource\EntityInterface
      */
@@ -411,7 +413,7 @@ class UnitsShell extends Shell
     /**
      * Convert a race into an entity
      *
-     * @param array $unit
+     * @param array $unit Array of unit data
      *
      * @return \Cake\Datasource\EntityInterface
      */
