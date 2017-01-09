@@ -88,6 +88,7 @@ class RarityHelper extends Helper
      *  - `displayLabel` bool : Should a label be output for the field
      *  - `label` string : The field label text
      *  - `allowed` array : Array of allowed rarity objects
+     *  - `reset` bool : Generate a reset link?
      *
      * @return string;
      */
@@ -98,7 +99,8 @@ class RarityHelper extends Helper
             'type' => 'stars',
             'displayLabel' => true,
             'label' => Inflector::humanize($field),
-            'allowed' => collection($this->config('rarities'))->indexBy('id')
+            'allowed' => collection($this->config('rarities'))->indexBy('id'),
+            'reset' => true
         ];
         $options = array_merge($defaultOptions, $options);
 
@@ -138,6 +140,11 @@ class RarityHelper extends Helper
 
             $out .= "</label>";
         }
+
+        if ($options['reset']) {
+            $out .= "<a href='#' onclick='$(this).parents(\"div.form-group.radio\").find(\"input[type=radio]\").prop(\"checked\", false);'>Any</a>";
+        }
+
         $out .= "</div>";
 
         return $out;

@@ -62,7 +62,14 @@ $this->assign('title', 'Brave Exvius Units');
         <thead>
             <tr>
                 <?php
-                $this->Paginator->options(['url' => ['action' => 'index', 'type' => $this->request->params['type']]]);
+                $this->Paginator->options([
+                    'url' => [
+                        'action' => 'index',
+                        'type' => $this->request->params['type'],
+                        '?' => $this->request->query,
+                        '#' => 'unittable'
+                    ]
+                ]);
                 ?>
 
                 <th class="hidden-xs">&nbsp;</th>
