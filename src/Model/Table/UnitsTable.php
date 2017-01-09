@@ -206,12 +206,11 @@ class UnitsTable extends Table
             ->value('job', [
                 'field' => 'job_id'
             ])
-            ->compare('min_rarity', [
+            ->value('min_rarity', [
                 'field' => 'base_rarity_id'
             ])
-            ->compare('max_rarity', [
-                'field' => 'max_rarity_id',
-                'operator' => '<='
+            ->value('max_rarity', [
+                'field' => 'max_rarity_id'
             ])
             ->finder('role', [
                 'finder' => 'bySpecialisation'
