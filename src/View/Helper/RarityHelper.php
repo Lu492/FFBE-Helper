@@ -70,6 +70,7 @@ class RarityHelper extends Helper
         }
 
         $out .= "</span>";
+
         return $out;
     }
 

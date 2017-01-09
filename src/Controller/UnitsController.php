@@ -16,6 +16,8 @@ class UnitsController extends AppController
 {
     /**
      * Initialize the controller
+     *
+     * @return void
      */
     public function initialize()
     {
@@ -31,7 +33,9 @@ class UnitsController extends AppController
     /**
      * beforeFilter method
      *
-     * @param \Cake\Event\Event $event
+     * @param \Cake\Event\Event $event Event instance
+     *
+     * @return void
      */
     public function beforeFilter(Event $event)
     {
@@ -51,7 +55,7 @@ class UnitsController extends AppController
      *
      * Can generate different lists of units depending on what is passed
      *
-     * @return \Cake\Network\Response
+     * @return \Cake\Network\Response|null
      */
     public function index()
     {
@@ -91,6 +95,7 @@ class UnitsController extends AppController
         // Don't try and filter units if the user isn't logged in
         if (empty($this->Auth->user('id')) && $this->request->params['type'] !== 'all') {
             $this->Flash->set(__('You must login to access that page.'), ['key' => 'auth']);
+
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
 
@@ -124,13 +129,14 @@ class UnitsController extends AppController
 
             if ($this->Units->Acquires->save($acquire)) {
                 $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
+
                 return $this->redirect(['action' => 'index', 'type' => 'acquired']);
             } else {
                 $message = __("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.');
                 if (!empty($acquire->errors())) {
                     $message .= "<ul>";
                     foreach ($acquire->errors() as $error) {
-                        $message.= "<li>" . $error[key($error)] . "</li>";
+                        $message .= "<li>" . $error[key($error)] . "</li>";
                     }
                     $message .= "</ul>";
                 }
@@ -219,16 +225,20 @@ class UnitsController extends AppController
         }
 
         $this->set('unit', $unit);
+
         return $this->render('/Element/unit-card');
     }
 
     /**
      * Try and auto-generate a balanced party based on stats and roles
+     *
+     * @return \Cake\Network\Response|null
      */
     public function partyBalanced()
     {
         if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
             $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+
             return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
         }
 
@@ -256,11 +266,14 @@ class UnitsController extends AppController
 
     /**
      * Try and auto-generate a party based on pure stats
+     *
+     * @return \Cake\Network\Response|null
      */
     public function partyStats()
     {
         if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
             $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+
             return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
         }
 
@@ -285,11 +298,14 @@ class UnitsController extends AppController
 
     /**
      * Generate a party with a limit maximum rarity
+     *
+     * @return \Cake\Network\Response|null
      */
     public function partyRarity()
     {
         if (!$this->Units->Acquires->checkUnitCount($this->Auth->user('id'))) {
             $this->Flash->error(_('Sorry you do not have enough units in your collection. You need at least one unit.'));
+
             return $this->redirect(['controller' => 'Units', 'action' => 'index', 'type' => 'acquired']);
         }
 
@@ -330,9 +346,14 @@ class UnitsController extends AppController
         return $this->render('party');
     }
 
+    /**
+     * Create the basic view variables to render the blank unit cards
+     *
+     * @return \Cake\Network\Response
+     */
     public function partyManual()
     {
-        $this->set('tank' , null);
+        $this->set('tank', null);
         $this->set('physical_damage', null);
         $this->set('magic_damage', null);
         $this->set('support', null);
@@ -340,5 +361,28 @@ class UnitsController extends AppController
         $this->set('hybrid_damage', null);
 
         return $this->render('party');
+    }
+
+    /**
+     * Find a list of the current users acquired units which are closest to their rarities maximum level
+     *
+     * @return \Cake\Network\Response|null
+     */
+    public function closestToLevel()
+    {
+        $units = $this->Units->Acquires->find()
+            ->select([
+                'levels_remaining' => '(rarities.max_level - acquires.level)'
+            ])
+            ->autoFields(true)
+            ->contain([
+                'Units',
+                'Rarities'
+            ])
+            ->where(['Acquires.user_id' => $this->Auth->user('id')])
+            ->having(['levels_remaining > 0 AND levels_remaining <= 20'])
+            ->order(['levels_remaining' => 'asc']);
+
+        $this->set('units', $units);
     }
 }

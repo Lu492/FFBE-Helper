@@ -1,7 +1,7 @@
 <div class="users login row">
     <?= $this->Flash->render('auth'); ?>
 
-    <div class="col-md-4 col-md-offset-4 login">
+    <div class="col-md-2 col-md-offset-5 login">
         <h2>Login</h2>
         <?php
         echo $this->Form->create(null);
