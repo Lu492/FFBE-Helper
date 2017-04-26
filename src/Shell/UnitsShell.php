@@ -72,7 +72,7 @@ class UnitsShell extends Shell
             $this->_stop();
         }
 
-        $unitListUrl = 'https://exviuswiki.com/Unit_List';
+        $unitListUrl = 'https://exvius.gamepedia.com/Unit_List';
 
         $html = Cache::read('unitList', 'day');
         if (!$html) {
@@ -116,7 +116,7 @@ class UnitsShell extends Shell
 
                 if ($row->hasChildNodes()) {
                     $unit = [];
-                    $unit['sprite'] = 'https://exviuswiki.com' . $row->childNodes->item(1)->childNodes->item(1)->childNodes->item(0)->attributes->getNamedItem('src')->value;
+                    $unit['sprite'] = $row->childNodes->item(1)->childNodes->item(1)->childNodes->item(0)->attributes->getNamedItem('src')->value;
                     $unit['name'] = trim($row->childNodes->item(3)->nodeValue);
                     $unit['origin'] = trim($row->childNodes->item(5)->nodeValue);
                     $unit['roles'] = trim($row->childNodes->item(7)->nodeValue);
@@ -178,7 +178,7 @@ class UnitsShell extends Shell
         $localUnit->set('name', $unit['name']);
 
         $wikiName = Text::slug($unit['name'], '_');
-        $singleUnitUrl = 'https://exviuswiki.com/' . $wikiName;
+        $singleUnitUrl = 'https://exvius.gamepedia.com/' . $wikiName;
 
         $unitPageHtml = Cache::read($wikiName, 'day');
         if (!$unitPageHtml) {
@@ -357,8 +357,10 @@ class UnitsShell extends Shell
             ->first();
 
         if (!$origin) {
-            $this->out("<error>Could not find origin `{$unit['origin']}` for unit</error> `<unit>{$unit['name']}</unit>`");
-            $this->_stop();
+            $origin = $this->Origins->newEntity([
+                'name' => $unit['origin'],
+                'shortname' => $unit['origin'],
+            ]);
         }
 
         return $origin;
