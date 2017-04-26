@@ -361,6 +361,10 @@ class UnitsShell extends Shell
                 'name' => $unit['origin'],
                 'shortname' => $unit['origin'],
             ]);
+
+            if ($this->Origins->save($origin)) {
+                $this->out("-> Added new origin `<comment>{$origin['name']}</comment>` for unit `<unit>{$unit['name']}</unit>`");
+            }
         }
 
         return $origin;
