@@ -154,5 +154,9 @@ $this->assign('title', 'Brave Exvius Units');
             <?php } ?>
         </tbody>
     </table>
+
+    <ul class="pagination">
+        <?= $this->Paginator->numbers();?>
+    </ul>
     <?php endif; ?>
 </div>
