@@ -139,7 +139,7 @@ $this->assign('title', 'Brave Exvius Units');
                     <td class="visible-lg"><?= $unit->hits?></td>
 
                     <?php
-                    if ($this->request->params['type'] === 'acquired') {
+                    if ($this->request->getParam('type') === 'acquired') {
                         echo "<td class='actions'>";
                         echo $this->Html->link('Edit', ['controller' => 'Acquires', 'action' => 'edit', $unit->_matchingData['Acquires']->id], ['class' => 'btn btn-default btn-sm']);
                         echo $this->Html->link(
@@ -156,7 +156,10 @@ $this->assign('title', 'Brave Exvius Units');
     </table>
 
     <ul class="pagination">
-        <?= $this->Paginator->numbers();?>
+        <?php
+        $this->Paginator->options(['url' => ['controller' => 'Units', 'action' => 'index', 'type' => $this->request->getParam('type')]]);
+        echo $this->Paginator->numbers();
+        ?>
     </ul>
     <?php endif; ?>
 </div>
