@@ -16,14 +16,14 @@
 
         <?php
         echo $this->Form->create($unit);
-        echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 80]);
+        echo $this->Form->input('level', ['type' => 'number', 'min' => 1, 'max' => 100]);
 
         $allowed = [];
         for ($i = $unit->unit->base_rarity->stars; $i <= $unit->unit->max_rarity->stars; $i++) {
             $allowed[$i] = (object)['id' => $i, 'stars' => $i];
         }
 
-        echo $this->Rarity->form('rarity_id', $unit, ['allowed' => $allowed, 'label' => 'Rarity', 'type' => 'combo']);
+        echo $this->Rarity->form('rarity_id', $unit, ['allowed' => $allowed, 'label' => 'Rarity', 'type' => 'combo', 'reset' => false]);
 
         echo $this->Form->input('trust', ['type' => 'number', 'min' => 0, 'max' => 100]);
 

@@ -72,7 +72,7 @@ class UnitsShell extends Shell
             $this->_stop();
         }
 
-        $unitListUrl = 'https://exviuswiki.com/Unit_List';
+        $unitListUrl = 'http://exvius.gamepedia.com/Unit_List';
 
         $html = Cache::read('unitList', 'day');
         if (!$html) {
@@ -80,8 +80,13 @@ class UnitsShell extends Shell
             $response = $client->get($unitListUrl);
 
             if (!$response->isOk()) {
-                $this->out(__("<error>Something went wrong. Response from `$unitListUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}</error>"));
-                $this->_stop();
+                if ($response->isRedirect()) {
+                    $this->out(__("<error>Got a redirect response from `$unitListUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}, tried to redirect to {$response->getHeaderLine('Location')}.</error>"));
+                    $this->_stop();
+                } else {
+                    $this->out(__("<error>Something went wrong. Response from `$unitListUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}</error>"));
+                    $this->_stop();
+                }
             }
 
             $html = $response->body();
@@ -116,7 +121,7 @@ class UnitsShell extends Shell
 
                 if ($row->hasChildNodes()) {
                     $unit = [];
-                    $unit['sprite'] = 'https://exviuswiki.com' . $row->childNodes->item(1)->childNodes->item(1)->childNodes->item(0)->attributes->getNamedItem('src')->value;
+                    $unit['sprite'] = $row->childNodes->item(1)->childNodes->item(1)->childNodes->item(0)->attributes->getNamedItem('src')->value;
                     $unit['name'] = trim($row->childNodes->item(3)->nodeValue);
                     $unit['origin'] = trim($row->childNodes->item(5)->nodeValue);
                     $unit['roles'] = trim($row->childNodes->item(7)->nodeValue);
@@ -177,8 +182,14 @@ class UnitsShell extends Shell
         $localUnit = $this->Units->newEntity();
         $localUnit->set('name', $unit['name']);
 
-        $wikiName = Text::slug($unit['name'], '_');
-        $singleUnitUrl = 'https://exviuswiki.com/' . $wikiName;
+        if (strpos($unit['name'], "'") !== false) {
+            $wikiName = urlencode($unit['name']);
+            $wikiName = str_replace(' ', '_', $wikiName);
+        } else {
+            $wikiName = Text::slug($unit['name'], '_');
+        }
+
+        $singleUnitUrl = 'http://exvius.gamepedia.com/' . $wikiName;
 
         $unitPageHtml = Cache::read($wikiName, 'day');
         if (!$unitPageHtml) {
@@ -191,8 +202,13 @@ class UnitsShell extends Shell
             $response = $client->get($singleUnitUrl);
 
             if (!$response->isOk()) {
-                $this->out(__("<error>Something went wrong. Response from `$singleUnitUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}</error>"));
-                $this->_stop();
+                if ($response->isRedirect()) {
+                    $this->out(__("<error>Got a redirect response from `$singleUnitUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}, tried to redirect to {$response->getHeaderLine('Location')}.</error>"));
+                    $this->_stop();
+                } else {
+                    $this->out(__("<error>Something went wrong. Response from `$singleUnitUrl` was {$response->getStatusCode()} {$response->getReasonPhrase()}</error>"));
+                    $this->_stop();
+                }
             }
 
             $unitPageHtml = $response->body();
@@ -214,11 +230,11 @@ class UnitsShell extends Shell
         $unit['job'] = $job;
         $localUnit->set('job', $this->getJob($unit));
 
-        $gender = trim($unitDataTable->childNodes->item(6)->childNodes->item(2)->nodeValue);
+        $gender = preg_replace("/\W+/", '', $unitDataTable->childNodes->item(9)->childNodes->item(2)->nodeValue);
         $unit['gender'] = $gender;
         $localUnit->set('gender', $this->getGender($unit));
 
-        $race = trim($unitDataTable->childNodes->item(7)->childNodes->item(2)->nodeValue);
+        $race = trim($unitDataTable->childNodes->item(10)->childNodes->item(2)->nodeValue);
         $unit['race'] = $race;
         $localUnit->set('race', $this->getRace($unit));
 
@@ -278,12 +294,12 @@ class UnitsShell extends Shell
 
         $fileName = basename($unit['sprite']);
 
-        $remoteImage = $unit['sprite'];
+        $remoteImage = explode('?', $unit['sprite']);
         $localImage = WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder . DS . $fileName;
         if (!file_exists(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder)) {
             mkdir(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder);
         }
-        copy($remoteImage, $localImage);
+        copy($remoteImage[0], $localImage);
 
         $this->out("-> Copying new sprite for unit `<unit>{$unit['name']}</unit>`");
 
@@ -357,8 +373,14 @@ class UnitsShell extends Shell
             ->first();
 
         if (!$origin) {
-            $this->out("<error>Could not find origin `{$unit['origin']}` for unit</error> `<unit>{$unit['name']}</unit>`");
-            $this->_stop();
+            $origin = $this->Origins->newEntity([
+                'name' => $unit['origin'],
+                'shortname' => $unit['origin'],
+            ]);
+
+            if ($this->Origins->save($origin)) {
+                $this->out("-> Added new origin `<comment>{$origin['name']}</comment>` for unit `<unit>{$unit['name']}</unit>`");
+            }
         }
 
         return $origin;
