@@ -8,6 +8,8 @@ use Cake\View\Helper;
 
 /**
  * Rarity helper
+ *
+ * @property \Cake\View\Helper\HtmlHelper $Html
  */
 class RarityHelper extends Helper
 {
