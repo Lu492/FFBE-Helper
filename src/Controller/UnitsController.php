@@ -129,7 +129,7 @@ class UnitsController extends AppController
     public function acquire()
     {
         if ($this->request->is('post')) {
-            $acquire = $this->Units->Acquires->newEntity($this->request->data);
+            $acquire = $this->Units->Acquires->newEntity($this->request->getData());
             $acquire->set('user_id', $this->Auth->user('id'));
 
             if ($this->Units->Acquires->save($acquire)) {
@@ -215,8 +215,8 @@ class UnitsController extends AppController
             $specialisation = $this->Units->Specialisations->find()
                 ->where(['id' => $this->request->getData('specialisationId')])
                 ->first();
-            $this->set('header', $specialisation->name);
-            $this->set('specialisationId', $specialisation->id);
+            $this->set('header', $specialisation->get('name'));
+            $this->set('specialisationId', $specialisation->get('id'));
         }
 
         if ($this->request->getSession()->read('party') !== null) {
@@ -226,7 +226,7 @@ class UnitsController extends AppController
         $unit = $this->Units->selectUnit($this->Auth->user('id'), $options);
 
         if ($this->request->getSession()->read('party') !== null) {
-            $this->request->getSession()->write('party', array_merge($this->request->getSession()->read('party'), [$unit->id]));
+            $this->request->getSession()->write('party', array_merge($this->request->getSession()->read('party'), [$unit->get('id')]));
         }
 
         $this->set('unit', $unit);

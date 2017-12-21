@@ -63,7 +63,7 @@ class AcquiresController extends AppController
             ->firstOrFail();
 
         if ($this->request->is(['post', 'put'])) {
-            $unit = $this->Acquires->patchEntity($unit, $this->request->data);
+            $unit = $this->Acquires->patchEntity($unit, $this->request->getData());
             if ($this->Acquires->save($unit)) {
                 $this->Flash->success(__("Unit updated successfully."));
 

@@ -64,25 +64,25 @@ class UnitsController extends AppController
     /**
      * Add method
      *
-     * @return \Cake\Http\Response|void Redirects on successful add, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
     public function add()
     {
         $unit = $this->Units->newEntity();
         if ($this->request->is('post')) {
-            $unit = $this->Units->patchEntity($unit, $this->request->data);
+            $unit = $this->Units->patchEntity($unit, $this->request->getData());
 
-            if (!empty($this->request->data['Races']['name'])) {
+            if (!empty($this->request->getData('Races.name'))) {
                 $unit->unsetProperty('Races');
-                $unit->set('race', $this->Units->Races->newEntity(['name' => $this->request->data['Races']['name']]));
+                $unit->set('race', $this->Units->Races->newEntity(['name' => $this->request->getData('Races.name')]));
             }
-            if (!empty($this->request->data['Jobs']['name'])) {
+            if (!empty($this->request->getData('Jobs.name'))) {
                 $unit->unsetProperty('Jobs');
-                $unit->set('job', $this->Units->Jobs->newEntity(['name' => $this->request->data['Jobs']['name']]));
+                $unit->set('job', $this->Units->Jobs->newEntity(['name' => $this->request->getData('Jobs.name')]));
             }
-            if (!empty($this->request->data['Genders']['name'])) {
+            if (!empty($this->request->getData('Genders.name'))) {
                 $unit->unsetProperty('Genders');
-                $unit->set('gender', $this->Units->Genders->newEntity(['name' => $this->request->data['Genders']['name']]));
+                $unit->set('gender', $this->Units->Genders->newEntity(['name' => $this->request->getData('Genders.name')]));
             }
 
             if ($this->Units->save($unit)) {
@@ -107,7 +107,7 @@ class UnitsController extends AppController
      * Edit method
      *
      * @param string|null $id Unit id.
-     * @return \Cake\Http\Response|void Redirects on successful edit, renders view otherwise.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
     public function edit($id = null)
