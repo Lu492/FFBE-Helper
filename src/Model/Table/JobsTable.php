@@ -9,7 +9,7 @@ use Cake\Validation\Validator;
 /**
  * Jobs Model
  *
- * @property \Cake\ORM\Association\HasMany $Units
+ * @property \App\Model\Table\UnitsTable|\Cake\ORM\Association\HasMany $Units
  *
  * @method \App\Model\Entity\Job get($primaryKey, $options = [])
  * @method \App\Model\Entity\Job newEntity($data = null, array $options = [])
@@ -17,7 +17,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Job|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Job patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Job[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Job findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Job findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */

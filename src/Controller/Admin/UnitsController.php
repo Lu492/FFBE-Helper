@@ -8,6 +8,8 @@ use Cake\Event\Event;
  * Units Controller
  *
  * @property \App\Model\Table\UnitsTable $Units
+ * @property \App\Model\Table\RaritiesTable $Rarities
+ * @property \Search\Controller\Component\PrgComponent $Prg
  */
 class UnitsController extends AppController
 {

@@ -17,6 +17,14 @@ use Cake\Utility\Text;
 
 /**
  * Units shell command.
+ *
+ * @property \App\Model\Table\UnitsTable $Units
+ * @property \App\Model\Table\GendersTable $Genders
+ * @property \App\Model\Table\JobsTable $Jobs
+ * @property \App\Model\Table\OriginsTable $Origins
+ * @property \App\Model\Table\SpecialisationsTable $Specialisations
+ * @property \App\Model\Table\RaritiesTable $Rarities
+ * @property \App\Model\Table\RacesTable $Races
  */
 class UnitsShell extends Shell
 {

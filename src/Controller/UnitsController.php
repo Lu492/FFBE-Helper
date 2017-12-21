@@ -12,6 +12,11 @@ use Cake\Event\Event;
 use Cake\Network\Exception\NotFoundException;
 use Cake\Utility\Text;
 
+/**
+ * @property \App\Model\Table\RaritiesTable $Rarities
+ * @property \App\Model\Table\UnitsTable $Units
+ * @property \Search\Controller\Component\PrgComponent $Prg
+ */
 class UnitsController extends AppController
 {
     /**

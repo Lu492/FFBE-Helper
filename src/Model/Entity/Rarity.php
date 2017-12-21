@@ -9,8 +9,8 @@ use Cake\ORM\Entity;
  * @property int $id
  * @property int $stars
  * @property int $max_level
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
  */
 class Rarity extends Entity
 {

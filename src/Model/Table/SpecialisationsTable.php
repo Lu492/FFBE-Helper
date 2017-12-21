@@ -15,9 +15,10 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Specialisation|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Specialisation patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Specialisation[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Specialisation findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Specialisation findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @property \App\Model\Table\UnitsTable|\Cake\ORM\Association\BelongsToMany $Units
  */
 class SpecialisationsTable extends Table
 {

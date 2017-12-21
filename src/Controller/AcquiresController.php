@@ -10,6 +10,10 @@ namespace App\Controller;
 
 use Cake\Event\Event;
 
+/**
+ * @property \App\Model\Table\RaritiesTable $Rarities
+ * @property \App\Model\Table\AcquiresTable $Acquires
+ */
 class AcquiresController extends AppController
 {
 

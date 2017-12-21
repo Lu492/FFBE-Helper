@@ -8,8 +8,8 @@ use Cake\Validation\Validator;
 /**
  * Acquires Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Users
- * @property \Cake\ORM\Association\BelongsTo $Units
+ * @property \App\Model\Table\UsersTable|\Cake\ORM\Association\BelongsTo $Users
+ * @property \App\Model\Table\UnitsTable|\Cake\ORM\Association\BelongsTo $Units
  *
  * @method \App\Model\Entity\Acquire get($primaryKey, $options = [])
  * @method \App\Model\Entity\Acquire newEntity($data = null, array $options = [])
@@ -17,9 +17,10 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Acquire|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Acquire patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Acquire[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Acquire findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Acquire findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @property \App\Model\Table\RaritiesTable|\Cake\ORM\Association\BelongsTo $Rarities
  */
 class AcquiresTable extends Table
 {

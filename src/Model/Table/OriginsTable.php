@@ -7,7 +7,7 @@ use Cake\Validation\Validator;
 /**
  * Origins Model
  *
- * @property \Cake\ORM\Association\HasMany $Units
+ * @property \App\Model\Table\UnitsTable|\Cake\ORM\Association\HasMany $Units
  *
  * @method \App\Model\Entity\Origin get($primaryKey, $options = [])
  * @method \App\Model\Entity\Origin newEntity($data = null, array $options = [])
@@ -15,7 +15,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Origin|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Origin patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Origin[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Origin findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Origin findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
  */

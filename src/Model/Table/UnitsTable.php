@@ -10,10 +10,10 @@ use Search\Manager;
 /**
  * Units Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Origins
- * @property \Cake\ORM\Association\BelongsTo $Races
- * @property \Cake\ORM\Association\BelongsTo $Jobs
- * @property \Cake\ORM\Association\BelongsTo $Genders
+ * @property \App\Model\Table\OriginsTable|\Cake\ORM\Association\BelongsTo $Origins
+ * @property \App\Model\Table\RacesTable|\Cake\ORM\Association\BelongsTo $Races
+ * @property \App\Model\Table\JobsTable|\Cake\ORM\Association\BelongsTo $Jobs
+ * @property \App\Model\Table\GendersTable|\Cake\ORM\Association\BelongsTo $Genders
  * @property \Cake\ORM\Association\HasMany $Practises
  *
  * @method \App\Model\Entity\Unit get($primaryKey, $options = [])
@@ -22,9 +22,15 @@ use Search\Manager;
  * @method \App\Model\Entity\Unit|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Unit patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Unit[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Unit findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Unit findOrCreate($search, callable $callback = null, $options = [])
  *
  * @mixin \Cake\ORM\Behavior\TimestampBehavior
+ * @property \App\Model\Table\RaritiesTable|\Cake\ORM\Association\BelongsTo $BaseRarity
+ * @property \App\Model\Table\RaritiesTable|\Cake\ORM\Association\BelongsTo $MaxRarity
+ * @property \App\Model\Table\AcquiresTable|\Cake\ORM\Association\HasMany $Acquires
+ * @property \App\Model\Table\SpecialisationsTable|\Cake\ORM\Association\BelongsToMany $Specialisations
+ * @mixin \Search\Model\Behavior\SearchBehavior
+ * @mixin \Proffer\Model\Behavior\ProfferBehavior
  */
 class UnitsTable extends Table
 {

@@ -10,12 +10,14 @@ use Cake\ORM\Entity;
  * @property int $user_id
  * @property int $unit_id
  * @property int $level
- * @property int $rarity
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property \App\Model\Entity\Rarity $rarity
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
  *
  * @property \App\Model\Entity\User $user
  * @property \App\Model\Entity\Unit $unit
+ * @property int $rarity_id
+ * @property float $trust
  */
 class Acquire extends Entity
 {

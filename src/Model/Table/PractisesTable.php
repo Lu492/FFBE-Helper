@@ -8,8 +8,8 @@ use Cake\Validation\Validator;
 /**
  * Practises Model
  *
- * @property \Cake\ORM\Association\BelongsTo $Units
- * @property \Cake\ORM\Association\BelongsTo $Specialisations
+ * @property \App\Model\Table\UnitsTable|\Cake\ORM\Association\BelongsTo $Units
+ * @property \App\Model\Table\SpecialisationsTable|\Cake\ORM\Association\BelongsTo $Specialisations
  *
  * @method \App\Model\Entity\Practise get($primaryKey, $options = [])
  * @method \App\Model\Entity\Practise newEntity($data = null, array $options = [])
@@ -17,7 +17,7 @@ use Cake\Validation\Validator;
  * @method \App\Model\Entity\Practise|bool save(\Cake\Datasource\EntityInterface $entity, $options = [])
  * @method \App\Model\Entity\Practise patchEntity(\Cake\Datasource\EntityInterface $entity, array $data, array $options = [])
  * @method \App\Model\Entity\Practise[] patchEntities($entities, array $data, array $options = [])
- * @method \App\Model\Entity\Practise findOrCreate($search, callable $callback = null)
+ * @method \App\Model\Entity\Practise findOrCreate($search, callable $callback = null, $options = [])
  */
 class PractisesTable extends Table
 {

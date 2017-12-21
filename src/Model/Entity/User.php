@@ -10,10 +10,12 @@ use Cake\ORM\Entity;
  * @property string $username
  * @property string $email
  * @property string $password
- * @property \Cake\I18n\Time $created
- * @property \Cake\I18n\Time $modified
+ * @property \Cake\I18n\FrozenTime $created
+ * @property \Cake\I18n\FrozenTime $modified
  *
  * @property \App\Model\Entity\Unit[] $units
+ * @property string $role
+ * @property \App\Model\Entity\Acquire[] $acquires
  */
 class User extends Entity
 {
