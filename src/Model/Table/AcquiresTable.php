@@ -35,9 +35,9 @@ class AcquiresTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('acquires');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('acquires');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -59,7 +59,7 @@ class AcquiresTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -130,7 +130,7 @@ class AcquiresTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['unit_id'], 'Units'));
@@ -147,7 +147,7 @@ class AcquiresTable extends Table
      *
      * @return bool
      */
-    public function checkUnitCount($userId, $operator = 'gte', $count = 1)
+    public function checkUnitCount($userId, $operator = 'gte', $count = 1): bool
     {
         $unitCount = $this->find()
             ->where(['Acquires.user_id' => $userId])

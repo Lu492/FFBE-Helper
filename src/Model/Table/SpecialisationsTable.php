@@ -33,9 +33,9 @@ class SpecialisationsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('specialisations');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('specialisations');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -50,7 +50,7 @@ class SpecialisationsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -68,10 +68,9 @@ class SpecialisationsTable extends Table
      *
      * @param int $specialisationId Which specialisation to find stats for
      * @param bool $ordering Should the stats returned be an order() compatible array
-     *
      * @return array
      */
-    public function favouredStats($specialisationId, $ordering = false)
+    public function favouredStats($specialisationId, $ordering = false): array
     {
         $stats = $this->find()
             ->select(['stats'])

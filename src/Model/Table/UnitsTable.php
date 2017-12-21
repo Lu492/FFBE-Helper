@@ -107,7 +107,7 @@ class UnitsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -183,7 +183,7 @@ class UnitsTable extends Table
      * @param \Cake\ORM\RulesChecker $rules The rules object to be modified.
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->addUpdate($rules->existsIn(['origin_id'], 'Origins'));
         $rules->addUpdate($rules->existsIn(['race_id'], 'Races'));
@@ -198,7 +198,7 @@ class UnitsTable extends Table
      *
      * @return \Search\Manager;
      */
-    public function searchConfiguration()
+    public function searchConfiguration(): Manager
     {
         $search = new Manager($this);
 

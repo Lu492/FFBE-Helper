@@ -30,9 +30,9 @@ class RaritiesTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('rarities');
-        $this->displayField('id');
-        $this->primaryKey('id');
+        $this->setTable('rarities');
+        $this->setDisplayField('id');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
     }
@@ -43,7 +43,7 @@ class RaritiesTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')

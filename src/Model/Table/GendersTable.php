@@ -34,9 +34,9 @@ class GendersTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('genders');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('genders');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -51,7 +51,7 @@ class GendersTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -71,7 +71,7 @@ class GendersTable extends Table
      *
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->addCreate(new IsUnique(['name']), 'uniqueGender', [
             'errorField' => 'Genders.name',

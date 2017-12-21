@@ -34,9 +34,9 @@ class JobsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('jobs');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('jobs');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
 
@@ -51,7 +51,7 @@ class JobsTable extends Table
      * @param \Cake\Validation\Validator $validator Validator instance.
      * @return \Cake\Validation\Validator
      */
-    public function validationDefault(Validator $validator)
+    public function validationDefault(Validator $validator): Validator
     {
         $validator
             ->integer('id')
@@ -68,10 +68,9 @@ class JobsTable extends Table
      * Don't allow duplicate jobs
      *
      * @param \Cake\ORM\RulesChecker $rules Rules instance to modify
-     *
      * @return \Cake\ORM\RulesChecker
      */
-    public function buildRules(RulesChecker $rules)
+    public function buildRules(RulesChecker $rules): RulesChecker
     {
         $rules->addCreate(new IsUnique(['name']), 'uniqueJob', [
             'errorField' => 'Jobs.name',
