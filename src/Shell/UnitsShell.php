@@ -1,6 +1,11 @@
 <?php
 namespace App\Shell;
 
+use App\Model\Entity\Gender;
+use App\Model\Entity\Job;
+use App\Model\Entity\Origin;
+use App\Model\Entity\Race;
+use App\Model\Entity\Rarity;
 use App\Model\Entity\Unit;
 use Cake\Cache\Cache;
 use Cake\Chronos\Chronos;
@@ -72,7 +77,7 @@ class UnitsShell extends Shell
             $this->_stop();
         }
 
-        $unitListUrl = 'http://exvius.gamepedia.com/Unit_List';
+        $unitListUrl = 'https://exvius.gamepedia.com/Unit_List';
 
         $html = Cache::read('unitList', 'day');
         if (!$html) {
@@ -106,6 +111,7 @@ class UnitsShell extends Shell
 
         $document = new \DOMDocument();
         $document->loadHTML($html, LIBXML_NONET);
+        $document->preserveWhiteSpace = false;
 
         $contentDiv = $document->getElementById('mw-content-text');
 
@@ -177,7 +183,7 @@ class UnitsShell extends Shell
      * @param array $unit Array of unit data pulled from the web
      * @return \App\Model\Entity\Unit
      */
-    protected function buildNewUnit(array $unit)
+    protected function buildNewUnit(array $unit): Unit
     {
         $localUnit = $this->Units->newEntity();
         $localUnit->set('name', $unit['name']);
@@ -189,7 +195,7 @@ class UnitsShell extends Shell
             $wikiName = Text::slug($unit['name'], '_');
         }
 
-        $singleUnitUrl = 'http://exvius.gamepedia.com/' . $wikiName;
+        $singleUnitUrl = 'https://exvius.gamepedia.com/' . $wikiName;
 
         $unitPageHtml = Cache::read($wikiName, 'day');
         if (!$unitPageHtml) {
@@ -226,46 +232,69 @@ class UnitsShell extends Shell
         // Load extra data from the unit details table
         $unitDataTable = $tables->item(0);
 
-        $job = trim($unitDataTable->childNodes->item(3)->childNodes->item(2)->nodeValue);
+        $job = trim($unitDataTable
+            ->childNodes
+            ->item(7)
+            ->childNodes->item(3)
+            ->nodeValue);
         $unit['job'] = $job;
         $localUnit->set('job', $this->getJob($unit));
 
-        $gender = preg_replace("/\W+/", '', $unitDataTable->childNodes->item(9)->childNodes->item(2)->nodeValue);
+        $gender = preg_replace("/\W+/", '', $unitDataTable->childNodes->item(19)->childNodes->item(3)->nodeValue);
         $unit['gender'] = $gender;
         $localUnit->set('gender', $this->getGender($unit));
 
-        $race = trim($unitDataTable->childNodes->item(10)->childNodes->item(2)->nodeValue);
+        $race = trim($unitDataTable->childNodes->item(21)->childNodes->item(3)->nodeValue);
         $unit['race'] = $race;
         $localUnit->set('race', $this->getRace($unit));
 
-        // Get the highest rarity stats for the unit
-        $unitStatsTable = $tables->item(1);
+        // Trust masters are in an extra table element
+        $finder = new \DOMXPath($document);
+        $tables = $finder->query("//table[contains(concat(' ', @class, ' '), ' wikitable ') and not(contains(concat(' ', @class, ' '), ' ibox '))]");
+
+        $unitStatsTable = $tables->item(0);
+
         $lastRow = (int)$unitStatsTable->childNodes->length - 1;
 
-        $hp = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(2)->nodeValue);
+        // Get the highest rarity stats for the unit
+        $hp = (int)trim(
+            $unitStatsTable
+                ->childNodes
+                ->item($lastRow)
+                ->childNodes
+                ->item(3)
+                ->nodeValue
+        );
         $localUnit->set('hp', $hp);
 
-        $mp = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(4)->nodeValue);
+        $mp = (int)trim(
+            $unitStatsTable
+                ->childNodes
+                ->item($lastRow)
+                ->childNodes
+                ->item(5)
+                ->nodeValue
+        );
         $localUnit->set('mp', $mp);
 
-        $atk = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(6)->nodeValue);
+        $atk = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(7)->nodeValue);
         $localUnit->set('atk', $atk);
 
-        $def = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(8)->nodeValue);
+        $def = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(9)->nodeValue);
         $localUnit->set('def', $def);
 
-        $mag = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(10)->nodeValue);
+        $mag = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(11)->nodeValue);
         $localUnit->set('mag', $mag);
 
-        $spr = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(12)->nodeValue);
+        $spr = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(13)->nodeValue);
         $localUnit->set('spr', $spr);
 
-        $hits = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(14)->nodeValue);
+        $hits = (int)trim($unitStatsTable->childNodes->item($lastRow)->childNodes->item(15)->nodeValue);
         $localUnit->set('hits', $hits);
 
         // Get the description
-        $content->getElementsByTagName('p');
-        $description = $content->childNodes->item(1)->nodeValue;
+        $firstParagraph = $document->getElementsByTagName('p')[0];
+        $description = $firstParagraph->nodeValue;
         $localUnit->set('description', $description);
 
         // Save the sprite
@@ -284,7 +313,7 @@ class UnitsShell extends Shell
      *
      * @return array
      */
-    protected function saveSprite(array $unit, Unit $localUnit = null)
+    protected function saveSprite(array $unit, Unit $localUnit = null): array
     {
         if ($localUnit !== null && !empty($localUnit->get('image_dir'))) {
             $folder = $localUnit->get('image_dir');
@@ -292,9 +321,10 @@ class UnitsShell extends Shell
             $folder = Text::uuid();
         }
 
-        $fileName = basename($unit['sprite']);
-
         $remoteImage = explode('?', $unit['sprite']);
+
+        $fileName = basename($remoteImage[0]);
+
         $localImage = WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder . DS . $fileName;
         if (!file_exists(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder)) {
             mkdir(WWW_ROOT . 'files' . DS . 'units' . DS . 'image' . DS . $folder);
@@ -314,9 +344,9 @@ class UnitsShell extends Shell
      *
      * @param array $unit Array of unit data
      *
-     * @return \Cake\Datasource\EntityInterface
+     * @return \App\Model\Entity\Gender
      */
-    protected function getGender(array $unit)
+    protected function getGender(array $unit): Gender
     {
         $this->loadModel('Genders');
         $gender = $this->Genders->find()
@@ -336,9 +366,9 @@ class UnitsShell extends Shell
      *
      * @param array $unit Array of unit data
      *
-     * @return \Cake\Datasource\EntityInterface
+     * @return \App\Model\Entity\Job
      */
-    protected function getJob(array $unit)
+    protected function getJob(array $unit): Job
     {
         $this->loadModel('Jobs');
         $job = $this->Jobs->find()
@@ -363,9 +393,9 @@ class UnitsShell extends Shell
      *
      * @param array $unit Array of unit data
      *
-     * @return \Cake\Datasource\EntityInterface
+     * @return \App\Model\Entity\Origin
      */
-    protected function getOrigin(array $unit)
+    protected function getOrigin(array $unit): Origin
     {
         $this->loadModel('Origins');
         $origin = $this->Origins->find()
@@ -393,7 +423,7 @@ class UnitsShell extends Shell
      *
      * @return array
      */
-    protected function getRole(array $unit)
+    protected function getRole(array $unit): array
     {
         $this->loadModel('Specialisations');
         $roles = $this->Specialisations->find()
@@ -415,9 +445,9 @@ class UnitsShell extends Shell
      * @param array $unit Array of unit data
      * @param int $rarity Rarity in number of stars
      *
-     * @return \Cake\Datasource\EntityInterface
+     * @return \App\Model\Entity\Rarity
      */
-    protected function getRarity(array $unit, $rarity)
+    protected function getRarity(array $unit, $rarity): Rarity
     {
         $this->loadModel('Rarities');
         $rarity = $this->Rarities->find()
@@ -437,9 +467,9 @@ class UnitsShell extends Shell
      *
      * @param array $unit Array of unit data
      *
-     * @return \Cake\Datasource\EntityInterface
+     * @return \App\Model\Entity\Race
      */
-    protected function getRace(array $unit)
+    protected function getRace(array $unit): Race
     {
         $this->loadModel('Races');
         $race = $this->Races->find()
