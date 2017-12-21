@@ -1,6 +1,7 @@
 <?php
 namespace App\Model\Table;
 
+use App\Model\Entity\Acquire;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
@@ -52,9 +53,9 @@ class UnitsTable extends Table
     {
         parent::initialize($config);
 
-        $this->table('units');
-        $this->displayField('name');
-        $this->primaryKey('id');
+        $this->setTable('units');
+        $this->setDisplayField('name');
+        $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
         $this->addBehavior('Search.Search');
@@ -232,7 +233,7 @@ class UnitsTable extends Table
      * @param array $options Array of query options
      * @return \Cake\ORM\Query
      */
-    public function findBySpecialisation(Query $query, array $options)
+    public function findBySpecialisation(Query $query, array $options): Query
     {
         if (!empty($options['role'])) {
             $query->contain(['Specialisations']);
@@ -267,9 +268,9 @@ class UnitsTable extends Table
      *  - `rarity` int : The acquired rarity the unit must be to be selected
      *  - `existingParty` array : Acquired unit id's already in the party
      *
-     * @return \App\Model\Entity\Acquire
+     * @return \App\Model\Entity\Acquire|null
      */
-    public function selectUnit($userId, array $options = [])
+    public function selectUnit($userId, array $options = []): ?Acquire
     {
         $defaultOptions = [
             'fallback' => true,

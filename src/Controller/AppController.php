@@ -69,8 +69,8 @@ class AppController extends Controller
     {
         parent::beforeFilter($event);
 
-        if (!empty($this->request->prefix) && $this->request->prefix === 'admin') {
-            $this->viewBuilder()->layout('admin');
+        if (!empty($this->request->getParam('prefix')) && $this->request->getParam('prefix') === 'admin') {
+            $this->viewBuilder()->setLayout('admin');
 
             $this->Auth->deny();
         }
@@ -81,15 +81,15 @@ class AppController extends Controller
      *
      * @param array|null $user The currently logged in users details
      *
-     * @return false
+     * @return bool
      */
-    public function isAuthorized($user = null)
+    public function isAuthorized($user = null): bool
     {
-        if (!empty($this->request->params['prefix']) && $this->request->params['prefix'] === 'admin' && isset($user['role']) && $user['role'] === 'admin') {
+        if (!empty($this->request->getParam('prefix')) && $this->request->getParam('prefix') === 'admin' && isset($user['role']) && $user['role'] === 'admin') {
             return true;
         }
 
-        if (empty($this->request->params['prefix'])) {
+        if (empty($this->request->getParam('prefix'))) {
             return true;
         }
 

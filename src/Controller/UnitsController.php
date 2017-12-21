@@ -50,8 +50,8 @@ class UnitsController extends AppController
         $this->set('rarities', $this->Rarities->find()->order('stars')->toArray());
 
         // Reset the saved party in the session when not doing ajax to refresh units
-        if (!$this->request->is('ajax') && $this->request->session()->read('party') !== null) {
-            $this->request->session()->delete('party');
+        if (!$this->request->is('ajax') && $this->request->getSession()->read('party') !== null) {
+            $this->request->getSession()->delete('party');
         }
     }
 
@@ -60,12 +60,12 @@ class UnitsController extends AppController
      *
      * Can generate different lists of units depending on what is passed
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function index()
     {
-        if (empty($this->request->params['type'])) {
-            $this->request->params['type'] = 'all';
+        if (empty($this->request->getParam('type'))) {
+            $this->request = $this->request->withParam('type', 'all');
         }
 
         $this->paginate = [
@@ -82,7 +82,7 @@ class UnitsController extends AppController
             ]
         ];
 
-        $query = $this->Units->find('search', ['search' => $this->request->query])
+        $query = $this->Units->find('search', ['search' => $this->request->getQuery()])
             ->contain([
                 'Races',
                 'Jobs',
@@ -93,22 +93,22 @@ class UnitsController extends AppController
                 'MaxRarity'
             ]);
 
-        if (empty($this->request->query['sort'])) {
+        if (empty($this->request->getQuery('sort'))) {
             $query->order(['Units.name']);
         }
 
         // Don't try and filter units if the user isn't logged in
-        if (empty($this->Auth->user('id')) && $this->request->params['type'] !== 'all') {
+        if (empty($this->Auth->user('id')) && $this->request->getParam('type') !== 'all') {
             $this->Flash->set(__('You must login to access that page.'), ['key' => 'auth']);
 
             return $this->redirect(['controller' => 'Users', 'action' => 'login']);
         }
 
-        if ($this->request->params['type'] === 'acquired') {
+        if ($this->request->getParam('type') === 'acquired') {
             $query->matching('Acquires', function ($q) {
                 return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
             });
-        } elseif ($this->request->params['type'] === 'available') {
+        } elseif ($this->request->getParam('type') === 'available') {
             $query->notMatching('Acquires', function ($q) {
                 return $q->where(['Acquires.user_id' => $this->Auth->user('id')]);
             });
@@ -124,7 +124,7 @@ class UnitsController extends AppController
     /**
      * Add a new unit to the acquired units
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function acquire()
     {
@@ -133,11 +133,11 @@ class UnitsController extends AppController
             $acquire->set('user_id', $this->Auth->user('id'));
 
             if ($this->Units->Acquires->save($acquire)) {
-                $this->Flash->success(__("You've successfully acquired ") . $this->request->data['unit_name'] . '.');
+                $this->Flash->success(__("You've successfully acquired ") . $this->request->getData('unit_name') . '.');
 
                 return $this->redirect(['action' => 'index', 'type' => 'acquired']);
             } else {
-                $message = __("Could not acquire ") . $this->request->data['unit_name'] . __('. Please try again.');
+                $message = __("Could not acquire ") . $this->request->getData('unit_name') . __('. Please try again.');
                 if (!empty($acquire->errors())) {
                     $message .= "<ul>";
                     foreach ($acquire->errors() as $error) {
@@ -194,7 +194,7 @@ class UnitsController extends AppController
     /**
      * Load a single unit-card via ajax
      *
-     * @return \Cake\Network\Response
+     * @return \Cake\Http\Response
      */
     public function singleUnit()
     {
@@ -205,28 +205,28 @@ class UnitsController extends AppController
         }
 
         $options = [];
-        if (!empty($this->request->data('unitId'))) {
-            $options['unitId'] = $this->request->data('unitId');
+        if (!empty($this->request->getData('unitId'))) {
+            $options['unitId'] = $this->request->getData('unitId');
         }
 
-        if (!empty($this->request->data('specialisationId'))) {
-            $options['specialisationId'] = $this->request->data('specialisationId');
+        if (!empty($this->request->getData('specialisationId'))) {
+            $options['specialisationId'] = $this->request->getData('specialisationId');
 
             $specialisation = $this->Units->Specialisations->find()
-                ->where(['id' => $this->request->data('specialisationId')])
+                ->where(['id' => $this->request->getData('specialisationId')])
                 ->first();
             $this->set('header', $specialisation->name);
             $this->set('specialisationId', $specialisation->id);
         }
 
-        if ($this->request->session()->read('party') !== null) {
-            $options['existingParty'] = $this->request->session()->read('party');
+        if ($this->request->getSession()->read('party') !== null) {
+            $options['existingParty'] = $this->request->getSession()->read('party');
         }
 
         $unit = $this->Units->selectUnit($this->Auth->user('id'), $options);
 
-        if ($this->request->session()->read('party') !== null) {
-            $this->request->session()->write('party', array_merge($this->request->session()->read('party'), [$unit->id]));
+        if ($this->request->getSession()->read('party') !== null) {
+            $this->request->getSession()->write('party', array_merge($this->request->getSession()->read('party'), [$unit->id]));
         }
 
         $this->set('unit', $unit);
@@ -237,7 +237,7 @@ class UnitsController extends AppController
     /**
      * Try and auto-generate a balanced party based on stats and roles
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function partyBalanced()
     {
@@ -252,11 +252,11 @@ class UnitsController extends AppController
 
         $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
         foreach ($roles as $id => $role) {
-            $slug = Text::slug(strtolower($role), '_');
+            $slug = Text::slug(strtolower($role), ['replacement' => '_']);
 
             $options = ['specialisationId' => $id];
-            if ($this->request->session()->read('party') !== null) {
-                $options = array_merge($options, ['existingParty' => $this->request->session()->read('party')]);
+            if ($this->request->getSession()->read('party') !== null) {
+                $options = array_merge($options, ['existingParty' => $this->request->getSession()->read('party')]);
             }
 
             $unit = $this->Units->selectUnit($userId, $options);
@@ -264,7 +264,7 @@ class UnitsController extends AppController
             $this->set($slug, $unit);
         }
 
-        $this->request->session()->write('party', $this->Units->party);
+        $this->request->getSession()->write('party', $this->Units->party);
 
         return $this->render('party');
     }
@@ -272,7 +272,7 @@ class UnitsController extends AppController
     /**
      * Try and auto-generate a party based on pure stats
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function partyStats()
     {
@@ -287,7 +287,7 @@ class UnitsController extends AppController
 
         $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
         foreach ($roles as $id => $role) {
-            $slug = Text::slug(strtolower($role), '_');
+            $slug = Text::slug(strtolower($role), ['replacement' => '_']);
             $stats = $this->Units->Specialisations->favouredStats($id);
             $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
             $unit = $this->Units->selectUnit($userId, ['stats' => $statsOrder]);
@@ -296,7 +296,7 @@ class UnitsController extends AppController
             $this->set($slug, $unit);
         }
 
-        $this->request->session()->write('party', $this->Units->party);
+        $this->request->getSession()->write('party', $this->Units->party);
 
         return $this->render('party');
     }
@@ -304,7 +304,7 @@ class UnitsController extends AppController
     /**
      * Generate a party with a limit maximum rarity
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function partyRarity()
     {
@@ -318,19 +318,19 @@ class UnitsController extends AppController
         $userId = $this->Auth->user('id');
 
         $rarity = 5;
-        if ($this->request->query('rarity') !== null) {
-            $rarity = $this->request->query('rarity');
+        if ($this->request->getQuery('rarity') !== null) {
+            $rarity = $this->request->getQuery('rarity');
         }
 
         $roles = $this->Units->Specialisations->find('list')->order(['team_pick_order' => 'asc']);
         foreach ($roles as $id => $role) {
-            $slug = Text::slug(strtolower($role), '_');
+            $slug = Text::slug(strtolower($role), ['replacement' => '_']);
             $stats = $this->Units->Specialisations->favouredStats($id);
             $statsOrder = $this->Units->Specialisations->favouredStats($id, true);
 
             $options = ['rarity' => $rarity, 'fallback' => false];
 
-            if ($this->request->query('roles') == 1) {
+            if ($this->request->getQuery('roles') == 1) {
                 $options = array_merge($options, ['specialisationId' => $id]);
             } else {
                 $options = array_merge($options, ['stats' => $statsOrder]);
@@ -346,7 +346,7 @@ class UnitsController extends AppController
 
         $this->request->data = $this->request->query;
 
-        $this->request->session()->write('party', $this->Units->party);
+        $this->request->getSession()->write('party', $this->Units->party);
 
         return $this->render('party');
     }
@@ -354,7 +354,7 @@ class UnitsController extends AppController
     /**
      * Create the basic view variables to render the blank unit cards
      *
-     * @return \Cake\Network\Response
+     * @return \Cake\Http\Response
      */
     public function partyManual()
     {
@@ -379,7 +379,7 @@ class UnitsController extends AppController
             ->select([
                 'levels_remaining' => '(rarities.max_level - acquires.level)'
             ])
-            ->autoFields(true)
+            ->enableAutoFields()
             ->contain([
                 'Units',
                 'Rarities'

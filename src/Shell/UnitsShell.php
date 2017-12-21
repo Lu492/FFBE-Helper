@@ -200,7 +200,7 @@ class UnitsShell extends Shell
             $wikiName = urlencode($unit['name']);
             $wikiName = str_replace(' ', '_', $wikiName);
         } else {
-            $wikiName = Text::slug($unit['name'], '_');
+            $wikiName = Text::slug($unit['name'], ['replacement' => '_']);
         }
 
         $singleUnitUrl = 'https://exvius.gamepedia.com/' . $wikiName;
