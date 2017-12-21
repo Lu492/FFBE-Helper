@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Unit $unit
+ */
+?>
 <div class="units form large-9 medium-8 columns content">
     <?= $this->Form->create($unit, ['type' => 'file']) ?>
     <fieldset>

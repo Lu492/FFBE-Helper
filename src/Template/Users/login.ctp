@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="users login row">
     <?= $this->Flash->render('auth'); ?>
 

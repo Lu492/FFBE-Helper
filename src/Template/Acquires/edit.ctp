@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Unit $unit
+ */
+?>
 <div class="acquires edit container">
     <div class="col-md-6 col-md-offset-3">
         <div class="unit-detail">

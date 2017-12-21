@@ -1,4 +1,8 @@
 <?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Unit[]|\Cake\Collection\CollectionInterface $units
+ */
 $this->assign('title', 'Closest to awakening');
 ?>
 

@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Unit $unit
+ */
+?>
 <div class="unit-card">
 
     <?php

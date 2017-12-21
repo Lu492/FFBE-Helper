@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Unit[]|\Cake\Collection\CollectionInterface $units
+ */
+?>
 <div class="units index ">
     <h3><?= __('Units') ?></h3>
 

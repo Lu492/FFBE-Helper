@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="add-units row well">
     <a href="#search" class="btn btn-info btn-sm btn-block show-hide">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Find and add new units to your collection

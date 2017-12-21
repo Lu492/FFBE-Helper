@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="party-table" id="party-table">
     <?= $this->element('unit-card', ['unit' => $tank, 'header' => ($header)? 'Tank' : '', 'specialisationId' => 7]);?>
     <?= $this->element('unit-card', ['unit' => $physical_damage, 'header' => ($header)? 'Physical DPS' : '', 'specialisationId' => 5]);?>

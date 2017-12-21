@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="search row well">
     <a href="#search" class="btn btn-info btn-sm btn-block show-hide">
         <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span> Search and filter available units

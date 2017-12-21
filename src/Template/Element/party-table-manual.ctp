@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <div class="manual-party">
     <?= $this->element('unit-card-picker', ['header' => 'Tank']);?>
     <?= $this->element('unit-card-picker', ['header' => 'Physical DPS']);?>

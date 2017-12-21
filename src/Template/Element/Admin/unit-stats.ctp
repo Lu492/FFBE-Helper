@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <fieldset>
     <legend>Stats</legend><?php
     echo $this->Form->input('hp', ['type' => 'number', 'min' => 1, 'label' => ['text' => $this->Html->image('hp.png') . ' HP', 'escape' => false]]);

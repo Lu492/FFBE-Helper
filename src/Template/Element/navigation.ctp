@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <nav class="navbar navbar-ffbe">
     <div class="container-fluid">
         <ul class="nav navbar-nav">

@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ */
+?>
 <ul class="nav nav-tabs">
     <li <?= ($this->request->action === 'partyBalanced') ? 'class="active"' : ''?>>
         <?= $this->Html->link('Best in role', ['action' => 'partyBalanced']);?>
