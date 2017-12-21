@@ -43,7 +43,7 @@ class RarityHelper extends Helper
     {
         parent::initialize($config);
 
-        if (empty($this->config('rarities'))) {
+        if (empty($this->getConfig('rarities'))) {
             throw new \RuntimeException(__('Expected an array of Rarity entities set to the view.'));
         }
     }
@@ -57,7 +57,7 @@ class RarityHelper extends Helper
      *
      * @return string
      */
-    public function display($level, $max, $type = 'numbers')
+    public function display($level, $max, $type = 'numbers'): string
     {
         $out = '<span class="star-rarity">';
         if ($type === 'combo') {
@@ -94,7 +94,7 @@ class RarityHelper extends Helper
      *
      * @return string;
      */
-    public function form($field, EntityInterface $entity = null, array $options = [])
+    public function form($field, EntityInterface $entity = null, array $options = []): string
     {
         $defaultOptions = [
             'required' => false,
@@ -116,11 +116,13 @@ class RarityHelper extends Helper
             $out .= "<label for='$field-{$rarity->stars}'>";
 
             $checked = '';
-            if ((!empty($entity) && !empty($entity->get($field)) && $entity->get($field) === $rarity->stars)
-                || (!empty($this->request->data[$field]) && $this->request->data[$field] == $rarity->stars)
-                || (!empty($this->request->query[$field]) && $this->request->query[$field] == $rarity->stars)
-            ) {
-                $checked = 'checked="checked"';
+            if (!empty($entity)) {
+                if ((!empty($entity->get($field)) && $entity->get($field) === $rarity->stars)
+                    || (!empty($this->request->getData($field)) && $this->request->getData($field) == $rarity->stars)
+                    || (!empty($this->request->getQuery($field)) && $this->request->getQuery($field) == $rarity->stars)
+                ) {
+                    $checked = 'checked="checked"';
+                }
             }
 
             $requiredField = '';

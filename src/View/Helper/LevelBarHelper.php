@@ -20,7 +20,6 @@ class LevelBarHelper extends Helper
      * Build the helper
      *
      * @param array $config Array of helper configuration
-     *
      * @return void
      * @throws \RuntimeException
      */
@@ -28,7 +27,7 @@ class LevelBarHelper extends Helper
     {
         parent::initialize($config);
 
-        if (empty($this->config('rarities'))) {
+        if (empty($this->getConfig('rarities'))) {
             throw new \RuntimeException(__('Expected an array of Rarity entities set to the view.'));
         }
     }
@@ -38,12 +37,11 @@ class LevelBarHelper extends Helper
      *
      * @param int $level Units current level
      * @param int $rarity Units rarity tier
-     *
      * @return string
      */
-    public function progress($level, $rarity)
+    public function progress($level, $rarity): string
     {
-        $maxLevel = $this->config('rarities.' . ($rarity - 1))->get('max_level');
+        $maxLevel = $this->getConfig('rarities.' . ($rarity - 1))->get('max_level');
         $percent = $this->percentComplete($level, $maxLevel);
 
         if ($level === $maxLevel) {
@@ -65,26 +63,24 @@ class LevelBarHelper extends Helper
      *
      * @param int $level Units current level
      * @param int $max Max level of the rarity tier
-     *
      * @return float
      */
-    protected function percentComplete($level, $max)
+    protected function percentComplete($level, $max): float
     {
         if ($level <= $max) {
             return ($level / $max) * 100;
         }
 
-        return 0;
+        return 0.0;
     }
 
     /**
      * Generate an appropriate css class depending on the percentage complete
      *
      * @param float $percentComplete Percentage completion of a rarity tier
-     *
      * @return string
      */
-    protected function barClass($percentComplete)
+    protected function barClass($percentComplete): string
     {
         switch ($percentComplete) {
             case $percentComplete >= 0 && $percentComplete <= 25:
