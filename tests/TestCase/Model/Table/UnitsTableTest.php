@@ -71,8 +71,8 @@ class UnitsTableTest extends TestCase
                 'expected' => [
                     'unit' => '\App\Model\Entity\Unit',
                     'acquire' => '\App\Model\Entity\Acquire',
-                    'name' => 'Eldin',
-                    'party' => [11]
+                    'name' => 'Rain',
+                    'party' => [1]
                 ]
             ],
             [
@@ -131,8 +131,8 @@ class UnitsTableTest extends TestCase
                 'expected' => [
                     'unit' => '\App\Model\Entity\Unit',
                     'acquire' => '\App\Model\Entity\Acquire',
-                    'name' => 'Penelo',
-                    'party' => [9]
+                    'name' => 'Kain',
+                    'party' => [6]
                 ]
             ],
             [
