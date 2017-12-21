@@ -17,7 +17,7 @@ class UsersController extends AppController
     /**
      * Log a user in
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function login()
     {
@@ -40,7 +40,7 @@ class UsersController extends AppController
     /**
      * Log a user out
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function logout()
     {

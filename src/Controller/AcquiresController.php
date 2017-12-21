@@ -37,7 +37,7 @@ class AcquiresController extends AppController
      *
      * @param int $id Primary key value
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function edit($id)
     {
@@ -81,7 +81,7 @@ class AcquiresController extends AppController
      *
      * @param int $id Primarykey value
      *
-     * @return \Cake\Network\Response|null
+     * @return \Cake\Http\Response|null
      */
     public function delete($id)
     {
